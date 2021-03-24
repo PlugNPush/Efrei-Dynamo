@@ -27,7 +27,13 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <option value="1">Modérateur</option>
   <option value="2">Professeur</option>
   </select><br>
-  <input type="number" name="annee" placeholer="année" required="yes"/><br>
+  <select name="annee" id="annee">
+  <option value="1">L1</option>
+  <option value="2">L2</option>
+  <option value="3">L3</option>
+  <option value="4">M1</option>
+  <option value="5">M2</option>
+  </select><br>
   <input type="number" name="majeure" placeholer="majeure" required="yes"/><br>
   <input type="submit" value="S\'incrire maintenant">
   </form>
@@ -46,6 +52,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'majeure'=> $_POST['majeure'],
       'inscription'=> $date
     ));
+    echo 'bienvenue chez le sevice dynamo';
   }else{
     echo 'Confirmation du mot de passe invalide.';
   }
