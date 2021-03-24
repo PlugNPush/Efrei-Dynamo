@@ -22,7 +22,6 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <input type="text" name="pseudo" placeholder="Entrez votre pseudo" required="yes"/><br>
   <input type="password" name="mdp" placeholer="Mot de passe" required="yes"/><br>
   <input type="password" name="vmdp" placeholer="Confirmez votre mot de passe" required="yes"/><br>
-  <input type="number" name="role" placeholer="rôle" required="yes"/><br>
   <select name="role" id="role">
   <option value="0">Elève</option>
   <option value="1">Modérateur</option>
