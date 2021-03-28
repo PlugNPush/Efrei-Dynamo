@@ -34,10 +34,28 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <option value="4">M1</option>
   <option value="5">M2</option>
   </select><br>
-  <input type="number" name="majeure" placeholder="Majeure" required="yes"/><br>
+  </form>
+  </body></html><br>';
+
+  if(isset(&_POST['annee']) AND 'annee'<=3){
+  echo '<!DOCTYPE html>
+  <html>
+    <body>
+  <form action="register.php" method="post">
+
+  <select name="Promotion" id="majeure">
+  <option value="1">Classique</option>
+  <option value="2">Internationnale</option>
+  <option value="3">Bio-numérique</option>
+  <option value="4">Renforcée</option>
+  </select><br>
   <input type="submit" value="S\'incrire maintenant">
   </form>
-  </body>';
+  </body></html><br>';}
+
+
+
+
 }else{
   $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription)');
   if (isset($_POST['mdp']) AND isset($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
