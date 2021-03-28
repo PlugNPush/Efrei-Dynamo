@@ -34,7 +34,6 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <option value="5">M2</option>
   </select><br>
   <input type="number" name="majeure" placeholer="majeure" required="yes"/><br>
-  <input type="number" name="majeure" placeholder="Majeure" required="yes"/><br>
   <input type="submit" value="S\'incrire maintenant">
   </form>
   </body>';
@@ -52,7 +51,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'majeure'=> $_POST['majeure'],
       'inscription'=> $date
     ));
-    echo 'bienvenue chez le sevice réparé';
+    echo 'bienvenue chez le sevice dynamo.';
   }else{
     echo 'Confirmation du mot de passe invalide.';
   }
