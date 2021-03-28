@@ -52,7 +52,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'majeure'=> $_POST['majeure'],
       'inscription'=> $date
     ));
-    echo 'bienvenue chez le sevice dynamo';
+    echo 'bienvenue chez le sevice réparé';
   }else{
     echo 'Confirmation du mot de passe invalide.';
   }
