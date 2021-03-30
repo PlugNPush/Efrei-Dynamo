@@ -31,7 +31,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <option value="4">M1</option>
   <option value="5">M2</option>
   </select><br>
-  <input type="number" name="majeure" placeholder="majeure" required="yes"/><br>
+  <input type="number" name="majeure" placeholder="Majeure" required="yes"/><br>
   <input type="submit" value="S\'incrire maintenant">
   </form>
   </body>';
