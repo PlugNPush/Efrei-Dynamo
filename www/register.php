@@ -25,11 +25,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   <option value="2">Professeur</option>
   </select><br>
   <select name="annee" id="annee">
-  <option value="1">L1</option>
-  <option value="2">L2</option>
-  <option value="3">L3</option>
-  <option value="4">M1</option>
-  <option value="5">M2</option>
+  <option value="1">Cycle préparatoire - L1</option>
+  <option value="2">Cycle préparatoire - L2</option>
+  <option value="3">Cycle ingénieur - L3</option>
+  <option value="4">Cycle ingénieur - M1</option>
+  <option value="5">Cycle ingénieur - M2</option>
   </select><br>
   <input type="number" name="majeure" placeholder="Majeure" required="yes"/><br>
   <input type="submit" value="S\'incrire maintenant">
