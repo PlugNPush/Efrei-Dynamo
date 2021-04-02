@@ -14,8 +14,8 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
   $pass_hache = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
 
   // Vérification des identifiants
-  $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = ?;');
-  $req->execute(array($_POST['pseudo']));
+  $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
+  $req->execute(array($_POST['email']));
   $test = $req->fetch();
 
 
