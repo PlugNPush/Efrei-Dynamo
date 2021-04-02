@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?php
+echo '<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -49,17 +50,15 @@
   </head>
   <body>
     <div class="screen">
-      <div class="v-center">
-        <p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>
-        <?php
-        if(isset($_SESSION['id'])){
-            echo 'wesh ', $_SESSION['pseudo'];
-        }
-        else {
-          echo '4';
-        }
-        ?>
-      </div>
-    </div>
-  </body>
-</html>
+      <div class="v-center">';
+if(isset($_SESSION['id'])){
+    echo '<p><b>wesh ', $_SESSION['pseudo'], '</b></p>';
+}
+else {
+  echo '<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
+}
+echo '</div>
+</div>
+</body>
+</html>';
+?>
