@@ -27,15 +27,15 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
       $_SESSION['pseudo'] = $test['pseudo'];
       $_SESSION['email'] = $test['email'];
 
-      header( "refresh:10;url=index.php" );
-      echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><br>Reading data from the database, this might take up to 15 seconds.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
+      header( "refresh:5;url=index.php" );
+      echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><br>Lecture des données depuis la base de données, ceci peut prendre quelques secondes.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
   }
   else
   {
       header( "refresh:5;url=login.php" );
   echo '<html><body bgcolor="#CC0033">
           <center>
-          <h1><b><font size="35" style="font-family:verdana;" style="text-align:center;" style="vertical-align:middle;" color="white">Erreur ! Identifiant ou mot de passe incorrect !</font></b><br><br></h1><p>error: could not check identical password between pass and hash.</p>
+          <h1><b><font size="35" style="font-family:verdana;" style="text-align:center;" style="vertical-align:middle;" color="white">Erreur ! Identifiant ou mot de passe incorrect !</font></b><br><br></h1><p>Erreur: impossible de vérifier le mot de passe.</p>
 
   <img src="https://i.pinimg.com/originals/45/41/38/454138b3dad33d8fc66082083e090d06.gif" >
           </center></body></html>';
