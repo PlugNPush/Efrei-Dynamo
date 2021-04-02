@@ -28,7 +28,7 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
       $_SESSION['email'] = $test['email'];
 
       header( "refresh:10;url=index.php" );
-      echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><font size="5" face="verdana">Vous avez actuellement ', $test['solde'], '€ sur votre compte.</font><br>Reading data from the database, this might take up to 15 seconds.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
+      echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><br>Reading data from the database, this might take up to 15 seconds.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
   }
   else
   {
