@@ -53,7 +53,7 @@ echo '<!DOCTYPE html>
     <div class="screen">
       <div class="v-center">';
 if(isset($_SESSION['id'])){
-    echo '<p><b>wesh ', $_SESSION['pseudo'], '</b></p>';
+    echo '<p><b>Bienvenue à toi ', $_SESSION['pseudo'], '</b>. <a href = "logout.php">Se déconnecter</a></p>';
 }
 else {
   echo '<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
