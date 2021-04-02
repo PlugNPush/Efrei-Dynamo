@@ -51,6 +51,11 @@
     <div class="screen">
       <div class="v-center">
         <p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>
+        <?php
+        if(isset($_SESSION['id'])){
+            echo 'wesh ' + $_SESSION['pseudo'];
+        }
+        ?>
       </div>
     </div>
   </body>
