@@ -69,12 +69,56 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
         <div class="row">
 
           <!-- Blog Entries Column -->
-          <div class="col-md-8">
+          <div class="col-md-8">';
 
-            <h1 class="my-4">Bienvenue sur Efrei Dynamo,
-              <small>', $_SESSION['pseudo'], '</small>
-            </h1>';
+            if (isset($_GET['id'])){
+                $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+                $question_fetch->execute(array($_GET['id']));
+                $question = $question_fetch->fetch();
 
+                $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                $auteur_question->execute(array($question['auteur']));
+                $auteur = $auteur_question->fetch();
+
+                $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ?;');
+                $reponse_fetch->execute(array($_GET['id']));
+
+                echo'<h1 class="my-4">' , $question['titre'], '</h1>';
+
+                echo '<!-- Blog Post -->
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <p class="card-text">', $question['contenu'],'</p>
+                  </div>
+                  <div class="card-footer text-muted">
+                    Publié le ', $question['date'],' par
+                    <a href="#">', $auteur['pseudo'],'</a>
+                  </div>
+                </div>';
+
+                while($reponse = $reponse_fetch->fetch()){
+
+                    $auteur_reponse=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                    $auteur_reponse->execute(array($reponse['auteur']));
+                    $auteur_rep = $auteur_reponse->fetch();
+
+
+                    echo '<!-- Blog Post -->
+                    <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text">', $reponse['contenu'],'</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Publié le ', $reponse['date'],' par
+                        <a href="#">', $auteur_rep['pseudo'],'</a>
+                    </div>
+                    </div>';
+                }
+
+                
+            }
+
+            
             $fetch_question=$bdd->prepare('SELECT * FROM questions;');
             $fetch_question->execute();
             while($temp_question=$fetch_question->fetch()){
@@ -83,18 +127,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
               $auteur_question->execute(array($temp_question['auteur']));
               $auteur = $auteur_question->fetch();
 
-              echo '<!-- Blog Post -->
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h2 class="card-title">', $temp_question['titre'],'</h2>
-                  <p class="card-text">', $temp_question['contenu'],'</p>
-                  <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
-                </div>
-                <div class="card-footer text-muted">
-                  Publié le ', $temp_question['date'],' par
-                  <a href="#">', $auteur['pseudo'],'</a>
-                </div>
-              </div>';
+
             }
 
             echo '<!-- Pagination -->
@@ -250,7 +283,7 @@ else {
         if (isset($_SESSION['validation'])) {
           echo '<p><b>Hello ', $_SESSION['pseudo'], ' !</b><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a></p>';
         } else {
-          echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
+          echo'<p><b>Vous n\'êtes pas connecté bye bye !</b></p>';
         }
         echo '
         </div>
