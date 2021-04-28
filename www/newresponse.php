@@ -32,18 +32,17 @@ require_once dirname(__FILE__).'/../../config/config.php';
   </form>
   </body>';
   } else {
-  $req=$bdd->prepare('INSERT INTO questions(auteur, titre, contenu, matiere, date) VALUES(:auteur, :titre, :contenu, :matiere, :date)');
+  $req=$bdd->prepare('INSERT INTO réponse(question, auteur, contenu, date) VALUES(:question, :auteur, :contenu, :date)');
   if (isset($_SESSION['id'])) {
     $date = date('Y-m-d H:i:s');
     $req->execute(array(
+      'question'=> $_GET['question'],
       'auteur'=> $_SESSION['id'],
-      'titre'=> $_POST['titre'],
       'contenu'=> $_POST['contenu'],
-      'matiere'=> $_POST['matiere'],
       'date'=> $date
     ));
-    header( "refresh:5;url=index.php" );
-    echo 'Votre question a bien été envoyée !';
+    header( "refresh:5;url=question.php?id=", $_GET['question']);
+    echo 'Votre réponse a bien été envoyée !';
   }else{
     header( "refresh:5;url=login.php" );
     echo 'Votre session a expiré.';

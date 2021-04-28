@@ -92,7 +92,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
-                    <a href="#">', $auteur['pseudo'],'</a>
+                    <a href="#">', $auteur['pseudo'],'</a><br>
+                    <a href="newresponse.php?question=',$question['id'],'">Répondre</a>
                   </div>
                 </div>';
 
@@ -115,10 +116,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
                     </div>';
                 }
 
-                
+
             }
 
-            
+
             $fetch_question=$bdd->prepare('SELECT * FROM questions;');
             $fetch_question->execute();
             while($temp_question=$fetch_question->fetch()){
