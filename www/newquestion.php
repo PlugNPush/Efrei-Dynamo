@@ -36,8 +36,10 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu'])){
       'matiere'=> $_POST['matiere'],
       'date'=> $date
     ));
+    header( "refresh:5;url=index.php" );
     echo 'Votre question a bien été envoyée !';
   }else{
+    header( "refresh:5;url=login.php" );
     echo 'Votre session a expiré.';
   }
 }

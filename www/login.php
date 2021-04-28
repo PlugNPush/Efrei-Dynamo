@@ -1,5 +1,5 @@
 <?php
-require_once dirname(FILE).'/../../config/config.php';
+require_once dirname(__FILE__).'/../../config/config.php';
 try
 {
     $bdd = new PDO('mysql:host='.getDBHost().';dbname=efreidynamo', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
@@ -26,6 +26,15 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
       $_SESSION['id'] = $test['id'];
       $_SESSION['pseudo'] = $test['pseudo'];
       $_SESSION['email'] = $test['email'];
+      $_SESSION['role'] = $test['role'];
+      $_SESSION['annee'] = $test['annee'];
+      $_SESSION['majeure'] = $test['majeure'];
+      $_SESSION['validation'] = $test['validation'];
+      $_SESSION['karma'] = $test['karma'];
+      $_SESSION['inscription'] = $test['inscription'];
+      $_SESSION['photo'] = $test['photo'];
+      $_SESSION['linkedin'] = $test['linkedin'];
+
 
       header( "refresh:5;url=index.php" );
       echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><br>Lecture des données depuis la base de données, ceci peut prendre quelques secondes.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
