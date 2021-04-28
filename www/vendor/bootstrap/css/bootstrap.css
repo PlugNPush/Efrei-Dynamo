@@ -4652,7 +4652,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: url("css/light-menu-item.svg");
+  background-image: url("/css/light-menu-item.svg");
 }
 
 .navbar-light .navbar-text {
@@ -4700,7 +4700,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-toggler-icon {
-  background-image: url("css/dark-menu-item.svg");
+  background-image: url("/css/dark-menu-item.svg");
 }
 
 .navbar-dark .navbar-text {
