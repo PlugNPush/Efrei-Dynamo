@@ -41,7 +41,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
       'contenu'=> $_POST['contenu'],
       'date'=> $date
     ));
-    header( "refresh:5;url=question.php?id=" + $_GET['question']);
+    header( "refresh:5;url=question.php?id=" . $_GET['question']);
     echo 'Votre réponse a bien été envoyée !';
   }else{
     header( "refresh:5;url=login.php" );
