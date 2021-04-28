@@ -17,7 +17,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     Il semblerait que vous ne répondiez à personne...<br>
     </body>';
 
-  } else if(!isset($_GET['question']) AND !isset($_POST['contenu'])){
+  } else if(!isset($_POST['contenu'])){
   echo '<!DOCTYPE html>
   <html>
       <head>
