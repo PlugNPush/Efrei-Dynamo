@@ -13,7 +13,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu'])){
           <title>Nouvelle question</title>
       </head>
       <body>
-  inscription<br>
+  Nouvelle question<br>
   <form action="newquestion.php" method="post">
   <input type="text" name="titre" placeholder="Titre de la question" required="yes"/><br>
   <textarea name="contenu" rows="15" placeholder="Détaillez le plus possible votre question..." required="yes">
