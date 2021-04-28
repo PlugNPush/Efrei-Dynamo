@@ -27,7 +27,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu'])){
   </body>';
 }else{
   $req=$bdd->prepare('INSERT INTO questions(auteur, titre, contenu, matiere, date) VALUES(:auteur, :titre, :contenu, :matiere, :date)');
-  if (isset($_SESSION['id']) {
+  if (isset($_SESSION['id'])) {
     $date = date('Y-m-d H:i:s');
     $req->execute(array(
       'auteur'=> $_SESSION['id'],
