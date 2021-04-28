@@ -32,7 +32,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
   </form>
   </body>';
   } else {
-  $req=$bdd->prepare('INSERT INTO réponse(question, auteur, contenu, date) VALUES(:question, :auteur, :contenu, :date)');
+  $req=$bdd->prepare('INSERT INTO reponses(question, auteur, contenu, date) VALUES(:question, :auteur, :contenu, :date)');
   if (isset($_SESSION['id'])) {
     $date = date('Y-m-d H:i:s');
     $req->execute(array(
