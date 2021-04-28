@@ -1,4 +1,14 @@
 <?php
+require_once dirname(__FILE__).'/../../config/config.php';
+try
+{
+    $bdd = new PDO('mysql:host='.getDBHost().';dbname=efreidynamo', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
+}
+catch (Exception $e)
+{
+        die('Erreur : ' . $e->getMessage());
+}
+
 session_start();
 
 if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
@@ -73,8 +83,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
               $auteur_question->execute(array($temp_question['auteur']));
               $auteur = $auteur_question->fetch();
 
-              echo '
-              <!-- Blog Post -->
+              echo '<!-- Blog Post -->
               <div class="card mb-4">
                 <div class="card-body">
                   <h2 class="card-title">', $temp_question['titre'],'</h2>
@@ -83,7 +92,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
                 </div>
                 <div class="card-footer text-muted">
                   Publié le ', $temp_question['date'],' par
-                  <a href="#">', $auteur['pseudo'],'</a> 
+                  <a href="#">', $auteur['pseudo'],'</a>
                 </div>
               </div>';
             }
