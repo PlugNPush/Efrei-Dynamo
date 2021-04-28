@@ -5,6 +5,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
   } catch(Exception $e) {
     exit ('Erreur while connecting to database: '.$e->getMessage());
   }
+  session_start();
 if(!isset($_POST['titre']) AND !isset($_POST['contenu'])){
   echo '<!DOCTYPE html>
   <html>
