@@ -9,6 +9,15 @@ catch (Exception $e)
         die('Erreur : ' . $e->getMessage());
 }
 
+function limit_text($text, $limit) {
+    if (str_word_count($text, 0) > $limit) {
+        $words = str_word_count($text, 2);
+        $pos   = array_keys($words);
+        $text  = substr($text, 0, $pos[$limit]) . '...';
+    }
+    return $text;
+}
+
 session_start();
 
 if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
@@ -89,7 +98,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
               <div class="card mb-4">
                 <div class="card-body">
                   <h2 class="card-title">', $temp_question['titre'],'</h2>
-                  <p class="card-text">', $temp_question['contenu'],'</p>
+                  <p class="card-text">', limit_text($temp_question['contenu'], 80),'</p>
                   <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
