@@ -23,7 +23,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
       <meta name="description" content="">
       <meta name="author" content="">
 
-      <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://*; child-src \'none\';">
+      <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
 
       <title>Efrei Dynamo (internal)</title>
 
