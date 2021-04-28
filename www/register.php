@@ -36,7 +36,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   </form>
   </body>';
 }else{
-  $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription)');
+  $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription);');
   if (isset($_POST['mdp']) AND isset($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
     $hash=password_hash($_POST['mdp'], PASSWORD_DEFAULT);
     $date = date('Y-m-d H:i:s');
