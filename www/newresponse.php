@@ -42,7 +42,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
       'date'=> $date
     ));
     header( "refresh:5;url=question.php?id=", $_GET['question']);
-    echo 'Votre réponse a bien été envoyée !';
+    echo 'Votre réponse',$_GET['question'],' a bien été envoyée !';
   }else{
     header( "refresh:5;url=login.php" );
     echo 'Votre session a expiré.';
