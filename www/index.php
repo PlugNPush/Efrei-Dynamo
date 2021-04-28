@@ -201,7 +201,7 @@ if (isset($_SESSION['id'] && isset($_SESSION['validation'] && $_SESSION['validat
     </body>
 
     </html>
-'
+';
 
 }
 else {
@@ -260,7 +260,7 @@ else {
         if (isset($_SESSION['validation']) {
           echo '<p><b>Hello ', $_SESSION['pseudo'], ' !</b> Tu dois confirmer ton statut d\'Efreien pour accéder au site. <a href = "logout.php">Se déconnecter</a></p>';
         } else {
-          echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>''
+          echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
         }
         echo '
         </div>
