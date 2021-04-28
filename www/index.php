@@ -63,51 +63,32 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
 
             <h1 class="my-4">Bienvenue sur Efrei Dynamo,
               <small>', $_SESSION['pseudo'], '</small>
-            </h1>
+            </h1>';
 
-            <!-- Blog Post -->
-            <div class="card mb-4">
-              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-              <div class="card-body">
-                <h2 class="card-title">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
-              </div>
-              <div class="card-footer text-muted">
-                Posted on January 1, 2020 by
-                <a href="#">Start Bootstrap</a>
-              </div>
-            </div>
+            $fetch_question=$bdd->prepare('SELECT * FROM questions;');
+            $fetch_question->execute();
+            while($temp_question=$fetch_question->fetch()){
 
-            <!-- Blog Post -->
-            <div class="card mb-4">
-              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-              <div class="card-body">
-                <h2 class="card-title">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
-              </div>
-              <div class="card-footer text-muted">
-                Posted on January 1, 2020 by
-                <a href="#">Start Bootstrap</a>
-              </div>
-            </div>
+              $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+              $auteur_question->execute(array($temp_question['auteur']));
+              $auteur = $auteur_question->fetch();
 
-            <!-- Blog Post -->
-            <div class="card mb-4">
-              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-              <div class="card-body">
-                <h2 class="card-title">Post Title</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
-              </div>
-              <div class="card-footer text-muted">
-                Posted on January 1, 2020 by
-                <a href="#">Start Bootstrap</a>
-              </div>
-            </div>
+              echo '
+              <!-- Blog Post -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h2 class="card-title">', $temp_question['titre'],'</h2>
+                  <p class="card-text">', $temp_question['contenu'],'</p>
+                  <a href="#" class="btn btn-primary">Voir plus &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+                  Publié le ', $temp_question['date'],' par
+                  <a href="#">', $auteur['pseudo'],'</a> 
+                </div>
+              </div>';
+            }
 
-            <!-- Pagination -->
+            echo '<!-- Pagination -->
             <ul class="pagination justify-content-center mb-4">
               <li class="page-item">
                 <a class="page-link" href="#">&larr; Plus ancien</a>
