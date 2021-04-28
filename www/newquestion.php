@@ -17,8 +17,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu'])){
   Nouvelle question<br>
   <form action="newquestion.php" method="post">
   <input type="text" name="titre" placeholder="Titre de la question" required="yes"/><br>
-  <textarea name="contenu" rows="15" placeholder="Détaillez le plus possible votre question..." required="yes">
-  </textarea><br>
+  <textarea name="contenu" rows="15" placeholder="Détaillez le plus possible votre question..." required="yes"></textarea><br>
   <select name="matiere" id="matiere">
   <option value="0">MAT1</option>
   <option value="1">MAT2</option>
