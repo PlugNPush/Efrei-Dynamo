@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1))){
+if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
 
     echo '<!DOCTYPE html>
     <html lang="fr">
