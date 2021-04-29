@@ -84,7 +84,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
 
             <h1 class="my-4">Bienvenue sur Efrei Dynamo,
               <small>', $_SESSION['pseudo'], '</small>
-            </h1>';
+            </h1><br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Avertissement de confidentialité</strong> : Vous êtes actuellement sur une version Internal du projet Dynamo. En théorie, si vous voyez ceci, vous faites partie de l\'équipe du projet Transverse. Le contenu de ce site Internet n\'est pas contrôlé ou modéré, et le traitement des données n\'est pas conforme aux normes européennes RGPD car le site n\'est pas censé être accéssible au public. Ce qui se passe sur la Internal reste sur la Internal.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
 
             $fetch_question=$bdd->prepare('SELECT * FROM questions;');
             $fetch_question->execute();
