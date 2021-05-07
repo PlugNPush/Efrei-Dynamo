@@ -41,13 +41,13 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="#">Répondre à des questions
-                <span class="sr-only">(current)</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="newquestion.php">Poser une question</a>
+            <li class="nav-item active">
+              <a class="nav-link" href="newquestion.php">Poser une question
+              <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Mon compte</a>
@@ -91,7 +91,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               </select>
             </div>
             <button type="submit" class="btn btn-primary">Envoyer la question</button>
-            </form>';
+            </form><br><br>';
 
         } else {
           echo '<div class="alert alert-danger fade show" role="alert">
@@ -100,7 +100,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             <b>Rappel: ce qu\'il se passe sur la Internal reste sur la Internal.</b>
             <span aria-hidden="true">&times;</span>
             </button>
-          </div>';
+          </div><br><br>';
         }
 
         echo '</div>
