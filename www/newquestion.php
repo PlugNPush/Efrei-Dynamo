@@ -73,16 +73,26 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
           echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
           echo '<h1 class="my-4">Nouvelle question</h1>
-          <form action="newquestion.php" method="post">
-          <input type="text" name="titre" placeholder="Titre de la question" required="yes"/><br>
-          <textarea name="contenu" rows="15" placeholder="Détaillez le plus possible votre question..." required="yes"></textarea><br>
-          <select name="matiere" id="matiere">
-          <option value="0">MAT1</option>
-          <option value="1">MAT2</option>
-          <option value="2">MAT3</option>
-          </select><br>
-          <input type="submit" value="Envoyer la question">
-          </form>';
+          <form>
+            <div class="form-group">
+              <label for="titre">Titre de la question</label>
+              <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " required>
+            </div>
+            <div class="form-group">
+              <label for="contenu">Explication de la question</label>
+              <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="10" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="matiere">Example select</label>
+              <select name="matiere" class="form-control" id="matiere" required>
+                <option value="0">MAT1</option>
+                <option value="1">MAT2</option>
+                <option value="2">MAT3</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer la question</button>
+            </form>';
+
         } else {
           echo '<div class="alert alert-danger fade show" role="alert">
             <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
