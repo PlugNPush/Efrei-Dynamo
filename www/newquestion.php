@@ -35,14 +35,14 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Projet Efrei Dynamo (internal)</a>
+        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Répondre à des questions
+              <a class="nav-link" href="index.php">Répondre à des questions
               </a>
             </li>
             <li class="nav-item active">
@@ -83,7 +83,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" required></textarea>
             </div>
             <div class="form-group">
-              <label for="matiere">Example select</label>
+              <label for="matiere">Séléctionnez la matière</label>
               <select name="matiere" class="form-control" id="matiere" required>
                 <option value="0">MAT1</option>
                 <option value="1">MAT2</option>
