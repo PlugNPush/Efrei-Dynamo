@@ -73,7 +73,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
           echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
           echo '<h1 class="my-4">Nouvelle question</h1>
-          <form>
+          <form action="newquestion.php" method="post">
             <div class="form-group">
               <label for="titre">Titre de la question</label>
               <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " required>
