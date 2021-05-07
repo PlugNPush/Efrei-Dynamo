@@ -80,7 +80,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             </div>
             <div class="form-group">
               <label for="contenu">Explication de la question</label>
-              <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="10" required></textarea>
+              <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" required></textarea>
             </div>
             <div class="form-group">
               <label for="matiere">Example select</label>
@@ -102,6 +102,30 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             </button>
           </div>';
         }
+
+        echo '</div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés.</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+  </html>';
 }else{
   $req=$bdd->prepare('INSERT INTO questions(auteur, titre, contenu, matiere, date) VALUES(:auteur, :titre, :contenu, :matiere, :date)');
   if (isset($_SESSION['id'])) {
