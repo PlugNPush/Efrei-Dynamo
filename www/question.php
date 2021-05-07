@@ -121,17 +121,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
 
             }
 
-
-            $fetch_question=$bdd->prepare('SELECT * FROM questions;');
-            $fetch_question->execute();
-            while($temp_question=$fetch_question->fetch()){
-
-              $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
-              $auteur_question->execute(array($temp_question['auteur']));
-              $auteur = $auteur_question->fetch();
-
-
-            }
+            
 
             echo '<!-- Pagination -->
             <ul class="pagination justify-content-center mb-4">
