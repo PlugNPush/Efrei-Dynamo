@@ -184,9 +184,13 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
             $nb_questions->execute(array($_SESSION['id']));
             $questions = $nb_questions->fetch();
 
+            $nb_reponses=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ?;');
+            $nb_reponses->execute(array($_SESSION['id']));
+            $reponses = $nb_reponses->fetch();
 
-
-
+            $nb_repondues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE repondue = 0;');
+            $nb_repondues->execute();
+            $repondues = $nb_repondues->fetch();
 
 
             echo '
@@ -195,7 +199,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
             <div class="card my-4">
               <h5 class="card-header">Récapitulatif</h5>
               <div class="card-body">
-                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à 0 questions sur Efrei Dynamo. 0 questions sont en attente de réponse dans votre promo.
+                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de réponses/validation.
               </div>
             </div>
 
