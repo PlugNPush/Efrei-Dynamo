@@ -69,7 +69,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
         <div class="col-md-8">';
 
         if (!isset($_SESSION['id'])){
-          header( "refresh:5;url=login.php" );
+          header( "refresh:0;url=login.php" );
           echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
           echo '<h1 class="my-4">Nouvelle question</h1>
@@ -137,10 +137,10 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
       'matiere'=> $_POST['matiere'],
       'date'=> $date
     ));
-    header( "refresh:5;url=index.php" );
+    header( "refresh:0;url=index.php" );
     echo 'Votre question a bien été envoyée !';
   }else{
-    header( "refresh:5;url=login.php" );
+    header( "refresh:0;url=login.php" );
     echo 'Votre session a expiré.';
   }
 }

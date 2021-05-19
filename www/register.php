@@ -49,10 +49,10 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'majeure'=> $_POST['majeure'],
       'inscription'=> $date
     ));
-    header( "refresh:5;url=index.php" );
+    header( "refresh:0;url=index.php" );
     echo 'bienvenue chez le sevice dynamo.';
   }else{
-    header( "refresh:5;url=register.php" );
+    header( "refresh:0;url=register.php" );
     echo 'Confirmation du mot de passe invalide.';
   }
 }
