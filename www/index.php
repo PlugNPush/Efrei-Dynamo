@@ -195,7 +195,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
             <div class="card my-4">
               <h5 class="card-header">Récapitulatif</h5>
               <div class="card-body">
-                Vous avez posé ', $questions,' questions, et vous avez répondu à 0 questions sur Efrei Dynamo. 0 questions sont en attente de réponse dans votre promo.
+                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à 0 questions sur Efrei Dynamo. 0 questions sont en attente de réponse dans votre promo.
               </div>
             </div>
 
