@@ -6,7 +6,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     exit ('Erreur while connecting to database: '.$e->getMessage());
   }
   session_start();
-  if (isset($_SESSSION['id'])) {
+  if (isset($_SESSION['id'])) {
     $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
     $req->execute(array($_SESSION['id']));
     $test = $req->fetch();

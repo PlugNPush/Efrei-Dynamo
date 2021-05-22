@@ -19,7 +19,7 @@ function limit_text($text, $limit) {
 }
 
 session_start();
-if (isset($_SESSSION['id'])) {
+if (isset($_SESSION['id'])) {
   $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
   $req->execute(array($_SESSION['id']));
   $test = $req->fetch();
@@ -34,9 +34,6 @@ if (isset($_SESSSION['id'])) {
   $_SESSION['inscription'] = $test['inscription'];
   $_SESSION['photo'] = $test['photo'];
   $_SESSION['linkedin'] = $test['linkedin'];
-  echo 'aucune pitié : validation = ', $_SESSION['validation'];
-} else {
-  echo 'huston huson aled';
 }
 
 if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
