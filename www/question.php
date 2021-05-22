@@ -233,7 +233,6 @@ if (isset($_SESSION['id'])){
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
               <hr>
               <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
               </button>
             </div>';

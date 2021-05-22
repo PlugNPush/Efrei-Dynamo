@@ -116,7 +116,6 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             <hr>
             <b>Rappel: ce qu\'il se passe sur la Internal reste sur la Internal.</b>
             <span aria-hidden="true">&times;</span>
-            </button>
           </div><br><br>';
         }
 
