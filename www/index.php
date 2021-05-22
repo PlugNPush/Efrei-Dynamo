@@ -227,8 +227,6 @@ if (isset($_SESSION['id'])){
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié. Vérifie tes spams ou contacte un modérateur avec ton adresse mail Efrei.<br><a href = "logout.php">Se déconnecter</a>.
               <hr>
               <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
-              <span aria-hidden="true">&times;</span>
-              </button>
             </div>';
           }
 

@@ -115,7 +115,6 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
             <hr>
             <b>Rappel: ce qu\'il se passe sur la Internal reste sur la Internal.</b>
-            <span aria-hidden="true">&times;</span>
           </div><br><br>';
         }
 
