@@ -36,6 +36,7 @@ if (isset($_SESSSION['id'])) {
   $_SESSION['linkedin'] = $test['linkedin'];
   echo 'aucune pitié : validation = ', $_SESSION['validation'];
 }
+  echo 'huston huson aled';
 
 if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
 
