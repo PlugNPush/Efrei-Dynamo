@@ -229,7 +229,7 @@ if (isset($_SESSION['id'])){
             echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
               <small>', $_SESSION['pseudo'], '</small>
             </h1>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-warning fade show" role="alert">
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
               <hr>
               <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
