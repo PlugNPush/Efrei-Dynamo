@@ -119,10 +119,6 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
               <label for="mdp">Saisissez votre mot de passe</label>
               <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
             </div>
-            <div class="form-group">
-              <label for="mdp">Saisissez votre mot de passe</label>
-              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
-            </div>
             <button type="submit" class="btn btn-primary">Se connecter</button>
             <br>Pas encore inscrit ? <a class="btn btn-secondary" href=/register.php>Inscrivez-vous maintenant !</a>
             </form><br><br>';
@@ -151,32 +147,6 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
 
   </html>';
 
-
-  echo '
-  <!DOCTYPE html>
-  <html>
-      <head>
-          <meta charset="utf-8" />
-          <title>EFREI DYNAMO - CONNEXION</title>
-      </head>
-      <body>
-          <p>Veuillez vous connecter à votre compte.</p>
-          <form action="login.php" method="post">
-              <p>
-              <input type="email" name="email" placeholder="Courriel" />
-              <input type="password" name="mdp" placeholder="Mot de passe"/>
-              <input type="submit" value="Valider" />
-              <br> Pas encore inscrit ? <a href=/register.php>Inscrivez-vous maintenant !</a>
-              </p>
-
-          </form>
-      </body>
-  </html>
-  ';
 }
-
-
-
-
 
 ?>
