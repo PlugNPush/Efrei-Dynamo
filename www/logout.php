@@ -5,7 +5,7 @@ session_start();
 $_SESSION = array();
 session_destroy();
 
-header( "refresh:0;url=index.php" );
+header( "refresh:0;url=login.php" );
 echo 'Déconnexion effective! Au revoir et à bientôt.';
 
 ?>
