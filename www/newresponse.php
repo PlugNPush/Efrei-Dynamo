@@ -23,7 +23,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     $_SESSION['linkedin'] = $test['linkedin'];
   }
 
-if (!isset($_POST['contenu']) {
+if (!isset($_POST['contenu'])) {
   echo '<!DOCTYPE html>
   <html lang="fr">
 
