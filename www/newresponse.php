@@ -140,34 +140,7 @@ if (!isset($_POST['contenu']) {
   </body>
 
   </html>';
-}
-
-  if (!isset($_GET['question'])){
-    echo '<!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8"/>
-            <title>Erreur</title>
-        </head>
-        <body>
-    Il semblerait que vous ne répondiez à personne...<br>
-    </body>';
-
-  } else if(!isset($_POST['contenu'])){
-  echo '<!DOCTYPE html>
-  <html>
-      <head>
-          <meta charset="utf-8"/>
-          <title>Nouvelle réponse</title>
-      </head>
-      <body>
-  Nouvelle réponse<br>
-  <form action="newresponse.php?question=',$_GET['question'],'" method="post">
-  <textarea name="contenu" rows="15" placeholder="Expliquez votre réponse" required="yes"></textarea><br>
-  <input type="submit" value="Envoyez la réponse">
-  </form>
-  </body>';
-  } else {
+} else {
   $req=$bdd->prepare('INSERT INTO reponses(question, auteur, contenu, date) VALUES(:question, :auteur, :contenu, :date);');
   if (isset($_SESSION['id'])) {
     $date = date('Y-m-d H:i:s');
