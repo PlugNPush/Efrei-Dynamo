@@ -57,13 +57,13 @@ if (!isset($_POST['contenu']) {
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="index.php">Répondre à des questions
               </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="newquestion.php">Poser une question
               <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="newquestion.php">Poser une question</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Mon compte</a>
@@ -97,25 +97,13 @@ if (!isset($_POST['contenu']) {
               </button>
             </div><br><br>';
           } else {
-            echo '<h1 class="my-4">Nouvelle question</h1>
-            <form action="newquestion.php" method="post">
+            echo '<h1 class="my-4">Répondre à une question</h1>
+            <form action="newresponse.php?question=',$_GET['question'],'" method="post">
               <div class="form-group">
-                <label for="titre">Titre de la question</label>
-                <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " required>
+                <label for="contenu">Votre réponse</label>
+                <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required></textarea>
               </div>
-              <div class="form-group">
-                <label for="contenu">Explication de la question</label>
-                <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="matiere">Séléctionnez la matière</label>
-                <select name="matiere" class="form-control" id="matiere" required>
-                  <option value="0">MAT1</option>
-                  <option value="1">MAT2</option>
-                  <option value="2">MAT3</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">Envoyer la question</button>
+              <button type="submit" class="btn btn-primary">Envoyer la réponse</button>
               </form><br><br>';
           }
 
