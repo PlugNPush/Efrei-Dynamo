@@ -112,118 +112,116 @@ if (isset($_SESSION['id'])){
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
 
-            }
+              $fetch_question=$bdd->prepare('SELECT * FROM questions;');
+              $fetch_question->execute();
+              while($temp_question=$fetch_question->fetch()){
 
-            $fetch_question=$bdd->prepare('SELECT * FROM questions;');
-            $fetch_question->execute();
-            while($temp_question=$fetch_question->fetch()){
+                $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                $auteur_question->execute(array($temp_question['auteur']));
+                $auteur = $auteur_question->fetch();
 
-              $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
-              $auteur_question->execute(array($temp_question['auteur']));
-              $auteur = $auteur_question->fetch();
+                echo '<!-- Blog Post -->
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <h2 class="card-title">', $temp_question['titre'],'</h2>
+                    <p class="card-text">', limit_text($temp_question['contenu'], 80),'</p>
+                    <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
+                  </div>
+                  <div class="card-footer text-muted">
+                    Publié le ', $temp_question['date'],' par
+                    <a href="#">', $auteur['pseudo'],'</a>
+                  </div>
+                </div>';
+              }
 
-              echo '<!-- Blog Post -->
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h2 class="card-title">', $temp_question['titre'],'</h2>
-                  <p class="card-text">', limit_text($temp_question['contenu'], 80),'</p>
-                  <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
-                </div>
-                <div class="card-footer text-muted">
-                  Publié le ', $temp_question['date'],' par
-                  <a href="#">', $auteur['pseudo'],'</a>
-                </div>
-              </div>';
-            }
+              echo '<!-- Pagination -->
+              <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                  <a class="page-link" href="#">&larr; Plus ancien</a>
+                </li>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">Plus récent &rarr;</a>
+                </li>
+              </ul>
 
-            echo '<!-- Pagination -->
-            <ul class="pagination justify-content-center mb-4">
-              <li class="page-item">
-                <a class="page-link" href="#">&larr; Plus ancien</a>
-              </li>
-              <li class="page-item disabled">
-                <a class="page-link" href="#">Plus récent &rarr;</a>
-              </li>
-            </ul>
-
-          </div>
-
-          <!-- Sidebar Widgets Column -->
-          <div class="col-md-4">
-
-            <!-- Search Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Rechercher</h5>
-              <div class="card-body">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Rechercher...">
-                  <span class="input-group-append">
-                    <button class="btn btn-secondary" type="button">Go !</button>
-                  </span>
-                </div>
-              </div>
             </div>
 
-            <!-- Categories Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Catégories</h5>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <ul class="list-unstyled mb-0">
-                      <li>
-                        <a href="#">L1</a>
-                      </li>
-                      <li>
-                        <a href="#">L2</a>
-                      </li>
-                      <li>
-                        <a href="#">L3</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-6">
-                    <ul class="list-unstyled mb-0">
-                      <li>
-                        <a href="#">M1</a>
-                      </li>
-                      <li>
-                        <a href="#">M2</a>
-                      </li>
-                      <li>
-                        <a href="#">Campus</a>
-                      </li>
-                    </ul>
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+              <!-- Search Widget -->
+              <div class="card my-4">
+                <h5 class="card-header">Rechercher</h5>
+                <div class="card-body">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher...">
+                    <span class="input-group-append">
+                      <button class="btn btn-secondary" type="button">Go !</button>
+                    </span>
                   </div>
                 </div>
               </div>
-            </div>';
+
+              <!-- Categories Widget -->
+              <div class="card my-4">
+                <h5 class="card-header">Catégories</h5>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <ul class="list-unstyled mb-0">
+                        <li>
+                          <a href="#">L1</a>
+                        </li>
+                        <li>
+                          <a href="#">L2</a>
+                        </li>
+                        <li>
+                          <a href="#">L3</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-6">
+                      <ul class="list-unstyled mb-0">
+                        <li>
+                          <a href="#">M1</a>
+                        </li>
+                        <li>
+                          <a href="#">M2</a>
+                        </li>
+                        <li>
+                          <a href="#">Campus</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>';
 
 
-            $nb_questions=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ?;');
-            $nb_questions->execute(array($_SESSION['id']));
-            $questions = $nb_questions->fetch();
+              $nb_questions=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ?;');
+              $nb_questions->execute(array($_SESSION['id']));
+              $questions = $nb_questions->fetch();
 
-            $nb_reponses=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ?;');
-            $nb_reponses->execute(array($_SESSION['id']));
-            $reponses = $nb_reponses->fetch();
+              $nb_reponses=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ?;');
+              $nb_reponses->execute(array($_SESSION['id']));
+              $reponses = $nb_reponses->fetch();
 
-            $nb_repondues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE repondue = 0;');
-            $nb_repondues->execute();
-            $repondues = $nb_repondues->fetch();
+              $nb_repondues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE repondue = 0;');
+              $nb_repondues->execute();
+              $repondues = $nb_repondues->fetch();
 
 
-            echo '
+              echo '
 
-            <!-- Side Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Récapitulatif</h5>
-              <div class="card-body">
-                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation.
-              </div>
-            </div>';
+              <!-- Side Widget -->
+              <div class="card my-4">
+                <h5 class="card-header">Récapitulatif</h5>
+                <div class="card-body">
+                  Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation.
+                </div>
+              </div>';
 
-          } else {
+            } else {
             echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
               <small>', $_SESSION['pseudo'], '</small>
             </h1>
