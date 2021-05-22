@@ -108,7 +108,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             </div>
 
             <div class="form-group">
-              <label for="majeure">Choisissez votre niveau</label>
+              <label for="majeure">Choisissez votre majeure</label>
               <select name="majeure" class="form-control" id="majeure" required>';
 
               $majeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
