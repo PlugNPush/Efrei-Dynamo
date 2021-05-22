@@ -10,6 +10,22 @@ catch (Exception $e)
 }
 
 session_start();
+if (isset($_SESSSION['id'])) {
+  $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
+  $req->execute(array($_SESSION['id']));
+  $test = $req->fetch();
+  $_SESSION['id'] = $test['id'];
+  $_SESSION['pseudo'] = $test['pseudo'];
+  $_SESSION['email'] = $test['email'];
+  $_SESSION['role'] = $test['role'];
+  $_SESSION['annee'] = $test['annee'];
+  $_SESSION['majeure'] = $test['majeure'];
+  $_SESSION['validation'] = $test['validation'];
+  $_SESSION['karma'] = $test['karma'];
+  $_SESSION['inscription'] = $test['inscription'];
+  $_SESSION['photo'] = $test['photo'];
+  $_SESSION['linkedin'] = $test['linkedin'];
+}
 
 if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
 
