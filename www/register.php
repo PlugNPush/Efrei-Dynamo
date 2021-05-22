@@ -44,15 +44,14 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
               <a class="nav-link" href="index.php">Répondre à des questions
               </a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="newquestion.php">Poser une question
-              <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+              <a class="nav-link" href="newquestion.php">Poser une question</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Mon compte</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="logout.php">Se déconnecter</a>
+              <a class="nav-link" href="login.php">Connexion</a>
             </li>
           </ul>
         </div>
