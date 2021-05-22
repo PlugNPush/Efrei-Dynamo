@@ -36,7 +36,7 @@ if (isset($_SESSION['id'])) {
   $_SESSION['linkedin'] = $test['linkedin'];
 }
 
-if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
+if (isset($_SESSION['id'])){
 
     echo '<!DOCTYPE html>
     <html lang="fr">
@@ -109,6 +109,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
               <span aria-hidden="true">&times;</span>
               </button>
             </div>';
+
+            if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
+
+            }
 
             $fetch_question=$bdd->prepare('SELECT * FROM questions;');
             $fetch_question->execute();
@@ -217,7 +221,23 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
               <div class="card-body">
                 Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation.
               </div>
-            </div>
+            </div>';
+
+          } else {
+            echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
+              <small>', $_SESSION['pseudo'], '</small>
+            </h1>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
+              <hr>
+              <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+          }
+
+            echo '
 
           </div>
 
@@ -298,9 +318,6 @@ else {
     <body>
       <div class="screen">
         <div class="v-center">';
-        if (isset($_SESSION['validation'])) {
-          echo '<p><b>Hello ', $_SESSION['pseudo'], ' !</b><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a></p>';
-        } else {
           echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
         }
         echo '

@@ -27,7 +27,7 @@ if (isset($_SESSION['id'])) {
   $_SESSION['linkedin'] = $test['linkedin'];
 }
 
-if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
+if (isset($_SESSION['id'])){
 
     echo '<!DOCTYPE html>
     <html lang="fr">
@@ -89,6 +89,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
           <!-- Blog Entries Column -->
           <div class="col-md-8">';
 
+          if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
             if (isset($_GET['id'])){
                 $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
                 $question_fetch->execute(array($_GET['id']));
@@ -136,8 +137,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
 
 
             }
-
-
+            // Aucune question
 
             echo '<!-- Pagination -->
             <ul class="pagination justify-content-center mb-4">
@@ -200,15 +200,46 @@ if (isset($_SESSION['id']) && isset($_SESSION['validation']) && $_SESSION['valid
                   </div>
                 </div>
               </div>
-            </div>
+            </div>';
+
+            $nb_questions=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ?;');
+            $nb_questions->execute(array($_SESSION['id']));
+            $questions = $nb_questions->fetch();
+
+            $nb_reponses=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ?;');
+            $nb_reponses->execute(array($_SESSION['id']));
+            $reponses = $nb_reponses->fetch();
+
+            $nb_repondues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE repondue = 0;');
+            $nb_repondues->execute();
+            $repondues = $nb_repondues->fetch();
+
+
+            echo '
 
             <!-- Side Widget -->
             <div class="card my-4">
               <h5 class="card-header">Récapitulatif</h5>
               <div class="card-body">
-                Vous avez posé 0 questions, et vous avez répondu à 0 questions sur Efrei Dynamo. 0 questions sont en attente de réponse dans votre promo.
+                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation.
               </div>
-            </div>
+            </div>';
+
+          } else {
+            echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
+              <small>', $_SESSION['pseudo'], '</small>
+            </h1>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
+              <hr>
+              <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+          }
+
+            echo '
 
           </div>
 
@@ -289,11 +320,7 @@ else {
     <body>
       <div class="screen">
         <div class="v-center">';
-        if (isset($_SESSION['validation'])) {
-          echo '<p><b>Hello ', $_SESSION['pseudo'], ' !</b><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a></p>';
-        } else {
           echo'<p><b>Vous n\'êtes pas connecté bye bye !</b></p>';
-        }
         echo '
         </div>
       </div>
