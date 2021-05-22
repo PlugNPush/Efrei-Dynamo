@@ -222,11 +222,9 @@ if (isset($_SESSION['id'])){
               </div>';
 
             } else {
-            echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
-              <small>', $_SESSION['pseudo'], '</small>
-            </h1>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié. Vérifie tes spams ou contacte un modérateur avec ton adresse mail Efrei.<br><a href = "logout.php">Se déconnecter</a>.
               <hr>
               <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
