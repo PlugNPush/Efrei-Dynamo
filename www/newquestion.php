@@ -110,7 +110,8 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
             </form><br><br>';
 
         } else {
-          echo '<div class="alert alert-danger fade show" role="alert">
+          echo '<h1 class="my-4">Nouvelle question</h1>
+          <div class="alert alert-danger fade show" role="alert">
             <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
             <hr>
             <b>Rappel: ce qu\'il se passe sur la Internal reste sur la Internal.</b>
