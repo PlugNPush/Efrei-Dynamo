@@ -317,7 +317,6 @@ else {
       <div class="screen">
         <div class="v-center">';
           echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
-        }
         echo '
         </div>
       </div>
