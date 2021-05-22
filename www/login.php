@@ -48,6 +48,110 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
               </center></body></html>';
   }
 } else {
+  echo '<!DOCTYPE html>
+  <html lang="fr">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
+
+    <title>Efrei Dynamo (internal)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Répondre à des questions
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="newquestion.php">Poser une question
+              <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Mon compte</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="login.php">Connexion
+              <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">';
+
+          echo '<h1 class="my-4">Connexion</h1>
+          <form action="login.php" method="post">
+            <div class="form-group">
+              <label for="email">Saisissez votre adresse e-mail</label>
+              <input type="text" name="email" class="form-control" id="email" placeholder="Courriel" required>
+            </div>
+            <div class="form-group">
+              <label for="mdp">Saisissez votre mot de passe</label>
+              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
+            </div>
+            <div class="form-group">
+              <label for="mdp">Saisissez votre mot de passe</label>
+              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <br>Pas encore inscrit ? <a class="btn btn-secondary" href=/register.php>Inscrivez-vous maintenant !</a>
+            </form><br><br>';
+
+        echo '</div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés.</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+  </html>';
+
+
   echo '
   <!DOCTYPE html>
   <html>
