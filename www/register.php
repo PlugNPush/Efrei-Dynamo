@@ -116,7 +116,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
               $majeure_fetch->execute();
 
               while ($majeure = $majeure_fetch->fetch()) {
-                echo '<option value="', $majeure['id'] ,'">', $majeure['nom'] ,'</option>'
+                echo '<option value="', $majeure['id'] ,'">', $majeure['nom'] ,'</option>';
               }
 
               echo '
