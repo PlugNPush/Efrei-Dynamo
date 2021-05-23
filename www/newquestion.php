@@ -108,13 +108,19 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               while($module = $module_fetch->fetch()){
                 $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ? AND module = ?;');
                 $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id']));
-                echo '<optgroup label="',$module['nom'],'">';
+                $inserted = FALSE;
+
                 while ($matiere = $matieres_fetch->fetch()) {
+                  if(!$inserted){
+                    $inserted = TRUE;
+                    echo '<optgroup label="',$module['nom'],'">';
+                  }
+
                   echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
                 }
-                echo '</optgroup>';
-                
-
+                if($inserted){
+                  echo '</optgroup>';
+                }
               }
 
 
