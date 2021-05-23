@@ -116,14 +116,14 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                   while ($matiere = $matieres_fetch->fetch()) {
                     if(!$semestre_inserted){
                       $semestre_inserted = TRUE;
-                      echo '<optgroup label="Semestre ',$semestre,'">';
+                      echo '<optgroup label="SEMESTRE ',$semestre,'">';
                     }
                     if(!$inserted){
                       $inserted = TRUE;
-                      echo '<optgroup label="',$module['nom'],'">';
+                      echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
                     }
 
-                    echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
+                    echo '<option value="&nbsp;&nbsp;&nbsp;&nbsp;', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
                   }
                   if($inserted){
                     echo '</optgroup>';
