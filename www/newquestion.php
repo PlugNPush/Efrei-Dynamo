@@ -110,9 +110,6 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               }
 
               echo '
-                <option value="0">MAT1</option>
-                <option value="1">MAT2</option>
-                <option value="2">MAT3</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary">Envoyer la question</button>
