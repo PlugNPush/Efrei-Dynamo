@@ -121,8 +121,8 @@ if (isset($_SESSION['id'])){
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
               if (isset($_GET['recherche'])){
-                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE "%?%" OR contenu LIKE "%?%";');
-                $fetch_question->execute(array($_GET['recherche']));
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE CONCAT("%", ?, "%") OR contenu LIKE CONCAT("%", ?, "%");');
+                $fetch_question->execute(array($_GET['recherche'], $_GET['recherche']));
               }else{
                 $fetch_question=$bdd->prepare('SELECT * FROM questions;');
                 $fetch_question->execute();
