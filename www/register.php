@@ -138,7 +138,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés.</p>
+        <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés. <a href="/legal.php">Mentions légales</a>.</p>
       </div>
       <!-- /.container -->
     </footer>
