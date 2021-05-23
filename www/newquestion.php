@@ -102,12 +102,21 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               <label for="matiere">Séléctionnez la matière</label>
               <select name="matiere" class="form-control" id="matiere" required>';
 
-              $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ?;');
-              $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+              $module_fetch = $bdd->prepare('SELECT * FROM modules;');
+              $module_fetch->execute();
 
-              while ($matiere = $matieres_fetch->fetch()) {
-                echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
+              while($module = $module_fetch->fetch()){
+                $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ? AND module = ?;');
+                $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id']));
+                echo '<optgroup label="',$module['nom'],'">';
+                while ($matiere = $matieres_fetch->fetch()) {
+                  echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
+                }
+                echo '</optgroup>';
+                
+
               }
+
 
               echo '
               </select>
