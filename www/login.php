@@ -123,7 +123,7 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
               <input type="password" name="mdp" class="form-control';
 
               if (isset($_GET['passworderror'])){
-                echo ' is-invalid'
+                echo ' is-invalid';
               }
 
               echo '" id="mdp" placeholder="Mot de passe" required>';
