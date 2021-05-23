@@ -19,7 +19,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
 
     <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
 
-    <title>Efrei Dynamo (internal)</title>
+    <title>Efrei Dynamo</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
+        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -166,10 +166,8 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'inscription'=> $date
     ));
     header( "refresh:0;url=index.php" );
-    echo 'bienvenue chez le sevice dynamo.';
   }else{
     header( "refresh:0;url=register.php" );
-    echo 'Confirmation du mot de passe invalide.';
   }
 }
 ?>

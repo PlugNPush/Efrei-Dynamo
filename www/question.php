@@ -41,7 +41,7 @@ if (isset($_SESSION['id'])){
 
       <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
 
-      <title>Efrei Dynamo (internal)</title>
+      <title>Efrei Dynamo</title>
 
       <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@ if (isset($_SESSION['id'])){
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
+          <a class="navbar-brand" href="index.php">Projet Efrei Dynamo</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -242,8 +242,6 @@ if (isset($_SESSION['id'])){
             </h1>
             <div class="alert alert-warning fade show" role="alert">
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
-              <hr>
-              <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
             </div>';
           }
 
@@ -276,64 +274,7 @@ if (isset($_SESSION['id'])){
 
 }
 else {
-  echo '<!DOCTYPE html>
-  <html lang=fr>
-    <head>
-      <meta charset="utf-8">
-      <title>Efrei Dynamo</title>
-      <style>
-        .screen {
-          height: 100vh;
-          width: 100%;
-          text-align: center;
-          display: table;
-        }
-
-        .v-center {
-          display: table-cell;
-          vertical-align: middle;
-        }
-
-        p {
-          margin: auto;
-          color: white;
-          font-family: "Helvetica Neue Light", Helvetica, sans-serif;
-          text-decoration: none;
-          font-size: 60px;
-          font-weight: thin;
-        }
-        b {
-          color: white;
-          font-family: "Helvetica Neue Bold", Helvetica, sans-serif;
-          font-size: 60px;
-          font-weight: 3000;
-        }
-        a {
-          color: white;
-          font-family: "Helvetica Neue Bold", Helvetica, sans-serif;
-          text-decoration: none;
-          font-size: 60px;
-          font-weight: thin;
-        }
-        a:hover {
-          cursor: default;
-        }
-        body {
-          background-color: black;
-        }
-      </style>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-      <div class="screen">
-        <div class="v-center">';
-          echo'<p><b>Vous n\'êtes pas connecté bye bye !</b></p>';
-        echo '
-        </div>
-      </div>
-    </body>
-  </html>';
+  header( "refresh:0;url=login.php" );
 }
 
 ?>

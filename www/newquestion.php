@@ -36,7 +36,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
 
     <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
 
-    <title>Efrei Dynamo (internal)</title>
+    <title>Efrei Dynamo</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
+        <a class="navbar-brand" href="index.php">Projet Efrei Dynamo</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -156,8 +156,6 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
           echo '<h1 class="my-4">Nouvelle question</h1>
           <div class="alert alert-danger fade show" role="alert">
             <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
-            <hr>
-            <b>Rappel: ce qu\'il se passe sur la Internal reste sur la Internal.</b>
           </div><br><br>';
         }
 
@@ -196,10 +194,8 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
       'date'=> $date
     ));
     header( "refresh:0;url=index.php" );
-    echo 'Votre question a bien été envoyée !';
   }else{
     header( "refresh:0;url=login.php" );
-    echo 'Votre session a expiré.';
   }
 }
 ?>

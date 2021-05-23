@@ -50,7 +50,7 @@ if (isset($_SESSION['id'])){
 
       <meta http-equiv="Content-Security-Policy" content="default-src \'self\'; img-src https://* \'self\' data:; child-src \'none\';">
 
-      <title>Efrei Dynamo (internal)</title>
+      <title>Efrei Dynamo</title>
 
       <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -65,7 +65,7 @@ if (isset($_SESSION['id'])){
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="index.php">Projet Efrei Dynamo (internal)</a>
+          <a class="navbar-brand" href="index.php">Projet Efrei Dynamo</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -112,15 +112,7 @@ if (isset($_SESSION['id'])){
 
             <h1 class="my-4">Bienvenue sur Efrei Dynamo,
               <small>', $_SESSION['pseudo'], '</small>
-            </h1>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <strong>Avertissement de confidentialité</strong> : Vous êtes actuellement sur une version Internal du projet Dynamo. En théorie, si vous voyez ceci, vous faites partie de l\'équipe du projet Transverse. Le contenu de ce site Internet n\'est pas contrôlé ou modéré, et le traitement des données n\'est pas conforme aux normes européennes RGPD car le site n\'est pas censé être accéssible au public. Si vous lisez ce message alors que vous n\'êtes pas isolé, cessez immédiatement la navigation et <a href="logout.php">déconnectez-vous ici</a>.
-              <hr>
-              <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
-            </div>';
+            </h1>';
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
 
@@ -237,8 +229,6 @@ if (isset($_SESSION['id'])){
             echo '
             <div class="alert alert-danger fade show" role="alert">
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié. Vérifie tes spams ou contacte un modérateur avec ton adresse mail Efrei.<br><a href = "logout.php">Se déconnecter</a>.
-              <hr>
-              <b>Ce qu\'il se passe sur la Internal reste sur la Internal.</b>
             </div>';
           }
 
@@ -271,64 +261,7 @@ if (isset($_SESSION['id'])){
 
 }
 else {
-  echo '<!DOCTYPE html>
-  <html lang=fr>
-    <head>
-      <meta charset="utf-8">
-      <title>Efrei Dynamo</title>
-      <style>
-        .screen {
-          height: 100vh;
-          width: 100%;
-          text-align: center;
-          display: table;
-        }
-
-        .v-center {
-          display: table-cell;
-          vertical-align: middle;
-        }
-
-        p {
-          margin: auto;
-          color: white;
-          font-family: "Helvetica Neue Light", Helvetica, sans-serif;
-          text-decoration: none;
-          font-size: 60px;
-          font-weight: thin;
-        }
-        b {
-          color: white;
-          font-family: "Helvetica Neue Bold", Helvetica, sans-serif;
-          font-size: 60px;
-          font-weight: 3000;
-        }
-        a {
-          color: white;
-          font-family: "Helvetica Neue Bold", Helvetica, sans-serif;
-          text-decoration: none;
-          font-size: 60px;
-          font-weight: thin;
-        }
-        a:hover {
-          cursor: default;
-        }
-        body {
-          background-color: black;
-        }
-      </style>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-      <div class="screen">
-        <div class="v-center">';
-          echo'<p><b>Projet Dynamo</b><br>Rendez-vous prochainement.</p>';
-        echo '
-        </div>
-      </div>
-    </body>
-  </html>';
+  header( "refresh:0;url=login.php" );
 }
 
 ?>
