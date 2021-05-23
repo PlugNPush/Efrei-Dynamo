@@ -81,10 +81,22 @@ if (isset($_SESSION['id'])){
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Mon compte</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="logout.php">Se déconnecter</a>
-              </li>
+              </li>';
+
+              if (isset($_SESSION['id'])) {
+                echo '
+                <li class="nav-item">
+                  <a class="nav-link" href="logout.php">Se déconnecter</a>
+                </li>';
+              } else {
+                echo '
+                <li class="nav-item active">
+                  <a class="nav-link" href="login.php">Connexion
+                  <span class="sr-only">(current)</span></a>
+                </li>';
+              }
+
+              echo '
             </ul>
           </div>
         </div>
@@ -243,7 +255,7 @@ if (isset($_SESSION['id'])){
       <!-- Footer -->
       <footer class="py-5 bg-dark">
         <div class="container">
-          <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés.</p>
+          <p class="m-0 text-center text-white">&copy; 2021 Efrei Dynamo. Tous droits reservés. <a href="/legal.php">Mentions légales</a>.</p>
         </div>
         <!-- /.container -->
       </footer>
