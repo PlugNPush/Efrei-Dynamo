@@ -102,23 +102,34 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               <label for="matiere">Séléctionnez la matière</label>
               <select name="matiere" class="form-control" id="matiere" required>';
 
-              $module_fetch = $bdd->prepare('SELECT * FROM modules;');
-              $module_fetch->execute();
+              for ($semestre = 1; $semestre<=10; $semestre++) {
+                $semestre_inserted = FALSE;
 
-              while($module = $module_fetch->fetch()){
-                $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ? AND module = ?;');
-                $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id']));
-                $inserted = FALSE;
+                $module_fetch = $bdd->prepare('SELECT * FROM modules;');
+                $module_fetch->execute();
 
-                while ($matiere = $matieres_fetch->fetch()) {
-                  if(!$inserted){
-                    $inserted = TRUE;
-                    echo '<optgroup label="',$module['nom'],'">';
+                while($module = $module_fetch->fetch()){
+                  $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ? AND module = ? AND semestre = ?;');
+                  $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
+                  $inserted = FALSE;
+
+                  while ($matiere = $matieres_fetch->fetch()) {
+                    if(!$semestre_inserted){
+                      $semestre_inserted = TRUE;
+                      echo '<optgroup label="Semestre ',$semestre,'">';
+                    }
+                    if(!$inserted){
+                      $inserted = TRUE;
+                      echo '<optgroup label="',$module['nom'],'">';
+                    }
+
+                    echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
                   }
-
-                  echo '<option value="', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
+                  if($inserted){
+                    echo '</optgroup>';
+                  }
                 }
-                if($inserted){
+                if($semestre_inserted){
                   echo '</optgroup>';
                 }
               }
