@@ -37,15 +37,8 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
 
 
       header( "refresh:0;url=index.php" );
-      echo '<center><h1><b><font size="7" face="verdana">Bienvenue parmi nous ', $test['pseudo'], ' !</font></b></h1><p><br>Lecture des données depuis la base de données, ceci peut prendre quelques secondes.</p><img src=https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/SID_FB_001.gif height="450" width="600"></center>';
   } else {
-      header( "refresh:0;url=login.php" );
-      echo '<html><body bgcolor="#CC0033">
-              <center>
-              <h1><b><font size="35" style="font-family:verdana;" style="text-align:center;" style="vertical-align:middle;" color="white">Erreur ! Identifiant ou mot de passe incorrect !</font></b><br><br></h1><p>Erreur: impossible de vérifier le mot de passe.</p>
-
-      <img src="https://i.pinimg.com/originals/45/41/38/454138b3dad33d8fc66082083e090d06.gif" >
-              </center></body></html>';
+      header( "refresh:0;url=login.php?passworderror=true" );
   }
 } else {
   echo '<!DOCTYPE html>
@@ -127,7 +120,21 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
             </div>
             <div class="form-group">
               <label for="mdp">Saisissez votre mot de passe</label>
-              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Mot de passe" required>
+              <input type="password" name="mdp" class="form-control';
+
+              if (isset($_GET['passworderror'])){
+                echo ' is-invalid'
+              }
+
+              echo '" id="mdp" placeholder="Mot de passe" required>';
+
+              if (isset($_GET['passworderror'])){
+                echo '<div class="invalid-feedback">
+                  Mot de passe incorrect ! Besoin d\'aide ? Contactez un administrateur.
+                </div>';
+              }
+
+              echo '
             </div>
             <button type="submit" class="btn btn-primary">Se connecter</button>
             <br>Pas encore inscrit ? <a class="btn btn-secondary" href=/register.php>Inscrivez-vous maintenant !</a>
