@@ -108,16 +108,26 @@ if (isset($_SESSION['id'])){
         <div class="row">
 
           <!-- Blog Entries Column -->
-          <div class="col-md-8">
+          <div class="col-md-8">';
 
-            <h1 class="my-4">Bienvenue sur Efrei Dynamo,
-              <small>', $_SESSION['pseudo'], '</small>
-            </h1>';
+            if (isset($_GET['recherche'])){
+              echo '<h1 class="my-4">Résultats de la recherche
+              </h1>';
+            }else{
+              echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
+                <small>', $_SESSION['pseudo'], '</small>
+              </h1>';
+            }
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
+              if (isset($_GET['recherche'])){
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE "%?%" OR contenu LIKE "%?%";');
+                $fetch_question->execute(array($_GET['recherche']));
+              }else{
+                $fetch_question=$bdd->prepare('SELECT * FROM questions;');
+                $fetch_question->execute();
+              }
 
-              $fetch_question=$bdd->prepare('SELECT * FROM questions;');
-              $fetch_question->execute();
               while($temp_question=$fetch_question->fetch()){
 
                 $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
@@ -158,10 +168,12 @@ if (isset($_SESSION['id'])){
                 <h5 class="card-header">Rechercher</h5>
                 <div class="card-body">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Rechercher...">
-                    <span class="input-group-append">
-                      <button class="btn btn-secondary" type="button">Go !</button>
-                    </span>
+                    <form action="index.php" method="get">
+                      <input type="text" name="recherche" class="form-control" placeholder="Rechercher...">
+                      <span class="input-group-append">
+                        <button class="btn btn-secondary" type="submit">Go !</button>
+                      </span>
+                    </form>
                   </div>
                 </div>
               </div>
