@@ -123,7 +123,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                       echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
                     }
 
-                    echo '<option value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $matiere['id'] ,'">', $matiere['nom'] ,'</option>';
+                    echo '<option value="', $matiere['id'] ,'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $matiere['nom'] ,'</option>';
                   }
                   if($inserted){
                     echo '</optgroup>';
