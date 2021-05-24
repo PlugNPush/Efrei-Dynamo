@@ -117,18 +117,18 @@ if (!isset($_POST['id'])) {
           header( "refresh:0;url=login.php" );
           echo 'Votre session a expiré.';
         } else {
-          echo '<h1 class="my-4">Nouvelle question</h1>';
+          // Informations standard + modification
+          $gather = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
+          $gather->execute(array($compte));
+          $data = $gather->fetch();
+
+          echo '<h1 class="my-4">Espace utilisateur ', $data['nom'] ,'</h1>';
           if (!isset($_SESSION['validation']) || $_SESSION['validation'] != 1){
             echo '
             <div class="alert alert-danger fade show" role="alert">
               <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
             </div><br><br>';
           }
-
-          // Informations standard + modification
-          $gather = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
-          $gather->execute(array($compte));
-          $data = $gather->fetch();
 
           if (!$data){
             echo '
