@@ -294,7 +294,7 @@ if (!isset($_POST['id'])) {
         <div class="card my-4">
           <h5 class="card-header">Téléchargez une copie des données</h5>
           <div class="card-body">
-            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.<br>
+            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.<br><br>
             <button class="btn btn-primary" disabled>Demander une copie des données</button>
           </div>
         </div>
