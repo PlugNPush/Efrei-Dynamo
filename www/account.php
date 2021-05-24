@@ -295,6 +295,7 @@ if (!isset($_POST['id'])) {
           <h5 class="card-header">Téléchargez une copie des données</h5>
           <div class="card-body">
             Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.
+            <button class="btn btn-primary" disabled>Supprimer ce compte</button>
           </div>
         </div>
 
