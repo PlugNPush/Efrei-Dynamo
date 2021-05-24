@@ -66,7 +66,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Mon compte</a>
+              <a class="nav-link" href="account.php">Mon compte</a>
             </li>';
 
             if (isset($_SESSION['id'])) {
@@ -120,7 +120,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                 echo '<option value="', $glomat['id'] ,'">', $glomat['nom'] ,'</option>';
               }
               echo '</optgroup>';
-              
+
               for ($semestre = 1; $semestre<=10; $semestre++) {
                 $semestre_inserted = FALSE;
 

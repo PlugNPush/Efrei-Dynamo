@@ -82,7 +82,7 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
               <a class="nav-link" href="newquestion.php">Poser une question</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Mon compte</a>
+              <a class="nav-link" href="account.php">Mon compte</a>
             </li>';
 
             if (isset($_SESSION['id'])) {
