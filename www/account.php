@@ -139,17 +139,17 @@ if (!isset($_POST['id'])) {
             if ($_SESSION['role'] >= 50) {
               echo '
               <div class="alert alert-warning fade show" role="alert">
-                <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier l\'ensemble des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire. Vous pourriez bloquer le site si vous modifiez les mauvais paramètres.</a>.
+                <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier l\'ensemble des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire. Vous pourriez bloquer le site si vous modifiez les mauvais paramètres.
               </div>';
             } else if ($_SESSION['role'] >= 10) {
               echo '
               <div class="alert alert-warning fade show" role="alert">
-                <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier la quasi-totalité des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.</a>.
+                <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier la quasi-totalité des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.
               </div>';
             } else if ($_SESSION['role'] >= 3) {
               echo '
               <div class="alert alert-warning fade show" role="alert">
-                <strong>Vous êtes un super-modérateur</strong>. Vous pouvez modifier une grande partie des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.</a>.
+                <strong>Vous êtes un super-modérateur</strong>. Vous pouvez modifier une grande partie des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.
               </div>';
             }
 
