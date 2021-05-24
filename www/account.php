@@ -279,12 +279,13 @@ if (!isset($_POST['id'])) {
               </form><br><br>';
 
             // Boutons GDPR
+            if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
             echo '<!-- Sidebar Widgets Column -->
             <div class="col-md-4">
-
+            <h2>Espace RGPD</h2>
             <!-- Side Widget -->
             <div class="card my-4">
-              <h5 class="card-header">Téléchargez vos données</h5>
+              <h5 class="card-header">Téléchargez une copie de vos données</h5>
               <div class="card-body">
                 Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie de vos données.
               </div>
@@ -292,19 +293,20 @@ if (!isset($_POST['id'])) {
 
               <!-- Search Widget -->
               <div class="card my-4">
-                <h5 class="card-header">Supprimer mon compte</h5>
+                <h5 class="card-header">Supprimer le compte</h5>
                 <div class="card-body">
                   <div class="input-group">
                     <form action="account.php?pdelete=true" method="post">
                       <input type="checkbox" id="confirmersup" name="confirmersup" class="form-control" required>
-                      <label for="confirmersup">Je confirme vouloir supprimer mon compte à vie.</label>
+                      <label for="confirmersup">Je confirme vouloir supprimer ce compte à vie</label>
                       <input type="checkbox" id="supcontenu" name="supcontenu" class="form-control" required>
-                      <label for="supcontenu">Supprimer également mon contenu produit (questions, réponses...)</label>
+                      <label for="supcontenu">Supprimer également le contenu produit par ce compte (questions, réponses...)</label>
                       <button class="btn btn-danger" type="submit">Supprimer mon compte</button>
                     </form>
                   </div>
                 </div>
               </div>';
+            }
 
           }
 
