@@ -287,7 +287,7 @@ if (!isset($_POST['id'])) {
         // Boutons GDPR
         if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
         echo '<!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
+        <div class="col-md-4"><br>
         <h2>Espace RGPD</h2>
         <!-- Side Widget -->
         <div class="card my-4">
