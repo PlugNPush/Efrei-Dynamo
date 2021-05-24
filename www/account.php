@@ -149,35 +149,35 @@ if (!isset($_POST['id'])) {
           <form action="account.php" method="post">
           <div class="form-group">
             <label for="id">Identifiant interne</label>
-            <input type="text" name="id" class="form-control" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? () : ('disabled'), '>
+            <input type="text" name="id" class="form-control" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
             <div class="valid-feedback">
               L\'identifiant interne est immuable et vaut ', $data['id'] ,'
             </div>
           </div>
           <div class="form-group">
             <label for="inscription">Date d\'inscription</label>
-            <input type="text" name="inscription" class="form-control" id="inscription" value="', $data['inscription'] ,'" ', ($_SESSION['role']>=50) ? () : ('disabled'), '>
+            <input type="text" name="inscription" class="form-control" id="inscription" value="', $data['inscription'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
             <div class="valid-feedback">
               La date d\'inscription est immuable et vaut ', $data['inscription'] ,'
             </div>
           </div>
           <div class="form-group">
             <label for="role">Rôle</label>
-            <input type="text" name="role" class="form-control" id="role" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? () : ('disabled'), '>
+            <input type="text" name="role" class="form-control" id="role" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
             <div class="valid-feedback">
-              ', ($_SESSION['role']>=10) ? ('En tant qu\'ultra-modérateur, vous pouvez modifier le rôle. ') : (), 'Le rôle actuel est ', $data['role'] ,'
+              ', ($_SESSION['role']>=10) ? ('En tant qu\'ultra-modérateur, vous pouvez modifier le rôle. ') : (''), 'Le rôle actuel est ', $data['role'] ,'
             </div>
           </div>
           <div class="form-group">
             <label for="karma">Karma</label>
-            <input type="text" name="karma" class="form-control" id="karma" value="', $data['karma'] ,'" ', ($_SESSION['role']>=3) ? () : ('disabled'), '>
+            <input type="text" name="karma" class="form-control" id="karma" value="', $data['karma'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
             <div class="valid-feedback">
-              ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le solde Karma. ') : (), 'Le solde de Karma est ', $data['karma'] ,'
+              ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le solde Karma. ') : (''), 'Le solde de Karma est ', $data['karma'] ,'
             </div>
           </div>
           <div class="form-group">
             <label for="validation">Validation Efrei</label>
-            <input type="text" name="validation" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? () : ('disabled'), '>
+            <input type="text" name="validation" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
             <div class="valid-feedback">
               ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('Le statut de validation Efrei ne peut pas être modifié ici.'), 'Il est actuellement à ', $data['validation'] ,'
             </div>
