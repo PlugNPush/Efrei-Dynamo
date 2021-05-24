@@ -122,7 +122,7 @@ if (!isset($_POST['id'])) {
           $gather->execute(array($compte));
           $data = $gather->fetch();
 
-          echo '<h1 class="my-4">Espace utilisateur ', $data['nom'] ,'</h1>';
+          echo '<h1 class="my-4">Espace utilisateur ', $data['pseudo'] ,'</h1>';
           if (!isset($_SESSION['validation']) || $_SESSION['validation'] != 1){
             echo '
             <div class="alert alert-danger fade show" role="alert">
