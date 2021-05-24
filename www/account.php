@@ -31,7 +31,7 @@ if (isset($_GET['id'])){
   $compte = 0;
 }
 
-if (!isset($_POST['id'])) {
+if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
   echo '<!DOCTYPE html>
   <html lang="fr">
@@ -319,13 +319,13 @@ if (!isset($_POST['id'])) {
             <h5 class="card-header">Supprimer le compte</h5>
             <div class="card-body">
               <div class="input-group">
-                <form action="account.php?pdelete=true" method="post">
+                <form action="account.php?pdelete=true&id=', $compte,'" method="post">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="confirmersup" name="confirmersup" class="form-control" required>
                   <label class="form-check-label" for="confirmersup">Je confirme vouloir supprimer ce compte à vie</label>
                 </div><br>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="supcontenu" name="supcontenu" class="form-control" required>
+                  <input class="form-check-input" type="checkbox" id="supcontenu" name="supcontenu" class="form-control">
                   <label class="form-check-label" for="supcontenu">Facultatif : je souhaite également supprimer le contenu produit par ce compte (questions, réponses...)</label>
                 </div><br>
                   <button class="btn btn-danger" type="submit">Supprimer ce compte</button>
@@ -360,17 +360,37 @@ if (!isset($_POST['id'])) {
 
   </html>';
 }else{
-  $req=$bdd->prepare('INSERT INTO questions(auteur, titre, contenu, matiere, date) VALUES(:auteur, :titre, :contenu, :matiere, :date)');
+
   if (isset($_SESSION['id'])) {
-    $date = date('Y-m-d H:i:s');
-    $req->execute(array(
-      'auteur'=> $_SESSION['id'],
-      'titre'=> $_POST['titre'],
-      'contenu'=> $_POST['contenu'],
-      'matiere'=> $_POST['matiere'],
-      'date'=> $date
-    ));
-    header( "refresh:0;url=account.php" );
+
+    if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true') {
+      // Suppression du compte
+      if (isset($_POST['confirmersup']) && $_POST['confirmersup'] == 'on'){
+        if (isset($_POST['supcontenu']) && $_POST['supcontenu'] == 'on') {
+          // Suppression du contenu
+          $sup_questions = $bdd->prepare('DELETE * FROM questions WHERE auteur = ?;');
+          $sup_questions->execute(array($_GET['id']));
+
+          $sup_reponses = $bdd->prepare('DELETE * FROM reponses WHERE auteur = ?;');
+          $sup_reponses->execute(array($_GET['id']));
+
+          $sup_sanctions = $bdd->prepare('DELETE * FROM sanctions WHERE utilisateur = ? OR delateur = ?;');
+          $sup_sanctions->execute(array($_GET['id'], $_GET['id']));
+        }
+        // Suppression du compte
+        $sup_utilisateur = $bdd->prepare('DELETE * FROM utilisateurs WHERE id = ?;');
+        $sup_utilisateur->execute(array($_GET['id']));
+
+        header( "refresh:0;url=logout.php" );
+      } else {
+        header( "refresh:0;url=account.php" );
+      }
+
+    } else {
+      // Modification de paramètres
+      header( "refresh:0;url=account.php" );
+    }
+
   }else{
     header( "refresh:0;url=login.php" );
   }
