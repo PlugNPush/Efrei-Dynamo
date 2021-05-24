@@ -292,9 +292,9 @@ if (!isset($_POST['id'])) {
         <h2>Espace RGPD</h2>
         <!-- Side Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Téléchargez une copie de vos données</h5>
+          <h5 class="card-header">Téléchargez une copie des données</h5>
           <div class="card-body">
-            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie de vos données.
+            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.
           </div>
         </div>
 
