@@ -315,6 +315,7 @@ if (!isset($_POST['id'])) {
                 </form>
               </div>
             </div>
+          </div>
           </div>';
         }
 
