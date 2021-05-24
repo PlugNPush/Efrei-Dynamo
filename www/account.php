@@ -306,11 +306,11 @@ if (!isset($_POST['id'])) {
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="confirmersup" name="confirmersup" class="form-control" required>
                   <label class="form-check-label" for="confirmersup">Je confirme vouloir supprimer ce compte à vie</label>
-                </div>
+                </div><br>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="supcontenu" name="supcontenu" class="form-control" required>
                   <label class="form-check-label" for="supcontenu">Supprimer également le contenu produit par ce compte (questions, réponses...)</label>
-                </div>
+                </div><br>
                   <button class="btn btn-danger" type="submit">Supprimer mon compte</button>
                 </form>
               </div>
