@@ -154,6 +154,7 @@ if (!isset($_POST['id'])) {
             }
 
             echo '
+            <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a>
             <h2>Informations sur le compte</h2>
             <form action="account.php" method="post">
             <div class="form-group">
