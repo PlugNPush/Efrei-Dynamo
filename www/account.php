@@ -368,17 +368,17 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if (isset($_POST['confirmersup']) && $_POST['confirmersup'] == 'on'){
         if (isset($_POST['supcontenu']) && $_POST['supcontenu'] == 'on') {
           // Suppression du contenu
-          $sup_questions = $bdd->prepare('DELETE * FROM questions WHERE auteur = ?;');
+          $sup_questions = $bdd->prepare('DELETE FROM questions WHERE auteur = ?;');
           $sup_questions->execute(array($_GET['id']));
 
-          $sup_reponses = $bdd->prepare('DELETE * FROM reponses WHERE auteur = ?;');
+          $sup_reponses = $bdd->prepare('DELETE FROM reponses WHERE auteur = ?;');
           $sup_reponses->execute(array($_GET['id']));
 
-          $sup_sanctions = $bdd->prepare('DELETE * FROM sanctions WHERE utilisateur = ? OR delateur = ?;');
+          $sup_sanctions = $bdd->prepare('DELETE FROM sanctions WHERE utilisateur = ? OR delateur = ?;');
           $sup_sanctions->execute(array($_GET['id'], $_GET['id']));
         }
         // Suppression du compte
-        $sup_utilisateur = $bdd->prepare('DELETE * FROM utilisateurs WHERE id = ?;');
+        $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
         $sup_utilisateur->execute(array($_GET['id']));
 
         header( "refresh:0;url=logout.php" );
