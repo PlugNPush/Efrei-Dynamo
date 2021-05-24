@@ -122,7 +122,7 @@ if (!isset($_POST['id'])) {
           $gather->execute(array($compte));
           $data = $gather->fetch();
 
-          echo '<h1 class="my-4">Espace utilisateur ', $data['pseudo'] ,'</h1>';
+          echo '<h1 class="my-4">Espace utilisateur : ', $data['pseudo'] ,'</h1>';
           if (!isset($_SESSION['validation']) || $_SESSION['validation'] != 1){
             echo '
             <div class="alert alert-danger fade show" role="alert">
@@ -183,65 +183,87 @@ if (!isset($_POST['id'])) {
             </small>
           </div>
 
-
           <div class="form-group">
             <label for="titre">Pseudonyme</label>
-            <input type="text" name="pseudo" class="form-control" id="pseudo" placeholder="Pseudo">
+            <input type="text" name="pseudo" class="form-control" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+            <small id="emailHelp" class="form-text text-muted">
+              Le pseudo est actuellement ', $data['pseudo'] ,'
+            </small>
           </div>
             <div class="form-group">
-              <label for="titre">Adresse email scolaire</label>
-              <input type="text" name="email" class="form-control" id="email" placeholder="En @efrei.net ou @efrei.fr" required>
+              <label for="titre">Adresse email</label>
+              <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <small id="emailHelp" class="form-text text-muted">
+                L\'adresse éléctronique est actuellement ', $data['email'] ,'
+              </small>
             </div>
 
             <div class="form-group">
-              <label for="titre">Votre mot de passe</label>
-              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Prenez un mot de passe sûr" required>
-            </div>
-            <div class="form-group">
-              <label for="titre">Confirmez le mot de passe</label>
-              <input type="password" name="vmdp" class="form-control" id="vmdp" placeholder="Confirmation" required>
-            </div>
-
-            <div class="form-group">
-              <label for="role">Choisissez votre rôle</label>
-              <select name="role" class="form-control" id="role" required>
-                <option value="0">Étudiant (vérification automatique)</option>
-                <option value="1">Modérateur (requiert une double vérification manuelle)</option>
-                <option value="2">Professeur (requiert un mail en efrei.fr)</option>
+              <label for="annee">Niveau d\'études</label>
+              <select name="annee" class="form-control" id="annee" ', ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <option value="1" ', ($data['annee'] == 1) ? ('selected') : ('') ,'>Cycle préparatoire - L1</option>
+                <option value="2" ', ($data['annee'] == 2) ? ('selected') : ('') ,'>Cycle préparatoire - L2</option>
+                <option value="3" ', ($data['annee'] == 3) ? ('selected') : ('') ,'>Cycle ingénieur - L3</option>
+                <option value="4" ', ($data['annee'] == 4) ? ('selected') : ('') ,'>Cycle ingénieur - M1</option>
+                <option value="5" ', ($data['annee'] == 5) ? ('selected') : ('') ,'>Cycle ingénieur - M2</option>
+                <option value="6" ', ($data['annee'] == 6) ? ('selected') : ('') ,'>Ancien élève diplomé</option>
+                <option value="7" ', ($data['annee'] == 7) ? ('selected') : ('') ,'>Intervenant (tous niveaux)</option>
               </select>
-            </div>
-
-            <div class="form-group">
-              <label for="annee">Choisissez votre niveau</label>
-              <select name="annee" class="form-control" id="annee" required>
-                <option value="1">Cycle préparatoire - L1</option>
-                <option value="2">Cycle préparatoire - L2</option>
-                <option value="3">Cycle ingénieur - L3</option>
-                <option value="4">Cycle ingénieur - M1</option>
-                <option value="5">Cycle ingénieur - M2</option>
-                <option value="6">Ancien élève diplomé</option>
-                <option value="7">Intervenant (tous niveaux)</option>
-              </select>
+              <small id="emailHelp" class="form-text text-muted">
+                Le niveau d\'études est actuellement ', $data['annee'] ,'
+              </small>
             </div>
 
             <div class="form-group">
               <label for="majeure">Choisissez votre majeure</label>
-              <select name="majeure" class="form-control" id="majeure" required>';
+              <select name="majeure" class="form-control" id="majeure" ', ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>';
 
               $majeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
               $majeure_fetch->execute();
 
               while ($majeure = $majeure_fetch->fetch()) {
-                echo '<option value="', $majeure['id'] ,'">', $majeure['nom'] ,'</option>';
+                echo '<option value="', $majeure['id'] ,'" ', ($data['majeure'] == $majeure['id']) ? ('selected') : ('') ,'>', $majeure['nom'] ,'</option>';
               }
 
               echo '
               </select>
             </div>
 
+            <div class="form-group">
+              <label for="photo">Photo de profil</label>
+              <input type="text" name="photo" class="form-control" id="photo" placeholder="Insérer une photo de profil par URL (facultatif)" value="', $data['photo'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <small id="emailHelp" class="form-text text-muted">
+                L\'URL de la photo de profil actuelle est ', $data['photo'] ,'
+              </small>
+            </div>
 
-            <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
-            <button type="reset" class="btn btn-secondary">Annuler les modifications</button>
+            <div class="form-group">
+              <label for="titre">Profil LinkedIn</label>
+              <input type="text" name="linkedin" class="form-control" id="linkedin"  value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <small id="emailHelp" class="form-text text-muted">
+                L\'adresse du profil LinkedIn ', $data['linkedin'] ,'
+              </small>
+            </div>';
+
+            if ($_SESSION['role']>=50 || $data['id'] == $_SESSION['id']){
+              echo '<h3>Modification du mot de passe</h3>
+              <div class="form-group">
+                <label for="titre">Votre mot de passe</label>
+                <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Prenez un mot de passe sûr" required>
+              </div>
+              <div class="form-group">
+                <label for="titre">Confirmez le mot de passe</label>
+                <input type="password" name="vmdp" class="form-control" id="vmdp" placeholder="Confirmation" required>
+              </div>';
+            }
+
+            if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+              echo '
+              <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
+              <button type="reset" class="btn btn-secondary">Annuler les modifications</button>';
+            }
+            
+            echo '
             </form><br><br>';
 
           // Boutons GDPR
