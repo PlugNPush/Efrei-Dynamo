@@ -236,6 +236,9 @@ if (!isset($_POST['id'])) {
 
                 echo '
                 </select>
+                <small id="emailHelp" class="form-text text-muted">
+                  La majeure actuelle est ', $data['majeure'] ,'
+                </small>
               </div>
 
               <div class="form-group">
