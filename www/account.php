@@ -139,7 +139,7 @@ if (!isset($_POST['id'])) {
             if ($_SESSION['role'] >= 50) {
               echo '
               <div class="alert alert-warning fade show" role="alert">
-                <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier l\'ensemble des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire. Vous pourriez bloquer le site si vous modifiez les mauvais paramètres.
+                <strong>Vous êtes un administrateur</strong>. Vous pouvez modifier l\'ensemble des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire. Vous pourriez bloquer le site si vous modifiez les mauvais paramètres.
               </div>';
             } else if ($_SESSION['role'] >= 10) {
               echo '
