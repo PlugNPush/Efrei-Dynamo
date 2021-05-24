@@ -113,6 +113,14 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               <label for="matiere">Séléctionnez la matière</label>
               <select name="matiere" class="form-control" id="matiere" required>';
 
+              $global_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = 0;');
+              $global_fetch->execute();
+              echo '<optgroup label="CAMPUS">';
+              while($glomat = $global_fetch->fetch()) {
+                echo '<option value="', $glomat['id'] ,'">', $glomat['nom'] ,'</option>';
+              }
+              echo '</optgroup>';
+              
               for ($semestre = 1; $semestre<=10; $semestre++) {
                 $semestre_inserted = FALSE;
 
