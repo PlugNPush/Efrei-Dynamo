@@ -188,7 +188,7 @@ if (!isset($_POST['id'])) {
               <label for="validation">Validation Efrei</label>
               <input type="text" name="validation" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
-                ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('Le statut de validation Efrei ne peut pas être modifié ici.'), 'Il est actuellement à ', $data['validation'] ,'
+                ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('En cas de problème, contactez un modérateur. '), 'Le statut de vérification Efrei est actuellement à ', $data['validation'] ,'
               </small>
             </div>
 
