@@ -28,7 +28,7 @@ if (isset($_GET['id'])){
 } else if (isset($_SESSION['id'])){
   $compte = $_SESSION['id'];
 } else {
-  $compte = 0
+  $compte = 0;
 }
 
 if (!isset($_POST['id'])) {
