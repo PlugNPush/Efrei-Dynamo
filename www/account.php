@@ -269,7 +269,7 @@ if (!isset($_POST['id'])) {
                 </div>';
               }
 
-              if ($_SESSION['role']>=10 || $compte == $_SESSION['id']) {
+              if ($_SESSION['role']>=3 || $compte == $_SESSION['id']) {
                 echo '
                 <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
                 <button type="reset" class="btn btn-secondary">Annuler les modifications</button>';
