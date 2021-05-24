@@ -137,6 +137,23 @@ if (!isset($_POST['id'])) {
             </div><br><br>';
           }
 
+          if ($_SESSION['role'] >= 50) {
+            echo '
+            <div class="alert alert-warning fade show" role="alert">
+              <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier l\'ensemble des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire. Vous pourriez bloquer le site si vous modifiez les mauvais paramètres.</a>.
+            </div><br><br>';
+          } else if ($_SESSION['role'] >= 10) {
+            echo '
+            <div class="alert alert-warning fade show" role="alert">
+              <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier la quasi-totalité des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.</a>.
+            </div><br><br>';
+          } else if ($_SESSION['role'] >= 3) {
+            echo '
+            <div class="alert alert-warning fade show" role="alert">
+              <strong>Vous êtes un super-modérateur</strong>. Vous pouvez modifier une grande partie des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.</a>.
+            </div><br><br>';
+          }
+
           // DYN $_SESSION['pseudo'] = $test['pseudo'];
           // DYN $_SESSION['email'] = $test['email'];
           // DYN $_SESSION['annee'] = $test['annee'];
@@ -185,14 +202,14 @@ if (!isset($_POST['id'])) {
 
           <div class="form-group">
             <label for="titre">Pseudonyme</label>
-            <input type="text" name="pseudo" class="form-control" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+            <input type="text" name="pseudo" class="form-control" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
             <small id="emailHelp" class="form-text text-muted">
               Le pseudo est actuellement ', $data['pseudo'] ,'
             </small>
           </div>
             <div class="form-group">
               <label for="titre">Adresse email</label>
-              <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 L\'adresse éléctronique est actuellement ', $data['email'] ,'
               </small>
@@ -200,7 +217,7 @@ if (!isset($_POST['id'])) {
 
             <div class="form-group">
               <label for="annee">Niveau d\'études</label>
-              <select name="annee" class="form-control" id="annee" ', ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <select name="annee" class="form-control" id="annee" ', ($_SESSION['role']>=3 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <option value="1" ', ($data['annee'] == 1) ? ('selected') : ('') ,'>Cycle préparatoire - L1</option>
                 <option value="2" ', ($data['annee'] == 2) ? ('selected') : ('') ,'>Cycle préparatoire - L2</option>
                 <option value="3" ', ($data['annee'] == 3) ? ('selected') : ('') ,'>Cycle ingénieur - L3</option>
@@ -216,7 +233,7 @@ if (!isset($_POST['id'])) {
 
             <div class="form-group">
               <label for="majeure">Choisissez votre majeure</label>
-              <select name="majeure" class="form-control" id="majeure" ', ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>';
+              <select name="majeure" class="form-control" id="majeure" ', ($_SESSION['role']>=3 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>';
 
               $majeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
               $majeure_fetch->execute();
@@ -241,11 +258,11 @@ if (!isset($_POST['id'])) {
               <label for="titre">Profil LinkedIn</label>
               <input type="text" name="linkedin" class="form-control" id="linkedin"  value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
-                L\'adresse du profil LinkedIn ', $data['linkedin'] ,'
+                L\'adresse du profil LinkedIn actuelle est ', $data['linkedin'] ,'
               </small>
             </div>';
 
-            if ($_SESSION['role']>=50 || $data['id'] == $_SESSION['id']){
+            if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
               echo '<h3>Modification du mot de passe</h3>
               <div class="form-group">
                 <label for="titre">Votre mot de passe</label>
@@ -257,12 +274,12 @@ if (!isset($_POST['id'])) {
               </div>';
             }
 
-            if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+            if ($_SESSION['role']>=10 || $compte == $_SESSION['id']) {
               echo '
               <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
               <button type="reset" class="btn btn-secondary">Annuler les modifications</button>';
             }
-            
+
             echo '
             </form><br><br>';
 
