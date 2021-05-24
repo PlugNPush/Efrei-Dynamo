@@ -252,7 +252,7 @@ if (!isset($_POST['id'])) {
 
               <div class="form-group">
                 <label for="titre">Profil LinkedIn</label>
-                <input type="text" name="linkedin" class="form-control" id="linkedin"  value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="Insérer l\'URL de votre profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <small id="emailHelp" class="form-text text-muted">
                   L\'adresse du profil LinkedIn actuelle est ', $data['linkedin'] ,'
                 </small>
@@ -294,7 +294,7 @@ if (!isset($_POST['id'])) {
         <div class="card my-4">
           <h5 class="card-header">Téléchargez une copie des données</h5>
           <div class="card-body">
-            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.
+            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.<br>
             <button class="btn btn-primary" disabled>Demander une copie des données</button>
           </div>
         </div>
