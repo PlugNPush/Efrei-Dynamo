@@ -248,8 +248,16 @@ if (!isset($_POST['id'])) {
                 <small id="emailHelp" class="form-text text-muted">
                   L\'URL de la photo de profil actuelle est ', $data['photo'] ,'
                 </small>
-              </div>
+              </div>';
 
+              if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+                echo '<div class="form-group">
+                  <input type="checkbox" name="dphoto" class="form-check-input" id="dphoto">
+                  <label class="form-check-label" for="dphoto">Supprimer la photo actuelle</label>
+                </div>';
+              }
+
+              echo '
               <div class="form-group">
                 <label for="titre">Profil LinkedIn</label>
                 <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="Insérer l\'URL de votre profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
@@ -257,6 +265,13 @@ if (!isset($_POST['id'])) {
                   L\'adresse du profil LinkedIn actuelle est ', $data['linkedin'] ,'
                 </small>
               </div>';
+
+              if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+                echo '<div class="form-group">
+                  <input type="checkbox" name="dlinkedin" class="form-check-input" id="dlinkedin">
+                  <label class="form-check-label" for="dlinkedin">Supprimer le profil LinkedIn actuel</label>
+                </div>';
+              }
 
               if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
                 echo '<h3>Modification du mot de passe</h3>
