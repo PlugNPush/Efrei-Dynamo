@@ -311,7 +311,7 @@ if (!isset($_POST['id'])) {
                   <input class="form-check-input" type="checkbox" id="supcontenu" name="supcontenu" class="form-control" required>
                   <label class="form-check-label" for="supcontenu">Supprimer également le contenu produit par ce compte (questions, réponses...)</label>
                 </div><br>
-                  <button class="btn btn-danger" type="submit">Supprimer mon compte</button>
+                  <button class="btn btn-danger" type="submit">Supprimer ce compte</button>
                 </form>
               </div>
             </div>
