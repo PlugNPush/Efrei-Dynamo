@@ -73,7 +73,7 @@ if (!isset($_POST['id'])) {
               <a class="nav-link" href="newquestion.php">Poser une question</a>
             </li>';
 
-            if (isset($_SESSION['id']) && $_SESSION['id'] = $compte){
+            if (isset($_SESSION['id']) && $_SESSION['id'] == $compte){
               echo '
               <li class="nav-item active">
                 <a class="nav-link" href="account.php">Mon compte
@@ -153,13 +153,6 @@ if (!isset($_POST['id'])) {
               <strong>Vous êtes un super-modérateur</strong>. Vous pouvez modifier une grande partie des réglages à votre guise, mais soyez résponsable et ne modifiez que le strict nécéssaire.</a>.
             </div><br><br>';
           }
-
-          // DYN $_SESSION['pseudo'] = $test['pseudo'];
-          // DYN $_SESSION['email'] = $test['email'];
-          // DYN $_SESSION['annee'] = $test['annee'];
-          // DYN $_SESSION['majeure'] = $test['majeure'];
-          // DYN $_SESSION['photo'] = $test['photo'];
-          // DYN $_SESSION['linkedin'] = $test['linkedin'];
 
           echo '
           <h2>Informations sur le compte</h2>
