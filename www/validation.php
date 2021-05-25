@@ -133,7 +133,13 @@ if (isset($_SESSION['id'])){
               echo '<div class="alert alert-danger fade show" role="alert">
                 <strong>Erreur lors de la validation !</strong><br> Il semblerait que la clé d\'authentification unique envoyée sur votre adresse email soit erronée. Veuillez réessayer.
               </div>';
-              }
+            }
+
+            if (isset($_GET['pending'])) {
+              echo '<div class="alert alert-success fade show" role="alert">
+                <strong>Validation en attente.</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams.
+              </div>';
+            }
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && $data) {
               echo '<div class="alert alert-success fade show" role="alert">
@@ -254,6 +260,8 @@ if (isset($_SESSION['id'])){
     // Envoi
     mail($to, $subject, $message, implode("\r\n", $headers));
 
+    header( "refresh:0;url=validation.php?pending=true" );
+
   } else {
     header( "refresh:0;url=validation.php?invalidmail=true" );
   }
@@ -269,6 +277,7 @@ if (isset($_SESSION['id'])){
 
     $deletekey = $bdd->prepare('DELETE FROM validations WHERE key = ?');
     $deletekey->execute(array($key));
+    header( "refresh:0;url=validation.php" );
   } else {
     header( "refresh:0;url=validation.php?invalidkey=true" );
   }
