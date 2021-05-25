@@ -477,13 +477,13 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=50) {
         // Changement d'ID
         if (isset($_POST['id'])) {
-          $newid = $bdd->prepare('UPDATE FROM utilisateurs SET id = ? WHERE id = ?;');
+          $newid = $bdd->prepare('UPDATE utilisateurs SET id = ? WHERE id = ?;');
           $newid->execute(array($_POST['id'], $_GET['id']));
         }
 
         // Changement de la date d'inscription
         if (isset($_POST['inscription'])) {
-          $newreg = $bdd->prepare('UPDATE FROM utilisateurs SET inscription = ? WHERE id = ?;');
+          $newreg = $bdd->prepare('UPDATE utilisateurs SET inscription = ? WHERE id = ?;');
           $newreg->execute(array($_POST['inscription'], $_GET['id']));
         }
       }
@@ -492,7 +492,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=10) {
         // Changement de role
         if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
-          $newrole = $bdd->prepare('UPDATE FROM utilisateurs SET role = ? WHERE id = ?;');
+          $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
           $newrole->execute(array($_POST['role'], $_GET['id']));
         }
       }
@@ -501,12 +501,12 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=3) {
         // Changement du solde karma
         if (isset($_POST['karma'])) {
-          $newkarma = $bdd->prepare('UPDATE FROM utilisateurs SET karma = ? WHERE id = ?;');
+          $newkarma = $bdd->prepare('UPDATE utilisateurs SET karma = ? WHERE id = ?;');
           $newkarma->execute(array($_POST['karma'], $_GET['id']));
         }
         // Changement du statut de la validation Efrei
         if (isset($_POST['validation'])) {
-          $newval = $bdd->prepare('UPDATE FROM utilisateurs SET validation = ? WHERE id = ?;');
+          $newval = $bdd->prepare('UPDATE utilisateurs SET validation = ? WHERE id = ?;');
           $newval->execute(array($_POST['validation'], $_GET['id']));
         }
       }
@@ -533,7 +533,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
             if (isset($_POST['nmdp']) AND isset($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
               $hash=password_hash($_POST['nmdp'], PASSWORD_DEFAULT);
 
-              $newauth = $bdd->prepare('UPDATE FROM utilisateurs SET mdp = ? WHERE id = ?;');
+              $newauth = $bdd->prepare('UPDATE utilisateurs SET mdp = ? WHERE id = ?;');
               $newauth->execute(array($hash, $_GET['id']));
             } else {
               $passfailure = true;
@@ -549,33 +549,33 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
         // Changement de la photo de profil
         if (isset($_POST['photo'])){
-          $newpic = $bdd->prepare('UPDATE FROM utilisateurs SET photo = ? WHERE id = ?;');
+          $newpic = $bdd->prepare('UPDATE utilisateurs SET photo = ? WHERE id = ?;');
           $newpic->execute(array($_POST['photo'], $_GET['id']));
         }
         // Suppression de la photo de profil
         if (isset($_POST['dphoto'])){
-          $delpic = $bdd->prepare('UPDATE FROM utilisateurs SET photo = NULL WHERE id = ?;');
+          $delpic = $bdd->prepare('UPDATE utilisateurs SET photo = NULL WHERE id = ?;');
           $delpic->execute(array($_GET['id']));
         }
         // Changement du profil LinkedIn
         if (isset($_POST['linkedin'])){
-          $newlink = $bdd->prepare('UPDATE FROM utilisateurs SET linkedin = ? WHERE id = ?;');
+          $newlink = $bdd->prepare('UPDATE utilisateurs SET linkedin = ? WHERE id = ?;');
           $newlink->execute(array($_POST['linkedin'], $_GET['id']));
         }
         // Suppression du profil LinkedIn
         if (isset($_POST['dlinkedin'])){
-          $dellink = $bdd->prepare('UPDATE FROM utilisateurs SET linkedin = NULL WHERE id = ?;');
+          $dellink = $bdd->prepare('UPDATE utilisateurs SET linkedin = NULL WHERE id = ?;');
           $dellink->execute(array($_GET['id']));
         }
 
         // Modification de pseudo
         if (isset($_POST['pseudo'])){
-          $newname = $bdd->prepare('UPDATE FROM utilisateurs SET pseudo = ? WHERE id = ?;');
+          $newname = $bdd->prepare('UPDATE utilisateurs SET pseudo = ? WHERE id = ?;');
           $newname->execute(array($_POST['pseudo'], $_GET['id']));
         }
         // Modification de mail
         if (isset($_POST['email'])){
-          $newmail = $bdd->prepare('UPDATE FROM utilisateurs SET email = ? WHERE id = ?;');
+          $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
           $newmail->execute(array($_POST['email'], $_GET['id']));
         }
 
@@ -585,12 +585,12 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) {
         // Changement d'année
         if (isset($_POST['annee'])){
-          $newyear = $bdd->prepare('UPDATE FROM utilisateurs SET annee = ? WHERE id = ?;');
+          $newyear = $bdd->prepare('UPDATE utilisateurs SET annee = ? WHERE id = ?;');
           $newyear->execute(array($_POST['annee'], $_GET['id']));
         }
         // Changement de majeure
         if (isset($_POST['majeure'])){
-          $newmaj = $bdd->prepare('UPDATE FROM utilisateurs SET majeure = ? WHERE id = ?;');
+          $newmaj = $bdd->prepare('UPDATE utilisateurs SET majeure = ? WHERE id = ?;');
           $newmaj->execute(array($_POST['majeure'], $_GET['id']));
         }
       }
