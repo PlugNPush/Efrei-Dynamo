@@ -157,7 +157,7 @@ if (isset($_SESSION['id'])){
                     <label for="email">Confirmez votre adresse mail Efrei</label>
                     <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'">
                     <small id="emailHelp" class="form-text text-muted">
-                      Vous devez utiliser une adresse en ' ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") '
+                      Vous devez utiliser une adresse en ', ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") ,'
                     </small>
                   </div>
                   <button type="submit" class="btn btn-primary">Démarrer le processus de vérification</button>
