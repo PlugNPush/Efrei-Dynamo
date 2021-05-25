@@ -150,7 +150,7 @@ if (isset($_SESSION['id'])){
 
               echo '<!-- Pagination -->
               <ul class="pagination justify-content-center mb-4">
-                <li class="page-item">
+                <li class="page-item disabled">
                   <a class="page-link" href="#">&larr; Plus ancien</a>
                 </li>
                 <li class="page-item disabled">

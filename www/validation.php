@@ -123,8 +123,7 @@ if (isset($_SESSION['id'])){
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $reponse['upvotes'],' Upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a>
-                    <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary">Répondre</a>
+                    <a href="newresponse.php?question=',$question['id'],'">Répondre</a>
                   </div>
                 </div>';
 
@@ -142,8 +141,7 @@ if (isset($_SESSION['id'])){
                     </div>
                     <div class="card-footer text-muted">
                         Publié le ', $reponse['date'],' par
-                        <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a><br>
-                        ', $reponse['upvotes'],' Upvotes <a href="vote.php?r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' Downvotes <a href="vote.php?r=', $reponse['id'],'&action=downvote">(-)</a>
+                        <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a>
                     </div>
                     </div>';
                 }
@@ -154,7 +152,7 @@ if (isset($_SESSION['id'])){
 
             echo '<!-- Pagination -->
             <ul class="pagination justify-content-center mb-4">
-              <li class="page-item disabled">
+              <li class="page-item">
                 <a class="page-link" href="#">&larr; Plus ancien</a>
               </li>
               <li class="page-item disabled">
