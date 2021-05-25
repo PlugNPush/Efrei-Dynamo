@@ -155,7 +155,7 @@ if (isset($_SESSION['id'])){
                 <form action="validation.php" method="post">
                   <div class="form-group">
                     <label for="email">Confirmez votre adresse mail Efrei</label>
-                    <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'">
+                    <input type="text" name="email" class="form-control" id="email" placeholder="', $data['email'] ,'" value="', $data['email'] ,'" required>
                     <small id="emailHelp" class="form-text text-muted">
                       Vous devez utiliser une adresse en ', ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") ,'
                     </small>
