@@ -160,12 +160,12 @@ if (isset($_SESSION['id'])){
                         ', $reponse['upvotes'],' upvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=downvote">(-)</a>';
                         if ($question['repondue'] != 1) {
                           if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-                            echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action="validate" class="btn btn-success btn-lg btn-block">Marquer comme la bonne réponse</a>';
+                            echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=validate" class="btn btn-success btn-lg btn-block">Marquer comme la bonne réponse</a>';
                           }
                         } else {
                           if ($reponse['validation'] == 1) {
                             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-                              echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action="unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
+                              echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
                             }
                           }
                         }
