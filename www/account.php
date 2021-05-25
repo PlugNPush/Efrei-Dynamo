@@ -156,28 +156,28 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
             if (isset($_GET['authfailure'])) {
               echo '
               <div class="alert alert-danger fade show" role="alert">
-                <strong>Echec de l\'authentification !</strong>. Le mot de passe n\'a pas pu être changé car le mot de passe d\'origine ne correspond pas.
+                <strong>Echec de l\'authentification !</strong> Le mot de passe n\'a pas pu être changé car le mot de passe d\'origine ne correspond pas.
               </div>';
             }
 
             if (isset($_GET['passfailure'])) {
               echo '
               <div class="alert alert-danger fade show" role="alert">
-                <strong>Impossible d\'actualiser le mot de passe !</strong>. Le nouveau mot de passe saisi ne correspond pas avec la confirmation saisie.
+                <strong>Impossible d\'actualiser le mot de passe !</strong> Le nouveau mot de passe saisi ne correspond pas avec la confirmation saisie.
               </div>';
             }
 
             if (isset($_GET['everythingworked'])) {
               echo '
               <div class="alert alert-success fade show" role="alert">
-                <strong>Le compte a été mis à jour !</strong>. Les informations nécéssaires ont été enregistrées dans la base de données.
+                <strong>Le compte a été mis à jour !</strong> Les informations nécéssaires ont été enregistrées dans la base de données.
               </div>';
             }
 
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
-            <form action="account.php" method="post">
+            <form action="account.php?id=', $compte ,'" method="post">
             <div class="form-group">
               <label for="id">Identifiant interne</label>
               <input type="number" name="id" class="form-control" min="1" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
