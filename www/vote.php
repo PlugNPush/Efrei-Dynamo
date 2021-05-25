@@ -35,27 +35,27 @@ if (isset($_SESSION['id'])){
       if (isset($_GET['action'])) {
         if (isset($_GET['r'])) {
           if ($_GET['action'] == 'upvote') {
-            $upvote = $bdd->prepare('UPDATE repones SET upvotes = upvotes + 1 WHERE id = ?;');
+            $upvote = $bdd->prepare('UPDATE reponses SET upvotes = upvotes + 1 WHERE id = ?;');
             $upvote->execute(array($_GET['r']));
-            header( "refresh:0;url=question.php?id=", $_GET['q'] );
+            header( "refresh:0;url=question.php?id=" + $_GET['q'] );
           } else if ($_GET['action'] == 'downvote') {
-            $downvote = $bdd->prepare('UPDATE repones SET downvotes = downvotes + 1 WHERE id = ?;');
+            $downvote = $bdd->prepare('UPDATE reponses SET downvotes = downvotes + 1 WHERE id = ?;');
             $downvote->execute(array($_GET['r']));
-            header( "refresh:0;url=question.php?id=", $_GET['q'] );
+            header( "refresh:0;url=question.php?id=" + $_GET['q'] );
           } else if ($_GET['action'] == 'validate') {
             $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
             $question_fetch->execute(array($_GET['q']));
             $question = $question_fetch->fetch();
 
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-              $validate = $bdd->prepare('UPDATE repones SET validation = 1 WHERE id = ?;');
+              $validate = $bdd->prepare('UPDATE reponses SET validation = 1 WHERE id = ?;');
               $validate->execute(array($_GET['r']));
 
               $answered = $bdd->prepare('UPDATE questions SET repondue = 1 WHERE id = ?;');
               $answered->execute(array($_GET['q']));
-              header( "refresh:0;url=question.php?id=", $_GET['q'] );
+              header( "refresh:0;url=question.php?id=" + $_GET['q'] );
             } else {
-              header( "refresh:0;url=question.php?dperror=true&id=", $_GET['q'] );
+              header( "refresh:0;url=question.php?dperror=true&id=" + $_GET['q'] );
             }
 
           } else if ($_GET['action'] == 'unvalidate'){
@@ -64,7 +64,7 @@ if (isset($_SESSION['id'])){
             $question = $question_fetch->fetch();
 
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-              $unvalidate = $bdd->prepare('UPDATE repones SET validation = 0 WHERE id = ?;');
+              $unvalidate = $bdd->prepare('UPDATE reponses SET validation = 0 WHERE id = ?;');
               $unvalidate->execute(array($_GET['r']));
 
               $unanswered = $bdd->prepare('UPDATE questions SET repondue = 0 WHERE id = ?;');
