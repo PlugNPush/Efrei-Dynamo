@@ -274,7 +274,7 @@ if (isset($_SESSION['id'])){
 
 }
 else {
-  header( "refresh:0;url=login.php" );
+  header( "refresh:0;url=login.php?expired=true" );
 }
 
 ?>

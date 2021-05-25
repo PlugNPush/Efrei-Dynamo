@@ -112,7 +112,20 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
         <!-- Blog Entries Column -->
         <div class="col-md-8">';
 
-          echo '<h1 class="my-4">Connexion</h1>
+          echo '<h1 class="my-4">Connexion</h1>';
+          if (isset($_GET['deleted'])) {
+            echo '
+            <div class="alert alert-success fade show" role="alert">
+              <strong>Votre compte a bien été supprimé</strong>. Nous souhaitons que votre motif de départ est l\'obtention de votre diplôme Efrei Paris qui achève votre formation dans cette école. Si vous n\'êtes pas satisfait du service, n\'hésitez pas à remonter vos tracas à un modérateur.
+            </div>';
+          }
+          if (isset($_GET['expired'])) {
+            echo '
+            <div class="alert alert-info fade show" role="alert">
+              <strong>Votre session a expiré</strong>. Pour votre sécurité, votre session a expiré. Veuillez vous reconnecter.
+            </div>';
+          }
+          echo '
           <form action="login.php" method="post">
             <div class="form-group">
               <label for="email">Saisissez votre adresse e-mail</label>

@@ -96,7 +96,7 @@ if (!isset($_POST['contenu'])) {
         <div class="col-md-8">';
 
         if (!isset($_SESSION['id'])){
-          header( "refresh:0;url=login.php" );
+          header( "refresh:0;url=login.php?expired=true" );
           echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
           if (!isset($_GET['question'])) {
@@ -159,7 +159,7 @@ if (!isset($_POST['contenu'])) {
     ));
     header( "refresh:0;url=question.php?id=" . $_GET['question']);
   }else{
-    header( "refresh:0;url=login.php" );
+    header( "refresh:0;url=login.php?expired=true" );
   }
 }
 ?>

@@ -5,6 +5,10 @@ session_start();
 $_SESSION = array();
 session_destroy();
 
-header( "refresh:0;url=login.php" );
+if (isset($_GET['deleted'])) {
+  header( "refresh:0;url=login.php?deleted=true" );
+} else {
+  header( "refresh:0;url=login.php" );
+}
 
 ?>

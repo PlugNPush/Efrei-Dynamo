@@ -174,6 +174,27 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               </div>';
             }
 
+            if (isset($_GET['derror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur s\'est produite</strong>. Il semblerait que vous ayez oublié de cocher une case de confirmation pour effectuer cette opération.
+              </div>';
+            }
+
+            if (isset($_GET['dperror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+              </div>';
+            }
+
+            if (isset($_GET['dperror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
+              </div>';
+            }
+
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
@@ -441,12 +462,12 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
           $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
           $sup_utilisateur->execute(array($_GET['id']));
 
-          header( "refresh:0;url=logout.php" );
+          header( "refresh:0;url=logout.php?deleted=true" );
         } else {
-          header( "refresh:0;url=account.php" );
+          header( "refresh:0;url=account.php?derror=true" );
         }
       } else {
-        header( "refresh:0;url=account.php" );
+        header( "refresh:0;url=account.php?dperror=true" );
       }
 
     } else if (isset($_GET['id'])){
@@ -584,11 +605,11 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       }
 
     } else {
-      header( "refresh:0;url=account.php" );
+      header( "refresh:0;url=account.php?ierror=true" );
     }
 
-  }else{
-    header( "refresh:0;url=login.php" );
+  } else {
+    header( "refresh:0;url=login.php?expired=true" );
   }
 }
 ?>
