@@ -130,6 +130,13 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             </div><br><br>';
           }
 
+          if (isset($_GET['deleted'])) {
+            echo '
+            <div class="alert alert-success fade show" role="alert">
+              <strong>Le compte d\'utilisateur compte a bien été supprimé</strong>. Si vous n\'êtes pas satisfait du service, n\'hésitez pas à faire remonter vos tracas auprès d\'un modérateur.
+            </div>';
+          }
+
           if (!$data){
             echo '
             <div class="alert alert-danger fade show" role="alert">
@@ -461,13 +468,16 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           // Suppression du compte
           $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
           $sup_utilisateur->execute(array($_GET['id']));
-
-          header( "refresh:0;url=logout.php?deleted=true" );
+          if ($_GET['id'] == $_SESSION['id']) {
+            header( "refresh:0;url=logout.php?deleted=true" );
+          } else {
+            header( "refresh:0;url=account.php?deleted=true&id=", $_GET['id'] );
+          }
         } else {
-          header( "refresh:0;url=account.php?derror=true" );
+          header( "refresh:0;url=account.php?derror=true&id=", $_GET['id'] );
         }
       } else {
-        header( "refresh:0;url=account.php?dperror=true" );
+        header( "refresh:0;url=account.php?dperror=true&id=", $_GET['id'] );
       }
 
     } else if (isset($_GET['id'])){
@@ -596,15 +606,15 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
       }
 
       if (isset($passfailure)) {
-        header( "refresh:0;url=account.php?passfailure=true" );
+        header( "refresh:0;url=account.php?passfailure=true&id=", $_GET['id'] );
       } else if (isset($authfailure)) {
-        header( "refresh:0;url=account.php?authfailure=true" );
+        header( "refresh:0;url=account.php?authfailure=true&id=", $_GET['id'] );
       } else {
-        header( "refresh:0;url=account.php?everythingworked=true" );
+        header( "refresh:0;url=account.php?everythingworked=true&id=", $_GET['id'] );
       }
 
     } else {
-      header( "refresh:0;url=account.php?ierror=true" );
+      header( "refresh:0;url=account.php?ierror=true&id=", $_GET['id'] );
     }
 
   } else {
