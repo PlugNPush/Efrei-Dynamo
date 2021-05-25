@@ -100,153 +100,20 @@ if (isset($_SESSION['id'])){
           <!-- Blog Entries Column -->
           <div class="col-md-8">';
 
-          if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
-            if (isset($_GET['id'])){
-                $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
-                $question_fetch->execute(array($_GET['id']));
-                $question = $question_fetch->fetch();
 
-                $auteur_question=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
-                $auteur_question->execute(array($question['auteur']));
-                $auteur = $auteur_question->fetch();
+            echo'<h1 class="my-4">Statut de validation Efrei</h1>';
 
-                $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ?;');
-                $reponse_fetch->execute(array($_GET['id']));
-
-                echo'<h1 class="my-4">' , $question['titre'], '</h1>';
-
-                echo '<!-- Blog Post -->
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <p class="card-text">', $question['contenu'],'</p>
-                  </div>
-                  <div class="card-footer text-muted">
-                    Publié le ', $question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    <a href="newresponse.php?question=',$question['id'],'">Répondre</a>
-                  </div>
-                </div>';
-
-                while($reponse = $reponse_fetch->fetch()){
-
-                    $auteur_reponse=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
-                    $auteur_reponse->execute(array($reponse['auteur']));
-                    $auteur_rep = $auteur_reponse->fetch();
-
-
-                    echo '<!-- Blog Post -->
-                    <div class="card mb-4">
-                    <div class="card-body">
-                        <p class="card-text">', $reponse['contenu'],'</p>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Publié le ', $reponse['date'],' par
-                        <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a>
-                    </div>
-                    </div>';
-                }
-
-
-            }
-            // Aucune question
-
-            echo '<!-- Pagination -->
-            <ul class="pagination justify-content-center mb-4">
-              <li class="page-item">
-                <a class="page-link" href="#">&larr; Plus ancien</a>
-              </li>
-              <li class="page-item disabled">
-                <a class="page-link" href="#">Plus récent &rarr;</a>
-              </li>
-            </ul>
-
-          </div>
-
-          <!-- Sidebar Widgets Column -->
-          <div class="col-md-4">
-
-            <!-- Search Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Rechercher</h5>
-              <div class="card-body">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Rechercher...">
-                  <span class="input-group-append">
-                    <button class="btn btn-secondary" type="button">Go !</button>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Categories Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Catégories</h5>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <ul class="list-unstyled mb-0">
-                      <li>
-                        <a href="#">L1</a>
-                      </li>
-                      <li>
-                        <a href="#">L2</a>
-                      </li>
-                      <li>
-                        <a href="#">L3</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-lg-6">
-                    <ul class="list-unstyled mb-0">
-                      <li>
-                        <a href="#">M1</a>
-                      </li>
-                      <li>
-                        <a href="#">M2</a>
-                      </li>
-                      <li>
-                        <a href="#">Campus</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>';
-
-            $nb_questions=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ?;');
-            $nb_questions->execute(array($_SESSION['id']));
-            $questions = $nb_questions->fetch();
-
-            $nb_reponses=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ?;');
-            $nb_reponses->execute(array($_SESSION['id']));
-            $reponses = $nb_reponses->fetch();
-
-            $nb_repondues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE repondue = 0;');
-            $nb_repondues->execute();
-            $repondues = $nb_repondues->fetch();
-
-
-            echo '
-
-            <!-- Side Widget -->
-            <div class="card my-4">
-              <h5 class="card-header">Récapitulatif</h5>
-              <div class="card-body">
-                Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation.
-              </div>
-            </div>';
-
-          } else {
-            echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
-              <small>', $_SESSION['pseudo'], '</small>
-            </h1>
-            <div class="alert alert-warning fade show" role="alert">
-              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
+            if ((isset($_SESSION['validation']) && $_SESSION['validation'] == 1)) {
+              echo '<div class="alert alert-success fade show" role="alert">
+                <strong>Félicitations, votre compte Efrei est validé !</strong><br> Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec l\'adresse email suivante : ', $_SESSION['email'] ,'.
+              </div>';
+            } else {
+            echo '<div class="alert alert-warning fade show" role="alert">
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
             </div>';
           }
 
-            echo '
-
+          echo '
           </div>
 
         </div>
