@@ -141,6 +141,13 @@ if (isset($_SESSION['id'])){
               </div>';
             }
 
+            if (isset($_GET['ierror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
+              </div>';
+            }
+
             if (isset($_GET['pending'])) {
               echo '<div class="alert alert-success fade show" role="alert">
                 <strong>Validation en attente.</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams.
@@ -285,7 +292,7 @@ if (isset($_SESSION['id'])){
       }
 
   } else {
-
+    header( "refresh:0;url=validation.php?ierror=true" );
   }
 
 } else if (isset($_GET['cancel'])){
@@ -352,8 +359,6 @@ if (isset($_SESSION['id'])){
     } else {
       header( "refresh:0;url=validation.php?serror=true" );
     }
-
-
 
   } else {
     header( "refresh:0;url=validation.php?invalidmail=true" );
