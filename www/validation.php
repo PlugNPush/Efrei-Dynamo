@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])){
 ';
 } else if (!isset($_GET['key'])){
 
-  if ((str_contains($_POST['email'], "@efrei.net") AND $_SESSION['role'] == 0) OR (str_contains($_POST['email'], "@efrei.fr") AND $_SESSION['role'] == 2)) {
+  if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($_POST['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2)) {
     $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
     $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
