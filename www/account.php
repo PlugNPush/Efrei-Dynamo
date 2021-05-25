@@ -215,7 +215,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             </div>
             <div class="form-group">
               <label for="role">Rôle</label>
-              <input type="number" name="role" class="form-control" id="role" min="1" max="', $_SESSION['role'] ,'" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
+              <input type="number" name="role" class="form-control" id="role" min="0" max="', $_SESSION['role'] ,'" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=10) ? ('En tant qu\'ultra-modérateur, vous pouvez modifier le rôle. ') : (''), 'Le rôle actuel est ', $data['role'] ,'
               </small>
@@ -286,7 +286,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
               <div class="form-group">
                 <label for="photo">Photo de profil</label>
-                <input type="text" name="photo" class="form-control" id="photo" placeholder="Insérer une photo de profil par URL (facultatif)" value="', $data['photo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="photo" class="form-control" id="photo" placeholder="URL de la photo de profil (facultatif)" value="', $data['photo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <small id="emailHelp" class="form-text text-muted">
                   L\'URL de la photo de profil actuelle est ', $data['photo'] ,'
                 </small>
@@ -302,7 +302,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
               echo '
               <div class="form-group">
                 <label for="titre">Profil LinkedIn</label>
-                <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="Insérer l\'URL de votre profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="URL du profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <small id="emailHelp" class="form-text text-muted">
                   L\'adresse du profil LinkedIn actuelle est ', $data['linkedin'] ,'
                 </small>
