@@ -123,7 +123,7 @@ if (isset($_SESSION['id'])){
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $question['upvotes'],' Upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
+                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
                     <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary">Répondre</a>
                   </div>
                 </div>';
@@ -143,7 +143,7 @@ if (isset($_SESSION['id'])){
                     <div class="card-footer text-muted">
                         Publié le ', $reponse['date'],' par
                         <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a><br>
-                        ', $reponse['upvotes'],' Upvotes <a href="vote.php?r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' Downvotes <a href="vote.php?r=', $reponse['id'],'&action=downvote">(-)</a>
+                        ', $reponse['upvotes'],' upvotes <a href="vote.php?r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?r=', $reponse['id'],'&action=downvote">(-)</a>
                     </div>
                     </div>';
                 }
