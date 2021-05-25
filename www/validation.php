@@ -250,7 +250,7 @@ if (isset($_SESSION['id'])){
   $data = $gatherdata->fetch();
 
   if ($data) {
-    $to = 'motherboardplus@gmail.com'; // $_POST['email']
+    $to = 'la16@private.groupe-minaste.org'; // $_POST['email']
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
@@ -280,7 +280,7 @@ if (isset($_SESSION['id'])){
 
       // En-têtes additionnels
       $headers[] = 'To: ' . $_SESSION['pseudo'] . '<'. $_POST['email'] .'>';
-      $headers[] = 'From: Système de validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
+      $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
       // Envoi
       $sent = mail($to, $subject, $message, implode("\r\n", $headers));
