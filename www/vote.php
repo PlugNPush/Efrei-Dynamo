@@ -69,7 +69,7 @@ if (isset($_SESSION['id'])){
 
               $unanswered = $bdd->prepare('UPDATE questions SET repondue = 0 WHERE id = ?;');
               $unanswered->execute(array($_GET['q']));
-              header( "refresh:0;url=question.php?id=", $_GET['q'] );
+              header( "refresh:0;url=question.php?id=" . $_GET['q'] );
             } else {
               header( "refresh:0;url=question.php?dperror=true&id=" . $_GET['q'] );
             }
