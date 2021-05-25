@@ -415,7 +415,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
   if (isset($_SESSION['id'])) {
 
-    if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true') {
+    if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true' && isset($_GET['id'])) {
       if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
         // Suppression du compte
         if (isset($_POST['confirmersup']) && $_POST['confirmersup'] == 'on'){
@@ -442,7 +442,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
         header( "refresh:0;url=account.php" );
       }
 
-    } else {
+    } else if (isset($_GET['id'])){
       // Modification de paramètres
 
       // Modifications d'administrateurs uniquement
