@@ -153,13 +153,27 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               </div>';
             }
 
+            if (isset($_GET['authfailure'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Echec de l\'authentification !</strong>. Le mot de passe n\'a pas pu être changé car le mot de passe d\'origine ne correspond pas.
+              </div>';
+            }
+
+            if (isset($_GET['passfailure'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Impossible d\'actualiser le mot de passe !</strong>. Le nouveau mot de passe saisi ne correspond pas avec la confirmation saisie.
+              </div>';
+            }
+
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
             <form action="account.php" method="post">
             <div class="form-group">
               <label for="id">Identifiant interne</label>
-              <input type="text" name="id" class="form-control" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
+              <input type="number" name="id" class="form-control" min="1" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 L\'identifiant interne est immuable et vaut ', $data['id'] ,'
               </small>
@@ -173,21 +187,21 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
             </div>
             <div class="form-group">
               <label for="role">Rôle</label>
-              <input type="text" name="role" class="form-control" id="role" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
+              <input type="number" name="role" class="form-control" id="role" min="1" max="', $_SESSION['role'] ,'" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=10) ? ('En tant qu\'ultra-modérateur, vous pouvez modifier le rôle. ') : (''), 'Le rôle actuel est ', $data['role'] ,'
               </small>
             </div>
             <div class="form-group">
               <label for="karma">Karma</label>
-              <input type="text" name="karma" class="form-control" id="karma" value="', $data['karma'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
+              <input type="number" name="karma" class="form-control" id="karma" value="', $data['karma'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le solde Karma. ') : (''), 'Le solde de Karma est ', $data['karma'] ,'
               </small>
             </div>
             <div class="form-group">
               <label for="validation">Validation Efrei</label>
-              <input type="text" name="validation" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
+              <input type="number" name="validation" min="0" max="1" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('En cas de problème, contactez un modérateur. '), 'Le statut de vérification Efrei est actuellement à ', $data['validation'] ,'
               </small>
@@ -244,13 +258,13 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
               <div class="form-group">
                 <label for="photo">Photo de profil</label>
-                <input type="text" name="photo" class="form-control" id="photo" placeholder="Insérer une photo de profil par URL (facultatif)" value="', $data['photo'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="photo" class="form-control" id="photo" placeholder="Insérer une photo de profil par URL (facultatif)" value="', $data['photo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <small id="emailHelp" class="form-text text-muted">
                   L\'URL de la photo de profil actuelle est ', $data['photo'] ,'
                 </small>
               </div>';
 
-              if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+              if ($_SESSION['role']>=10 || $compte == $_SESSION['id']) {
                 echo '<div class="form-group">
                   <input type="checkbox" name="dphoto" class="form-check-input" id="dphoto">
                   <label class="form-check-label" for="dphoto">Supprimer la photo actuelle</label>
@@ -260,13 +274,13 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               echo '
               <div class="form-group">
                 <label for="titre">Profil LinkedIn</label>
-                <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="Insérer l\'URL de votre profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="linkedin" class="form-control" id="linkedin" placeholder="Insérer l\'URL de votre profil LinkedIn (facultatif)" value="', $data['linkedin'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
                 <small id="emailHelp" class="form-text text-muted">
                   L\'adresse du profil LinkedIn actuelle est ', $data['linkedin'] ,'
                 </small>
               </div>';
 
-              if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+              if ($_SESSION['role']>=10 || $compte == $_SESSION['id']) {
                 echo '<div class="form-group">
                   <input type="checkbox" name="dlinkedin" class="form-check-input" id="dlinkedin">
                   <label class="form-check-label" for="dlinkedin">Supprimer le profil LinkedIn actuel</label>
@@ -274,14 +288,51 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               }
 
               if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
-                echo '<h3>Modification du mot de passe</h3>
+                echo '<h3>Modification du mot de passe</h3>';
+                if ($compte == $_SESSION['id'] && !$_SESSION['role']>=50) {
+                  echo '
+                  <div class="form-group">
+                    <label for="titre">Mot de passe actuel</label>
+                    <input type="password" name="cmdp" class="form-control" id="cmdp"';
+                    if (isset($_GET['authfailure'])){
+                      echo ' is-invalid';
+                    }
+                    echo ' placeholder="Votre mot de passe actuel">';
+                    if (isset($_GET['authfailure'])){
+                      echo '<div class="invalid-feedback">
+                        Le mot de passe actuel que vous avez saisi est incorrect ! Besoin d\'aide ? Contactez un administrateur.
+                      </div>';
+                    }
+                  }
+
+                  echo '
+                </div>
                 <div class="form-group">
-                  <label for="titre">Votre mot de passe</label>
-                  <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Prenez un mot de passe sûr" required>
+                  <label for="titre">Nouveau mot de passe</label>
+                  <input type="password" name="nmdp" class="form-control" id="mdp"';
+                  if (isset($_GET['passfailure'])){
+                    echo ' is-invalid';
+                  }
+                  echo ' placeholder="Prenez un mot de passe sûr">';
+                  if (isset($_GET['passfailure'])){
+                    echo '<div class="invalid-feedback">
+                      Votre nouveau mot de passe ne correspond pas à la confirmation.
+                    </div>';
+                  }
+                  echo '
                 </div>
                 <div class="form-group">
                   <label for="titre">Confirmez le mot de passe</label>
-                  <input type="password" name="vmdp" class="form-control" id="vmdp" placeholder="Confirmation" required>
+                  <input type="password" name="vmdp" class="form-control" id="vmdp"';
+                  if (isset($_GET['passfailure'])){
+                    echo ' is-invalid';
+                  }
+                  echo ' placeholder="Confirmation">';
+                  if (isset($_GET['passfailure'])){
+                    echo '<div class="invalid-feedback">
+                      La confirmation ne correspond pas à votre nouveau mot de passe.
+                    </div>';
+                  echo '
                 </div>';
               }
 
@@ -364,30 +415,167 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
   if (isset($_SESSION['id'])) {
 
     if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true') {
-      // Suppression du compte
-      if (isset($_POST['confirmersup']) && $_POST['confirmersup'] == 'on'){
-        if (isset($_POST['supcontenu']) && $_POST['supcontenu'] == 'on') {
-          // Suppression du contenu
-          $sup_questions = $bdd->prepare('DELETE FROM questions WHERE auteur = ?;');
-          $sup_questions->execute(array($_GET['id']));
-
-          $sup_reponses = $bdd->prepare('DELETE FROM reponses WHERE auteur = ?;');
-          $sup_reponses->execute(array($_GET['id']));
-
-          $sup_sanctions = $bdd->prepare('DELETE FROM sanctions WHERE utilisateur = ? OR delateur = ?;');
-          $sup_sanctions->execute(array($_GET['id'], $_GET['id']));
-        }
+      if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
         // Suppression du compte
-        $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
-        $sup_utilisateur->execute(array($_GET['id']));
+        if (isset($_POST['confirmersup']) && $_POST['confirmersup'] == 'on'){
+          if (isset($_POST['supcontenu']) && $_POST['supcontenu'] == 'on') {
+            // Suppression du contenu
+            $sup_questions = $bdd->prepare('DELETE FROM questions WHERE auteur = ?;');
+            $sup_questions->execute(array($_GET['id']));
 
-        header( "refresh:0;url=logout.php" );
+            $sup_reponses = $bdd->prepare('DELETE FROM reponses WHERE auteur = ?;');
+            $sup_reponses->execute(array($_GET['id']));
+
+            $sup_sanctions = $bdd->prepare('DELETE FROM sanctions WHERE utilisateur = ? OR delateur = ?;');
+            $sup_sanctions->execute(array($_GET['id'], $_GET['id']));
+          }
+          // Suppression du compte
+          $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
+          $sup_utilisateur->execute(array($_GET['id']));
+
+          header( "refresh:0;url=logout.php" );
+        } else {
+          header( "refresh:0;url=account.php" );
+        }
       } else {
         header( "refresh:0;url=account.php" );
       }
 
     } else {
       // Modification de paramètres
+
+      // Modifications d'administrateurs uniquement
+      if ($_SESSION['role']>=50) {
+        // Changement d'ID
+        if (isset($_POST['id'])) {
+          $newid = $bdd->prepare('UPDATE FROM utilisateurs SET id = ? WHERE id = ?;');
+          $newid->execute(array($_POST['id'], $_GET['id']));
+        }
+
+        // Changement de la date d'inscription
+        if (isset($_POST['inscription'])) {
+          $newreg = $bdd->prepare('UPDATE FROM utilisateurs SET inscription = ? WHERE id = ?;');
+          $newreg->execute(array($_POST['inscription'], $_GET['id']));
+        }
+      }
+
+      // Modifications d'ultra-modérateurs uniquement
+      if ($_SESSION['role']>=10) {
+        // Changement de role
+        if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
+          $newrole = $bdd->prepare('UPDATE FROM utilisateurs SET role = ? WHERE id = ?;');
+          $newrole->execute(array($_POST['role'], $_GET['id']));
+        }
+      }
+
+      // Modifications de super-modérateurs uniquement
+      if ($_SESSION['role']>=3) {
+        // Changement du solde karma
+        if (isset($_POST['karma'])) {
+          $newkarma = $bdd->prepare('UPDATE FROM utilisateurs SET karma = ? WHERE id = ?;');
+          $newkarma->execute(array($_POST['karma'], $_GET['id']));
+        }
+        // Changement du statut de la validation Efrei
+        if (isset($_POST['validation'])) {
+          $newval = $bdd->prepare('UPDATE FROM utilisateurs SET validation = ? WHERE id = ?;');
+          $newval->execute(array($_POST['validation'], $_GET['id']));
+        }
+      }
+
+      // Modifications d'administrateurs ou par l'utilisateur
+      if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
+        // Changement de mot de passe
+        if (($_SESSION['role']>=50 || isset($_POST['cmdp'])) && isset($_POST['nmdp']) && isset($_POST['vmdp'])) {
+          if ($_SESSION['role']>=50) {
+           $verify = true;
+         } else if ($_GET['id'] == $_SESSION['id']) {
+            $pass_hache = password_hash($_POST['cmdp'], PASSWORD_DEFAULT);
+
+            $auth = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
+            $auth->execute(array($_GET['id']));
+            $authdata = $req->fetch();
+
+            $verify = password_verify($_POST['cmdp'], $authdata['mdp']);
+          } else {
+            $verify = false;
+          }
+
+          if ($verify){
+            if (isset($_POST['nmdp']) AND isset($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
+              $hash=password_hash($_POST['nmdp'], PASSWORD_DEFAULT);
+
+              $newauth = $bdd->prepare('UPDATE FROM utilisateurs SET mdp = ? WHERE id = ?;');
+              $newauth->execute(array($hash, $_GET['id']));
+            } else {
+              $passfailure = true;
+            }
+          } else {
+            $authfailure = true;
+          }
+
+        }
+      }
+
+      // Modifications d'ultra-modérateurs ou par l'utilisateur
+      if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+        // Changement de la photo de profil
+        if (isset($_POST['photo'])){
+          $newpic = $bdd->prepare('UPDATE FROM utilisateurs SET photo = ? WHERE id = ?;');
+          $newpic->execute(array($_POST['photo'], $_GET['id']));
+        }
+        // Suppression de la photo de profil
+        if (isset($_POST['dphoto'])){
+          $delpic = $bdd->prepare('UPDATE FROM utilisateurs SET photo = NULL WHERE id = ?;');
+          $delpic->execute(array($_GET['id']));
+        }
+        // Changement du profil LinkedIn
+        if (isset($_POST['linkedin'])){
+          $newlink = $bdd->prepare('UPDATE FROM utilisateurs SET linkedin = ? WHERE id = ?;');
+          $newlink->execute(array($_POST['linkedin'], $_GET['id']));
+        }
+        // Suppression du profil LinkedIn
+        if (isset($_POST['dlinkedin'])){
+          $dellink = $bdd->prepare('UPDATE FROM utilisateurs SET linkedin = NULL WHERE id = ?;');
+          $dellink->execute(array($_GET['id']));
+        }
+
+        // Modification de pseudo
+        if (isset($_POST['pseudo'])){
+          $newname = $bdd->prepare('UPDATE FROM utilisateurs SET pseudo = ? WHERE id = ?;');
+          $newname->execute(array($_POST['pseudo'], $_GET['id']));
+        }
+        // Modification de mail
+        if (isset($_POST['email'])){
+          $newmail = $bdd->prepare('UPDATE FROM utilisateurs SET email = ? WHERE id = ?;');
+          $newmail->execute(array($_POST['email'], $_GET['id']));
+        }
+
+      }
+
+      // Modifications de super-modérateurs ou par l'utilisateur
+      if ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) {
+        // Changement d'année
+        if (isset($_POST['annee'])){
+          $newyear = $bdd->prepare('UPDATE FROM utilisateurs SET annee = ? WHERE id = ?;');
+          $newyear->execute(array($_POST['annee'], $_GET['id']));
+        }
+        // Changement de majeure
+        if (isset($_POST['majeure'])){
+          $newmaj = $bdd->prepare('UPDATE FROM utilisateurs SET majeure = ? WHERE id = ?;');
+          $newmaj->execute(array($_POST['majeure'], $_GET['id']));
+        }
+      }
+
+
+      if (isset($passfailure)) {
+        header( "refresh:0;url=account.php?passfailure=true" );
+      } else if (isset($authfailure)) {
+        header( "refresh:0;url=account.php?authfailure=true" );
+      } else {
+        header( "refresh:0;url=account.php" );
+      }
+
+    } else {
       header( "refresh:0;url=account.php" );
     }
 
