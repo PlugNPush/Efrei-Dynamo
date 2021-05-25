@@ -250,7 +250,7 @@ if (isset($_SESSION['id'])){
   $data = $gatherdata->fetch();
 
   if ($data) {
-    $to = 'la16@private.groupe-minaste.org'; // $_POST['email']
+    $to = $_POST['email']; //
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
@@ -264,10 +264,10 @@ if (isset($_SESSION['id'])){
           <br><br>
           <a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.
           <br>
-          <p>En cas de problème, votre code de validation est</p>
-          <h4>' . $data['token'] . '</h4>
+          <p>En cas de problème avec le lien ci-dessus, vous pouvez aussi copier votre code d\'authentification à usage unique :</p>
+          <h4>' . $token . '</h4>
           <br>
-          <p>À très vite !</p><br>
+          <p>À très vite !</p>
           <p>- L\'équipe Efrei Dynamo.</p><br><br>
           <p>P.S.: Ce courriel est automatique, veuillez ne pas y répondre.</p>
        </body>
@@ -279,7 +279,7 @@ if (isset($_SESSION['id'])){
       $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
       // En-têtes additionnels
-      $headers[] = 'To: ' . $_SESSION['pseudo'] . '<'. $_POST['email'] .'>';
+      $headers[] = 'To: ' . $_POST['email'];
       $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
       // Envoi
@@ -320,7 +320,7 @@ if (isset($_SESSION['id'])){
     ));
 
 
-    $to = 'motherboardplus@gmail.com'; // $_POST['email']
+    $to = $_POST['email']; // $_POST['email']
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
@@ -331,13 +331,13 @@ if (isset($_SESSION['id'])){
           <h4>' . $_POST['email'] . '</h4>
           <p>Certification demandée le</p>
           <h4>' . $date . '</h4>
-          <br><br>
-          <a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.
           <br>
-          <p>En cas de problème, votre code de validation est</p>
+          <h3><a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.</h3>
+          <br>
+          <p>En cas de problème avec le lien ci-dessus, vous pouvez aussi copier votre code d\'authentification à usage unique :</p>
           <h4>' . $token . '</h4>
           <br>
-          <p>À très vite !</p><br>
+          <p>À très vite !</p>
           <p>- L\'équipe Efrei Dynamo.</p><br><br>
           <p>P.S.: Ce courriel est automatique, veuillez ne pas y répondre.</p>
        </body>
@@ -350,8 +350,8 @@ if (isset($_SESSION['id'])){
     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
     // En-têtes additionnels
-    $headers[] = 'To: ' . $_SESSION['pseudo'] . '<'. $_POST['email'] .'>';
-    $headers[] = 'From: Système de validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
+    $headers[] = 'To: ' . $_POST['email'];
+    $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
     // Envoi
     $sent = mail($to, $subject, $message, implode("\r\n", $headers));
