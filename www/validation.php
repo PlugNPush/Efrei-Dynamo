@@ -228,7 +228,7 @@ if (isset($_SESSION['id'])){
     ));
 
     $date = date('Y-m-d H:i:s');
-    $to = 'michael.nass@free.fr'; // $_POST['email']
+    $to = $_POST['email']; // 
     $subject = 'Vérification automatique Efrei Dynamo';
     $message = '
         <html>
