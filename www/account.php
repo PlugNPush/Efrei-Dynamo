@@ -31,7 +31,7 @@ if (isset($_GET['id'])){
   $compte = 0;
 }
 
-if (!isset($_GET['edit'] && !isset($_GET['pdelete'])) {
+if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
   echo '<!DOCTYPE html>
   <html lang="fr">
