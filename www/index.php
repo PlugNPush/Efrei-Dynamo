@@ -131,7 +131,7 @@ if (isset($_SESSION['id'])){
                 $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE CONCAT("%", ?, "%") OR contenu LIKE CONCAT("%", ?, "%");');
                 $fetch_question->execute(array($_GET['recherche'], $_GET['recherche']));
               }else{
-                $fetch_question=$bdd->prepare('SELECT * FROM questions;');
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE repondue != 1;');
                 $fetch_question->execute();
               }
 
