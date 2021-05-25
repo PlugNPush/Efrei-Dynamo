@@ -233,7 +233,7 @@ if (isset($_SESSION['id'])){
               $nb_repondues->execute();
               $repondues = $nb_repondues->fetch();
 
-              $nb_elues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ? AND repondue = 1;');
+              $nb_elues=$bdd->prepare('SELECT COUNT(*) FROM reponses WHERE auteur = ? AND validation = 1;');
               $nb_elues->execute(array($_SESSION['id']));
               $elues = $nb_elues->fetch();
 
