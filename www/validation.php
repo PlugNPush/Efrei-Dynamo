@@ -184,7 +184,7 @@ if (isset($_SESSION['id'])){
                 </div>
                 <button type="submit" class="btn btn-primary">Vérifier l\'authenticité du compte</button>
                 <a href="validation.php?resend=true" class="btn btn-secondary">Renvoyer le code</a>
-                <a href="validation.php?cancel=true" class="btn btn-danger">Annuler la validation</button>
+                <a href="validation.php?cancel=true" class="btn btn-danger">Annuler la validation</a>
                 </form><br><br>';
             } else {
 
