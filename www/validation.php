@@ -1,5 +1,13 @@
 <?php
 require_once dirname(__FILE__).'/../../config/config.php';
+require_once dirname(__FILE__).'/../../config/efreidynconfig.php';
+
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 try
 {
     $bdd = new PDO('mysql:host='.getDBHost().';dbname=efreidynamo', getDBUsername(), getDBPassword(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));
@@ -282,8 +290,33 @@ if (isset($_SESSION['id'])){
       $headers[] = 'To: <' . $data['email'] . '>';
       $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
+      $mail = new PHPmailer();
+      $mail->IsSMTP();
+      $mail->IsHTML(true);
+      $mail->CharSet = 'UTF-8';
+      $mail->Host = 'tls://mail.groupe-minaste.org';
+      $mail->Port = 25;
+      $mail->SMTPAuth = true;
+      $mail->Username = 'no-reply@efrei-dynamo.fr';
+      $mail->Password = getSMTPPassword();
+      $mail->SMTPOptions = array(
+          'ssl' => array(
+             'verify_peer' => false,
+             'verify_peer_name' => false,
+             'allow_self_signed' => true
+          )
+      );
+      $mail->From = 'no-reply@efrei-dynamo.fr';
+      $mail->FromName = 'Validation Efrei Dynamo';
+      $mail->AddAddress($to);
+      $mail->Subject = $subject;
+      $mail->Body = $message;
+
+      // Send the mail
+      $sent = $mail->send();
+
       // Envoi
-      $sent = mail($to, $subject, $message, implode("\r\n", $headers));
+      //$sent = mail($to, $subject, $message, implode("\r\n", $headers));
 
       if ($sent) {
         header( "refresh:0;url=validation.php?resent=true" );
@@ -353,8 +386,32 @@ if (isset($_SESSION['id'])){
     $headers[] = 'To: <' . $_POST['email'] . '>';
     $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
+    $mail = new PHPmailer();
+    $mail->IsSMTP();
+    $mail->IsHTML(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->Host = 'tls://mail.groupe-minaste.org';
+    $mail->Port = 25;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'no-reply@efrei-dynamo.fr';
+    $mail->Password = getSMTPPassword();
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+           'verify_peer' => false,
+           'verify_peer_name' => false,
+           'allow_self_signed' => true
+        )
+    );
+    $mail->From = 'no-reply@efrei-dynamo.fr';
+    $mail->FromName = 'Validation Efrei Dynamo';
+    $mail->AddAddress($to);
+    $mail->Subject = $subject;
+    $mail->Body = $message;
+
+    // Send the mail
+    $sent = $mail->send();
     // Envoi
-    $sent = mail($to, $subject, $message, implode("\r\n", $headers));
+    //$sent = mail($to, $subject, $message, implode("\r\n", $headers));
 
     if ($sent) {
       header( "refresh:0;url=validation.php?pending=true" );
