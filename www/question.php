@@ -124,9 +124,9 @@ if (isset($_SESSION['id'])){
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
                     ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
-                    <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary">Répondre</a>
                   </div>
-                </div>';
+                </div>
+                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>';
 
                 while($reponse = $reponse_fetch->fetch()){
 
