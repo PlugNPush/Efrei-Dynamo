@@ -150,7 +150,19 @@ if (isset($_SESSION['id'])){
               if ($_SESSION['role'] == 0 || $_SESSION['role'] == 2) {
                 echo '<div class="alert alert-warning fade show" role="alert">
                   <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
-                </div>';
+                </div>
+
+                <form action="validation.php" method="post">
+                  <div class="form-group">
+                    <label for="email">Confirmez votre adresse mail Efrei</label>
+                    <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'">
+                    <small id="emailHelp" class="form-text text-muted">
+                      Vous devez utiliser une adresse en ' ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") '
+                    </small>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Démarrer le processus de vérification</button>
+                  </form><br><br>';
+
               } else if ($_SESSION['role'] == 1) {
                 echo '<div class="alert alert-danger fade show" role="alert">
                   <strong>Tu n\'es pas éligible à la vérification automatique</strong>.<br> Tu as demandé à être modérateur, et pour cela nous devons vérifier manuellement ton statut. Contacte un autre modérateur, ou rétrograde ton profil vers un profil étudiant pour valider ton compte immédiatement.
@@ -195,7 +207,7 @@ if (isset($_SESSION['id'])){
 ';
 } else if (!isset($_GET['key'])){
 
-  if (str_contains($_POST['email'], "@efrei.net") OR str_contains($_POST['email'], "@efrei.fr")) {
+  if ((str_contains($_POST['email'], "@efrei.net") AND $_SESSION['role'] == 0) OR (str_contains($_POST['email'], "@efrei.fr") AND $_SESSION['role'] == 2)) {
     $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
     $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
@@ -207,8 +219,6 @@ if (isset($_SESSION['id'])){
       'email' => $_POST['email'],
       'key' => $key
     ));
-
-    // SEND THE MAIL ! (+ Vérifier mail efrei)
 
     $date = date('Y-m-d H:i:s');
     $to = $_POST['email'];
