@@ -175,9 +175,6 @@ if (isset($_SESSION['id'])){
                 <a href="account.php" class="btn btn-primary btn-lg btn-block">Modifier les réglages du compte</a><br><br>';
               }
 
-
-
-
           }
 
           echo '
