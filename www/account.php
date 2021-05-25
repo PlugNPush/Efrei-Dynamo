@@ -473,75 +473,17 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
     } else if (isset($_GET['id'])){
       // Modification de paramètres
 
-      // Modifications d'administrateurs uniquement
-      if ($_SESSION['role']>=50) {
-        // Changement d'ID
-        if (isset($_POST['id'])) {
-          $newid = $bdd->prepare('UPDATE utilisateurs SET id = ? WHERE id = ?;');
-          $newid->execute(array($_POST['id'], $_GET['id']));
+      // Modifications de super-modérateurs ou par l'utilisateur
+      if ($_SESSION['role']>=3 || $_GET['id'] == $_SESSION['id']) {
+        // Changement d'année
+        if (isset($_POST['annee'])){
+          $newyear = $bdd->prepare('UPDATE utilisateurs SET annee = ? WHERE id = ?;');
+          $newyear->execute(array($_POST['annee'], $_GET['id']));
         }
-
-        // Changement de la date d'inscription
-        if (isset($_POST['inscription'])) {
-          $newreg = $bdd->prepare('UPDATE utilisateurs SET inscription = ? WHERE id = ?;');
-          $newreg->execute(array($_POST['inscription'], $_GET['id']));
-        }
-      }
-
-      // Modifications d'ultra-modérateurs uniquement
-      if ($_SESSION['role']>=10) {
-        // Changement de role
-        if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
-          $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
-          $newrole->execute(array($_POST['role'], $_GET['id']));
-        }
-      }
-
-      // Modifications de super-modérateurs uniquement
-      if ($_SESSION['role']>=3) {
-        // Changement du solde karma
-        if (isset($_POST['karma'])) {
-          $newkarma = $bdd->prepare('UPDATE utilisateurs SET karma = ? WHERE id = ?;');
-          $newkarma->execute(array($_POST['karma'], $_GET['id']));
-        }
-        // Changement du statut de la validation Efrei
-        if (isset($_POST['validation'])) {
-          $newval = $bdd->prepare('UPDATE utilisateurs SET validation = ? WHERE id = ?;');
-          $newval->execute(array($_POST['validation'], $_GET['id']));
-        }
-      }
-
-      // Modifications d'administrateurs ou par l'utilisateur
-      if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
-        // Changement de mot de passe
-        if (($_SESSION['role']>=50 || isset($_POST['cmdp'])) && isset($_POST['nmdp']) && !empty($_POST['nmdp']) && isset($_POST['vmdp']) && !empty($_POST['vmdp'])) {
-          if ($_SESSION['role']>=50) {
-           $verify = true;
-         } else if ($_GET['id'] == $_SESSION['id']) {
-            $pass_hache = password_hash($_POST['cmdp'], PASSWORD_DEFAULT);
-
-            $auth = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
-            $auth->execute(array($_GET['id']));
-            $authdata = $auth->fetch();
-
-            $verify = password_verify($_POST['cmdp'], $authdata['mdp']);
-          } else {
-            $verify = false;
-          }
-
-          if ($verify){
-            if (!empty($_POST['nmdp']) AND !empty($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
-              $hash=password_hash($_POST['nmdp'], PASSWORD_DEFAULT);
-
-              $newauth = $bdd->prepare('UPDATE utilisateurs SET mdp = ? WHERE id = ?;');
-              $newauth->execute(array($hash, $_GET['id']));
-            } else {
-              $passfailure = true;
-            }
-          } else {
-            $authfailure = true;
-          }
-
+        // Changement de majeure
+        if (isset($_POST['majeure'])){
+          $newmaj = $bdd->prepare('UPDATE utilisateurs SET majeure = ? WHERE id = ?;');
+          $newmaj->execute(array($_POST['majeure'], $_GET['id']));
         }
       }
 
@@ -581,20 +523,77 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
       }
 
-      // Modifications de super-modérateurs ou par l'utilisateur
-      if ($_SESSION['role']>=3 || $_GET['id'] == $_SESSION['id']) {
-        // Changement d'année
-        if (isset($_POST['annee'])){
-          $newyear = $bdd->prepare('UPDATE utilisateurs SET annee = ? WHERE id = ?;');
-          $newyear->execute(array($_POST['annee'], $_GET['id']));
-        }
-        // Changement de majeure
-        if (isset($_POST['majeure'])){
-          $newmaj = $bdd->prepare('UPDATE utilisateurs SET majeure = ? WHERE id = ?;');
-          $newmaj->execute(array($_POST['majeure'], $_GET['id']));
+      // Modifications d'administrateurs ou par l'utilisateur
+      if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
+        // Changement de mot de passe
+        if (($_SESSION['role']>=50 || isset($_POST['cmdp'])) && isset($_POST['nmdp']) && !empty($_POST['nmdp']) && isset($_POST['vmdp']) && !empty($_POST['vmdp'])) {
+          if ($_SESSION['role']>=50) {
+           $verify = true;
+         } else if ($_GET['id'] == $_SESSION['id']) {
+            $pass_hache = password_hash($_POST['cmdp'], PASSWORD_DEFAULT);
+
+            $auth = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
+            $auth->execute(array($_GET['id']));
+            $authdata = $auth->fetch();
+
+            $verify = password_verify($_POST['cmdp'], $authdata['mdp']);
+          } else {
+            $verify = false;
+          }
+
+          if ($verify){
+            if (!empty($_POST['nmdp']) AND !empty($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
+              $hash=password_hash($_POST['nmdp'], PASSWORD_DEFAULT);
+
+              $newauth = $bdd->prepare('UPDATE utilisateurs SET mdp = ? WHERE id = ?;');
+              $newauth->execute(array($hash, $_GET['id']));
+            } else {
+              $passfailure = true;
+            }
+          } else {
+            $authfailure = true;
+          }
+
         }
       }
 
+      // Modifications de super-modérateurs uniquement
+      if ($_SESSION['role']>=3) {
+        // Changement du solde karma
+        if (isset($_POST['karma'])) {
+          $newkarma = $bdd->prepare('UPDATE utilisateurs SET karma = ? WHERE id = ?;');
+          $newkarma->execute(array($_POST['karma'], $_GET['id']));
+        }
+        // Changement du statut de la validation Efrei
+        if (isset($_POST['validation'])) {
+          $newval = $bdd->prepare('UPDATE utilisateurs SET validation = ? WHERE id = ?;');
+          $newval->execute(array($_POST['validation'], $_GET['id']));
+        }
+      }
+
+      // Modifications d'ultra-modérateurs uniquement
+      if ($_SESSION['role']>=10) {
+        // Changement de role
+        if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
+          $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
+          $newrole->execute(array($_POST['role'], $_GET['id']));
+        }
+      }
+
+      // Modifications d'administrateurs uniquement
+      if ($_SESSION['role']>=50) {
+        // Changement de la date d'inscription
+        if (isset($_POST['inscription'])) {
+          $newreg = $bdd->prepare('UPDATE utilisateurs SET inscription = ? WHERE id = ?;');
+          $newreg->execute(array($_POST['inscription'], $_GET['id']));
+        }
+        // Changement d'ID
+        if (isset($_POST['id'])) {
+          $newid = $bdd->prepare('UPDATE utilisateurs SET id = ? WHERE id = ?;');
+          $newid->execute(array($_POST['id'], $_GET['id']));
+        }
+
+      }
 
       if (isset($passfailure)) {
         header( "refresh:0;url=account.php?passfailure=true" );
