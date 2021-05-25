@@ -154,9 +154,10 @@ if (isset($_SESSION['id'])){
 
   $key = generateRandomString(32);
 
-  $newkey = $bdd->prepare('INSERT INTO validations(user, key) VALUES(:user, :key);');
+  $newkey = $bdd->prepare('INSERT INTO validations(user, email, key) VALUES(:user, :email, :key);');
   $newkey->execute(array(
     'user' => $_SESSION['id'],
+    'email' => $_POST['email'],
     'key' => $key
   ));
 
@@ -174,7 +175,7 @@ if (isset($_SESSION['id'])){
     $deletekey = $bdd->prepare('DELETE FROM validations WHERE key = ?');
     $deletekey->execute(array($key));
   } else {
-
+    // Redirect back with error message (invalid key)
   }
 
 }
