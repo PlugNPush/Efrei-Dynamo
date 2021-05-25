@@ -522,7 +522,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
             $auth = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
             $auth->execute(array($_GET['id']));
-            $authdata = $req->fetch();
+            $authdata = $auth->fetch();
 
             $verify = password_verify($_POST['cmdp'], $authdata['mdp']);
           } else {
@@ -530,7 +530,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           }
 
           if ($verify){
-            if (isset($_POST['nmdp']) AND isset($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
+            if (!empty($_POST['nmdp']) AND !empty($_POST['vmdp']) AND $_POST['nmdp'] == $_POST['vmdp']) {
               $hash=password_hash($_POST['nmdp'], PASSWORD_DEFAULT);
 
               $newauth = $bdd->prepare('UPDATE utilisateurs SET mdp = ? WHERE id = ?;');
