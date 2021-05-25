@@ -166,6 +166,8 @@ if (isset($_SESSION['id'])){
                           if ($reponse['validation'] == 1) {
                             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
                               echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
+                            } else {
+                              echo '<a href="#" class="btn btn-success btn-lg btn-block" disabled>Élue bonne réponse</a>';
                             }
                           }
                         }
