@@ -281,7 +281,7 @@ if (isset($_SESSION['id'])){
   $vkey->execute(array($_GET['key']));
   $key = $vkey->fetch();
 
-  if ($key && (str_contains($key['email'], "@efrei.net") OR str_contains($key['email'], "@efrei.fr"))) {
+  if ($key && ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($_POST['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2))) {
     $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
     $validation->execute(array($_SESSION['id']));
 
