@@ -167,6 +167,13 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               </div>';
             }
 
+            if (isset($_GET['everythingworked'])) {
+              echo '
+              <div class="alert alert-success fade show" role="alert">
+                <strong>Le compte a été mis à jour !</strong>. Les informations nécéssaires ont été enregistrées dans la base de données.
+              </div>';
+            }
+
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
@@ -293,11 +300,11 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
                   echo '
                   <div class="form-group">
                     <label for="titre">Mot de passe actuel</label>
-                    <input type="password" name="cmdp" class="form-control" id="cmdp"';
+                    <input type="password" name="cmdp" class="form-control';
                     if (isset($_GET['authfailure'])){
                       echo ' is-invalid';
                     }
-                    echo ' placeholder="Votre mot de passe actuel">';
+                    echo '" id="cmdp" placeholder="Votre mot de passe actuel">';
                     if (isset($_GET['authfailure'])){
                       echo '<div class="invalid-feedback">
                         Le mot de passe actuel que vous avez saisi est incorrect ! Besoin d\'aide ? Contactez un administrateur.
@@ -309,11 +316,11 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
                   echo '
                 <div class="form-group">
                   <label for="titre">Nouveau mot de passe</label>
-                  <input type="password" name="nmdp" class="form-control" id="mdp"';
+                  <input type="password" name="nmdp" class="form-control';
                   if (isset($_GET['passfailure'])){
                     echo ' is-invalid';
                   }
-                  echo ' placeholder="Prenez un mot de passe sûr">';
+                  echo '" id="mdp" placeholder="Prenez un mot de passe sûr">';
                   if (isset($_GET['passfailure'])){
                     echo '<div class="invalid-feedback">
                       Votre nouveau mot de passe ne correspond pas à la confirmation.
@@ -323,11 +330,11 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
                 </div>
                 <div class="form-group">
                   <label for="titre">Confirmez le mot de passe</label>
-                  <input type="password" name="vmdp" class="form-control" id="vmdp"';
+                  <input type="password" name="vmdp" class="form-control';
                   if (isset($_GET['passfailure'])){
                     echo ' is-invalid';
                   }
-                  echo ' placeholder="Confirmation">';
+                  echo '" id="vmdp" placeholder="Confirmation">';
                   if (isset($_GET['passfailure'])){
                     echo '<div class="invalid-feedback">
                       La confirmation ne correspond pas à votre nouveau mot de passe.
@@ -354,17 +361,17 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
         // Boutons GDPR
         if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
-        echo '<!-- Sidebar Widgets Column -->
-        <div class="col-md-4"><br>
-        <h2>Espace RGPD</h2>
-        <!-- Side Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Téléchargez une copie des données</h5>
-          <div class="card-body">
-            Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.<br><br>
-            <button class="btn btn-primary" disabled>Demander une copie des données</button>
+          echo '<!-- Sidebar Widgets Column -->
+          <div class="col-md-4"><br>
+          <h2>Espace RGPD</h2>
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Téléchargez une copie des données</h5>
+            <div class="card-body">
+              Notre service de portabilité des données n\'est pas encore disponible, mais le sera bientôt. En attendant, vous pouvez <a href="mailto:plugn@groupe-minaste.org">nous contacter ici</a> pour obtenir une copie des données.<br><br>
+              <button class="btn btn-primary" disabled>Demander une copie des données</button>
+            </div>
           </div>
-        </div>
 
           <!-- Search Widget -->
           <div class="card my-4">
@@ -573,7 +580,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       } else if (isset($authfailure)) {
         header( "refresh:0;url=account.php?authfailure=true" );
       } else {
-        header( "refresh:0;url=account.php" );
+        header( "refresh:0;url=account.php?everythingworked=true" );
       }
 
     } else {
