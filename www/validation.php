@@ -216,15 +216,15 @@ if (isset($_SESSION['id'])){
 
     $key = generateRandomString(32);
 
-    $newkey = $bdd->prepare('INSERT INTO validations(user, email, key) VALUES(:user, :email, :key);');
+    $newkey = $bdd->prepare('INSERT INTO validations(user, email, token) VALUES(:user, :email, :token);');
     $newkey->execute(array(
       'user' => $_SESSION['id'],
       'email' => $_POST['email'],
-      'key' => $key
+      'token' => $key
     ));
 
     $date = date('Y-m-d H:i:s');
-    $to = $_POST['email'];
+    $to = 'michael.nass@free.fr'; // $_POST['email']
     $subject = 'Vérification automatique Efrei Dynamo';
     $message = '
         <html>
