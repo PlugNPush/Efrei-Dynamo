@@ -104,7 +104,8 @@ if (isset($_SESSION['id'])){
             if ((isset($_SESSION['validation']) && $_SESSION['validation'] == 1)) {
               echo '<div class="alert alert-success fade show" role="alert">
                 <strong>Félicitations, votre compte Efrei est validé !</strong><br> Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec l\'adresse email suivante : <a href="mailto:', $_SESSION['email'] ,'">', $_SESSION['email'] ,'</a>.
-              </div>';
+              </div>
+              <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a>';
             } else {
             echo '<div class="alert alert-warning fade show" role="alert">
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
