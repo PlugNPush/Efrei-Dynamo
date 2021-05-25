@@ -514,7 +514,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
       // Modifications d'administrateurs ou par l'utilisateur
       if ($_SESSION['role']>=50 || $_GET['id'] == $_SESSION['id']){
         // Changement de mot de passe
-        if (($_SESSION['role']>=50 || (isset($_POST['cmdp']) && !empty($_POST['cmdp'])) && isset($_POST['nmdp']) && !empty($_POST['nmdp']) && isset($_POST['vmdp']) && !empty($_POST['vmdp'])) {
+        if (($_SESSION['role']>=50 || (isset($_POST['cmdp']) && !empty($_POST['cmdp']))) && isset($_POST['nmdp']) && !empty($_POST['nmdp']) && isset($_POST['vmdp']) && !empty($_POST['vmdp'])) {
           if ($_SESSION['role']>=50) {
            $verify = true;
          } else if ($_GET['id'] == $_SESSION['id']) {
