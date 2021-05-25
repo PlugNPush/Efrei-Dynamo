@@ -143,7 +143,7 @@ if (isset($_SESSION['id'])){
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $temp_question['date'],' par
-                    <a href="#">', $auteur['pseudo'],'</a>
+                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a>
                   </div>
                 </div>';
               }

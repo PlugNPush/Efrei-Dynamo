@@ -122,7 +122,7 @@ if (isset($_SESSION['id'])){
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
-                    <a href="#">', $auteur['pseudo'],'</a><br>
+                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
                     <a href="newresponse.php?question=',$question['id'],'">Répondre</a>
                   </div>
                 </div>';
@@ -141,7 +141,7 @@ if (isset($_SESSION['id'])){
                     </div>
                     <div class="card-footer text-muted">
                         Publié le ', $reponse['date'],' par
-                        <a href="#">', $auteur_rep['pseudo'],'</a>
+                        <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a>
                     </div>
                     </div>';
                 }
