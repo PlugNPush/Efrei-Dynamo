@@ -110,10 +110,24 @@ if (isset($_SESSION['id'])){
                 $auteur_question->execute(array($question['auteur']));
                 $auteur = $auteur_question->fetch();
 
-                $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ?;');
+                $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ? ORDER BY validation DESC, date ASC;');
                 $reponse_fetch->execute(array($_GET['id']));
 
                 echo'<h1 class="my-4">' , $question['titre'], '</h1>';
+
+                if (isset($_GET['ierror'])) {
+                  echo '
+                  <div class="alert alert-danger fade show" role="alert">
+                    <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
+                  </div>';
+                }
+
+                if (isset($_GET['dperror'])) {
+                  echo '
+                  <div class="alert alert-danger fade show" role="alert">
+                    <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+                  </div>';
+                }
 
                 echo '<!-- Blog Post -->
                 <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>
@@ -143,7 +157,19 @@ if (isset($_SESSION['id'])){
                     <div class="card-footer text-muted">
                         Publié le ', $reponse['date'],' par
                         <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a><br>
-                        ', $reponse['upvotes'],' upvotes <a href="vote.php?r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?r=', $reponse['id'],'&action=downvote">(-)</a>
+                        ', $reponse['upvotes'],' upvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=downvote">(-)</a>';
+                        if ($question['repondue'] != 1) {
+                          if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+                            echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action="validate" class="btn btn-success btn-lg btn-block">Marquer comme la bonne réponse</a>';
+                          }
+                        } else {
+                          if ($reponse['validation'] == 1) {
+                            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+                              echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action="unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
+                            }
+                          }
+                        }
+                        echo '
                     </div>
                     </div>';
                 }

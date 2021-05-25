@@ -119,6 +119,13 @@ if (isset($_SESSION['id'])){
               </h1>';
             }
 
+            if (isset($_GET['ierror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
+              </div>';
+            }
+
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
               if (isset($_GET['recherche'])){
                 $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE CONCAT("%", ?, "%") OR contenu LIKE CONCAT("%", ?, "%");');

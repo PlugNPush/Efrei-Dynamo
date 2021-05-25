@@ -31,6 +31,68 @@ if (isset($_SESSION['id'])){
 
     // Back-end only
     // Handle upvote, downvote or validation here, then redirect to source
+    if (isset($_GET['q'])){
+      if (isset($_GET['action'])) {
+        if (isset($_GET['r'])) {
+          if ($_GET['action'] == 'upvote') {
+            $upvote = $bdd->prepare('UPDATE repones SET upvotes = upvotes + 1 WHERE id = ?;');
+            $upvote->execute(array($_GET['r']));
+            header( "refresh:0;url=question.php?id=", $_GET['q'] );
+          } else if ($_GET['action'] == 'downvote') {
+            $downvote = $bdd->prepare('UPDATE repones SET downvotes = downvotes + 1 WHERE id = ?;');
+            $downvote->execute(array($_GET['r']));
+            header( "refresh:0;url=question.php?id=", $_GET['q'] );
+          } else if ($_GET['action'] == 'validate') {
+            $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+            $question_fetch->execute(array($_GET['q']));
+            $question = $question_fetch->fetch();
+
+            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+              $validate = $bdd->prepare('UPDATE repones SET validation = 1 WHERE id = ?;');
+              $validate->execute(array($_GET['r']));
+
+              $answered = $bdd->prepare('UPDATE questions SET repondue = 1 WHERE id = ?;');
+              $answered->execute(array($_GET['q']));
+              header( "refresh:0;url=question.php?id=", $_GET['q'] );
+            } else {
+              header( "refresh:0;url=question.php?dperror=true&id=", $_GET['q'] );
+            }
+
+          } else if ($_GET['action'] == 'unvalidate'){
+            $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+            $question_fetch->execute(array($_GET['q']));
+            $question = $question_fetch->fetch();
+
+            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+              $unvalidate = $bdd->prepare('UPDATE repones SET validation = 0 WHERE id = ?;');
+              $unvalidate->execute(array($_GET['r']));
+
+              $unanswered = $bdd->prepare('UPDATE questions SET repondue = 0 WHERE id = ?;');
+              $unanswered->execute(array($_GET['q']));
+              header( "refresh:0;url=question.php?id=", $_GET['q'] );
+            } else {
+              header( "refresh:0;url=question.php?dperror=true&id=", $_GET['q'] );
+            }
+
+          } else {
+            header( "refresh:0;url=question.php?dperror=true&id=", $_GET['q'] );
+          }
+        } else {
+          if ($_GET['action'] == 'upvote') {
+            $upvote = $bdd->prepare('UPDATE questions SET upvotes = upvotes + 1 WHERE id = ?;');
+            $upvote->execute(array($_GET['q']));
+          } else {
+            header( "refresh:0;url=question.php?dperror=true&id=", $_GET['q'] );
+          }
+        }
+      } else {
+        header( "refresh:0;url=question.php?ierror=true&id=", $_GET['q'] );
+      }
+
+    } else {
+      header( "refresh:0;url=index.php?ierror=true" );
+    }
+
 
 }
 else {
