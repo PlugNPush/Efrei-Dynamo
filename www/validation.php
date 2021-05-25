@@ -149,13 +149,13 @@ if (isset($_SESSION['id'])){
 
               if ($_SESSION['role'] == 0 || $_SESSION['role'] == 2) {
                 echo '<div class="alert alert-warning fade show" role="alert">
-                  <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
+                  <strong>Bonjour ', $_SESSION['pseudo'], ' !</strong><br> Vous devez confirmer votre statut d\'Efreien pour accéder au site.<br>Veuillez suivre les instructions ci-dessous pour procéder à la validation.
                 </div>
 
                 <form action="validation.php" method="post">
                   <div class="form-group">
                     <label for="email">Confirmez votre adresse mail Efrei</label>
-                    <input type="text" name="email" class="form-control" id="email" placeholder="', $data['email'] ,'" value="', $data['email'] ,'" required>
+                    <input type="text" name="email" class="form-control" id="email" placeholder="', $_SESSION['email'] ,'" value="', $_SESSION['email'] ,'" required>
                     <small id="emailHelp" class="form-text text-muted">
                       Vous devez utiliser une adresse en ', ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") ,'
                     </small>
