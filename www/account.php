@@ -317,7 +317,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
               if ($_SESSION['role']>=50 || $compte == $_SESSION['id']){
                 echo '<h3>Modification du mot de passe</h3>';
-                if ($compte == $_SESSION['id'] && !$_SESSION['role']>=50) {
+                if ($compte == $_SESSION['id'] && $_SESSION['role']<50) {
                   echo '
                   <div class="form-group">
                     <label for="titre">Mot de passe actuel</label>
