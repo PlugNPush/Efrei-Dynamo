@@ -114,7 +114,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
         <div class="col-md-8">';
 
         if (!isset($_SESSION['id'])){
-          header( "refresh:0;url=login.php" );
+          header( "refresh:0;url=login.php?expired=true" );
           echo 'Votre session a expiré.';
         } else {
           // Informations standard + modification
@@ -188,7 +188,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
               </div>';
             }
 
-            if (isset($_GET['dperror'])) {
+            if (isset($_GET['ierror'])) {
               echo '
               <div class="alert alert-danger fade show" role="alert">
                 <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
