@@ -250,7 +250,7 @@ if (isset($_SESSION['id'])){
   $data = $gatherdata->fetch();
 
   if ($data) {
-    $to = $_POST['email']; //
+    $to = $data['email']; //
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
