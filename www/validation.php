@@ -135,6 +135,12 @@ if (isset($_SESSION['id'])){
               </div>';
             }
 
+            if (isset($_GET['serror'])) {
+              echo '<div class="alert alert-danger fade show" role="alert">
+                <strong>Erreur lors de la validation !</strong><br> Le courrier éléctronique contenant votre code de validation n\'a pas pu s\'envoyer. Veuillez contacter un modérateur.
+              </div>';
+            }
+
             if (isset($_GET['pending'])) {
               echo '<div class="alert alert-success fade show" role="alert">
                 <strong>Validation en attente.</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams.
@@ -228,7 +234,7 @@ if (isset($_SESSION['id'])){
     ));
 
     $date = date('Y-m-d H:i:s');
-    $to = $_POST['email']; // 
+    $to = $_POST['email']; //
     $subject = 'Vérification automatique Efrei Dynamo';
     $message = '
         <html>
