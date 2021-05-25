@@ -199,7 +199,7 @@ if (isset($_SESSION['id'])){
         <html>
          <body>
           <h1>Vérification automatique d\'appartenance à l\'Efrei.</h1>
-          <p>Bonjour ', $_SESSION['pseudo'] ,', et bienvenue sur Efrei Dynamo. Pour confirmer votre inscription, vous devez prouver votre appartenance à l\'Efrei. Grâce à votre adresse email Efrei, vous êtes éligible à notre solution de validation automatique. Cliquez simplement sur le lien ci-dessous pour terminer l\'activation de votre compte.
+          <p>Bonjour ' . $_SESSION['pseudo'] . ', et bienvenue sur Efrei Dynamo. Pour confirmer votre inscription, vous devez prouver votre appartenance à l\'Efrei. Grâce à votre adresse email Efrei, vous êtes éligible à notre solution de validation automatique. Cliquez simplement sur le lien ci-dessous pour terminer l\'activation de votre compte.
           <p>Adresse email utilisée</p>
           <h4>' . $_POST['email'] . '</h4>
           <p>Certification demandée le</p>
