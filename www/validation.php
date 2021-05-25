@@ -39,7 +39,12 @@ function generateRandomString($length = 10) {
 
 if (isset($_SESSION['id'])){
 
-  if (!isset($_POST['email'])){
+  if (isset($_GET['downgrade'])) {
+    $newrole = $bdd->prepare('UPDATE utilisateurs SET role = 0 WHERE id = ?;');
+    $newrole->execute(array($_SESSION['id']));
+
+    header( "refresh:0;url=validation.php" );
+  } else if (!isset($_POST['email'])){
     echo '<!DOCTYPE html>
     <html lang="fr">
 
