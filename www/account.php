@@ -546,7 +546,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       }
 
       // Modifications d'ultra-modérateurs ou par l'utilisateur
-      if ($_SESSION['role']>=10 || $data['id'] == $_SESSION['id']) {
+      if ($_SESSION['role']>=10 || $_GET['id'] == $_SESSION['id']) {
         // Changement de la photo de profil
         if (isset($_POST['photo'])){
           $newpic = $bdd->prepare('UPDATE utilisateurs SET photo = ? WHERE id = ?;');
@@ -582,7 +582,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
       }
 
       // Modifications de super-modérateurs ou par l'utilisateur
-      if ($_SESSION['role']>=3 || $data['id'] == $_SESSION['id']) {
+      if ($_SESSION['role']>=3 || $_GET['id'] == $_SESSION['id']) {
         // Changement d'année
         if (isset($_POST['annee'])){
           $newyear = $bdd->prepare('UPDATE utilisateurs SET annee = ? WHERE id = ?;');
