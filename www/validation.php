@@ -262,10 +262,10 @@ if (isset($_SESSION['id'])){
           <p>Certification demandée le</p>
           <h4>' . $data['date'] . '</h4>
           <br><br>
-          <a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.
+          <a href="https://www.efrei-dynamo.fr/validation.php?token=' . $data['token'] . '">Cliquez ici pour activer automatiquement votre compte</a>.
           <br>
           <p>En cas de problème avec le lien ci-dessus, vous pouvez aussi copier votre code d\'authentification à usage unique :</p>
-          <h4>' . $token . '</h4>
+          <h4>' . $data['token'] . '</h4>
           <br>
           <p>À très vite !</p>
           <p>- L\'équipe Efrei Dynamo.</p><br><br>
