@@ -123,7 +123,7 @@ if (isset($_SESSION['id'])){
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $reponse['upvotes'],' Upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a>
+                    ', $reponse['upvotes'],' Upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
                     <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary">Répondre</a>
                   </div>
                 </div>';
