@@ -31,7 +31,7 @@ if (isset($_GET['id'])){
   $compte = 0;
 }
 
-if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
+if (!isset($_GET['edit'] && !isset($_GET['pdelete'])) {
 
   echo '<!DOCTYPE html>
   <html lang="fr">
@@ -198,7 +198,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
-            <form action="account.php?id=', $compte ,'" method="post">
+            <form action="account.php?edit=true&id=', $compte ,'" method="post">
             <div class="form-group">
               <label for="id">Identifiant interne</label>
               <input type="number" name="id" class="form-control" min="1" id="id" value="', $data['id'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
@@ -440,7 +440,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
   </html>';
 }else{
-  header( "refresh:0;url=wtf.php" );
+
   if (isset($_SESSION['id'])) {
 
     if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true' && isset($_GET['id'])) {
