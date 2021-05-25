@@ -201,6 +201,8 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
       'matiere'=> $_POST['matiere'],
       'date'=> $date
     ));
+    $karmaplus = $bdd->prepare('UPDATE utilisateurs SET karma = karma + 1 WHERE id = ?;');
+    $karmaplus->execute(array($_SESSION['id']));
     header( "refresh:0;url=index.php" );
   }else{
     header( "refresh:0;url=login.php?expired=true" );

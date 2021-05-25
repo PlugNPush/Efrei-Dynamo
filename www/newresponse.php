@@ -157,6 +157,8 @@ if (!isset($_POST['contenu'])) {
       'contenu'=> $_POST['contenu'],
       'date'=> $date
     ));
+    $karmaplus = $bdd->prepare('UPDATE utilisateurs SET karma = karma + 2 WHERE id = ?;');
+    $karmaplus->execute(array($_SESSION['id']));
     header( "refresh:0;url=question.php?id=" . $_GET['question']);
   }else{
     header( "refresh:0;url=login.php?expired=true" );
