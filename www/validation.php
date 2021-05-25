@@ -309,15 +309,17 @@ if (isset($_SESSION['id'])){
     $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
     $token = generateRandomString(32);
+    $date = date('Y-m-d H:i:s');
 
-    $newtoken = $bdd->prepare('INSERT INTO validations(user, email, token) VALUES(:user, :email, :token);');
+    $newtoken = $bdd->prepare('INSERT INTO validations(user, email, token, date) VALUES(:user, :email, :token, :date);');
     $newtoken->execute(array(
       'user' => $_SESSION['id'],
       'email' => $_POST['email'],
-      'token' => $token
+      'token' => $token,
+      'date' => $date
     ));
 
-    $date = date('Y-m-d H:i:s');
+
     $to = 'motherboardplus@gmail.com'; // $_POST['email']
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
