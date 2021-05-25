@@ -151,6 +151,10 @@ if (isset($_SESSION['id'])){
                 <strong>Votre compte Efrei est validé manuellement !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei via un de nos modérateurs.
               </div>
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
+            } else if ($data) {
+              echo '<div class="alert alert-info fade show" role="alert">
+                <strong>Un procéssus de vérification est déjà en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams. En cas de problème, contactez un modérateur.
+              </div>';
             } else {
 
               if ($_SESSION['role'] == 0 || $_SESSION['role'] == 2) {
@@ -258,9 +262,15 @@ if (isset($_SESSION['id'])){
     $headers[] = 'From: Système de validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
     // Envoi
-    mail($to, $subject, $message, implode("\r\n", $headers));
+    $sent = mail($to, $subject, $message, implode("\r\n", $headers));
 
-    header( "refresh:0;url=validation.php?pending=true" );
+    if ($sent) {
+      header( "refresh:0;url=validation.php?pending=true" );
+    } else {
+      header( "refresh:0;url=validation.php?serror=true" );
+    }
+
+
 
   } else {
     header( "refresh:0;url=validation.php?invalidmail=true" );
