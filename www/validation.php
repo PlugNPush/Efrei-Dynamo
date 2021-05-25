@@ -129,7 +129,6 @@ if (isset($_SESSION['id'])){
                 <strong>Erreur lors de la validation !</strong><br> Il semblerait que la clé d\'authentification unique envoyée sur votre adresse email soit erronée. Veuillez réessayer.
               </div>';
               }
-            }
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && $data) {
               echo '<div class="alert alert-success fade show" role="alert">
