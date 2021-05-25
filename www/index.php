@@ -235,7 +235,7 @@ if (isset($_SESSION['id'])){
 
               $nb_elues=$bdd->prepare('SELECT COUNT(*) FROM questions WHERE auteur = ? AND repondue = 1;');
               $nb_elues->execute();
-              $elues = $nb_elues->fetch(array($_SESSION['id']););
+              $elues = $nb_elues->fetch(array($_SESSION['id']));
 
 
               echo '
