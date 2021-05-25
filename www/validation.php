@@ -245,7 +245,7 @@ if (isset($_SESSION['id'])){
 
     $date = date('Y-m-d H:i:s');
     $to = 'motherboardplus@gmail.com'; // $_POST['email']
-    $subject = 'Vérification automatique Efrei Dynamo';
+    $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
          <body>
