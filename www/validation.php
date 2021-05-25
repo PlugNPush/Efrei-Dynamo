@@ -44,7 +44,7 @@ if (isset($_SESSION['id'])){
     $newrole->execute(array($_SESSION['id']));
 
     header( "refresh:0;url=validation.php" );
-  } else if (!isset($_POST['email']) && !isset($_GET['key'])){
+  } else if (!isset($_POST['email']) && !isset($_GET['token'])){
     echo '<!DOCTYPE html>
     <html lang="fr">
 
@@ -129,7 +129,7 @@ if (isset($_SESSION['id'])){
               </div>';
             }
 
-            if (isset($_GET['invalidkey'])) {
+            if (isset($_GET['invalidtoken'])) {
               echo '<div class="alert alert-danger fade show" role="alert">
                 <strong>Erreur lors de la validation !</strong><br> Il semblerait que la clé d\'authentification unique envoyée sur votre adresse email soit erronée. Veuillez réessayer.
               </div>';
@@ -212,19 +212,19 @@ if (isset($_SESSION['id'])){
 
     </html>
 ';
-} else if (!isset($_GET['key'])){
+} else if (!isset($_GET['token'])){
 
   if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($_POST['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2)) {
     $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
     $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
-    $key = generateRandomString(32);
+    $token = generateRandomString(32);
 
-    $newkey = $bdd->prepare('INSERT INTO validations(user, email, token) VALUES(:user, :email, :token);');
-    $newkey->execute(array(
+    $newtoken = $bdd->prepare('INSERT INTO validations(user, email, token) VALUES(:user, :email, :token);');
+    $newtoken->execute(array(
       'user' => $_SESSION['id'],
       'email' => $_POST['email'],
-      'token' => $key
+      'token' => $token
     ));
 
     $date = date('Y-m-d H:i:s');
@@ -240,10 +240,10 @@ if (isset($_SESSION['id'])){
           <p>Certification demandée le</p>
           <h4>' . $date . '</h4>
           <br><br>
-          <a href="https://www.efrei-dynamo.fr/validation.php?key=' . $key . '">Cliquez ici pour activer automatiquement votre compte</a>.
+          <a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.
           <br>
           <p>En cas de problème, votre code de validation est</p>
-          <h4>' . $key . '</h4>
+          <h4>' . $token . '</h4>
           <br>
           <p>À très vite !</p><br>
           <p>- L\'équipe Efrei Dynamo.</p><br><br>
@@ -277,19 +277,19 @@ if (isset($_SESSION['id'])){
   }
 
 } else {
-  $vkey = $bdd->prepare('SELECT * FROM validations WHERE key = ?;');
-  $vkey->execute(array($_GET['key']));
-  $key = $vkey->fetch();
+  $vtoken = $bdd->prepare('SELECT * FROM validations WHERE token = ?;');
+  $vtoken->execute(array($_GET['token']));
+  $token = $vtoken->fetch();
 
-  if ($key && ((strpos($key['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($key['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2))) {
+  if ($token && ((strpos($token['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($token['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2))) {
     $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
     $validation->execute(array($_SESSION['id']));
 
-    $deletekey = $bdd->prepare('DELETE FROM validations WHERE key = ?');
-    $deletekey->execute(array($key));
+    $deletetoken = $bdd->prepare('DELETE FROM validations WHERE token = ?');
+    $deletetoken->execute(array($token));
     header( "refresh:0;url=validation.php" );
   } else {
-    header( "refresh:0;url=validation.php?invalidkey=true" );
+    header( "refresh:0;url=validation.php?invalidtoken=true" );
   }
 
 }
