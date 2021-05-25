@@ -303,10 +303,10 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
                         Le mot de passe actuel que vous avez saisi est incorrect ! Besoin d\'aide ? Contactez un administrateur.
                       </div>';
                     }
+                    echo '</div>';
                   }
 
                   echo '
-                </div>
                 <div class="form-group">
                   <label for="titre">Nouveau mot de passe</label>
                   <input type="password" name="nmdp" class="form-control" id="mdp"';
