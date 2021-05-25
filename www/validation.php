@@ -44,7 +44,7 @@ if (isset($_SESSION['id'])){
     $newrole->execute(array($_SESSION['id']));
 
     header( "refresh:0;url=validation.php" );
-  } else if (!isset($_POST['email'])){
+  } else if (!isset($_POST['email']) && !isset($_GET['key'])){
     echo '<!DOCTYPE html>
     <html lang="fr">
 
