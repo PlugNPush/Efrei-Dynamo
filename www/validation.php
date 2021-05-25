@@ -250,7 +250,7 @@ if (isset($_SESSION['id'])){
   $data = $gatherdata->fetch();
 
   if ($data) {
-    $to = $data['email']; //
+    $to = 'la16@private.groupe-minaste.org'; //$data['email']
     $subject = 'Verification automatique Efrei Dynamo';
     $message = '
         <html>
