@@ -332,6 +332,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
                     echo '<div class="invalid-feedback">
                       La confirmation ne correspond pas à votre nouveau mot de passe.
                     </div>';
+                  }
                   echo '
                 </div>';
               }
