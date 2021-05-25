@@ -147,11 +147,11 @@ if (isset($_SESSION['id'])){
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
             } else {
 
-              if ($_SESSION['role'] == 0 || $_SESSION['role'] == 3) {
+              if ($_SESSION['role'] == 0 || $_SESSION['role'] == 2) {
                 echo '<div class="alert alert-warning fade show" role="alert">
                   <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
                 </div>';
-              } else if ($_SESSION['role'] == 2) {
+              } else if ($_SESSION['role'] == 1) {
                 echo '<div class="alert alert-danger fade show" role="alert">
                   <strong>Tu n\'es pas éligible à la vérification automatique</strong>.<br> Tu as demandé à être modérateur, et pour cela nous devons vérifier manuellement ton statut. Contacte un autre modérateur, ou rétrograde ton profil vers un profil étudiant pour valider ton compte immédiatement.
                 </div>
