@@ -159,7 +159,7 @@ if (isset($_SESSION['id'])){
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
             } else if ($data) {
               echo '<div class="alert alert-info fade show" role="alert">
-                <strong>Un procéssus de vérification est déjà en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams. En cas de problème, contactez un modérateur.
+                <strong>Un procéssus de vérification est en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams. En cas de problème, contactez un modérateur.
               </div>
               <form action="validation.php" method="get">
                 <div class="form-group">
