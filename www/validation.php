@@ -279,7 +279,7 @@ if (isset($_SESSION['id'])){
       $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
       // En-têtes additionnels
-      $headers[] = 'To: ' . $_POST['email'];
+      $headers[] = 'To: <' . $data['email'] . '>';
       $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
       // Envoi
@@ -350,7 +350,7 @@ if (isset($_SESSION['id'])){
     $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
     // En-têtes additionnels
-    $headers[] = 'To: ' . $_POST['email'];
+    $headers[] = 'To: <' . $_POST['email'] . '>';
     $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
 
     // Envoi
