@@ -112,15 +112,42 @@ if (isset($_SESSION['id'])){
 
             echo'<h1 class="my-4">Statut de validation Efrei</h1>';
 
-            if ((isset($_SESSION['validation']) && $_SESSION['validation'] == 1)) {
+
+            $gatherdata = $bdd->prepare('SELECT * FROM validations WHERE user = ?;');
+            $gatherdata->execute(array($_SESSION['id']));
+            $data = $gatherdata->fetch();
+
+
+            if (isset($_GET['invalidmail'])) {
+              echo '<div class="alert alert-danger fade show" role="alert">
+                <strong>Adresse e-mail invalide !</strong><br> Il semblerait que l\'adresse email fournie ne soit pas fournie par l\'Efrei.
+              </div>';
+            }
+
+            if (isset($_GET['invalidkey'])) {
+              echo '<div class="alert alert-danger fade show" role="alert">
+                <strong>Erreur lors de la validation !</strong><br> Il semblerait que la clé d\'authentification unique envoyée sur votre adresse email soit erronée. Veuillez réessayer.
+              </div>';
+              }
+            }
+
+            if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && $data) {
               echo '<div class="alert alert-success fade show" role="alert">
-                <strong>Félicitations, votre compte Efrei est validé !</strong><br> Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec l\'adresse email suivante : <a href="mailto:', $_SESSION['email'] ,'">', $_SESSION['email'] ,'</a>.
+                <strong>Félicitations, votre compte Efrei est validé !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec l\'adresse email suivante : <a href="mailto:', $data['email'] ,'">', $data['email'] ,'</a>.
+              </div>
+              <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
+            } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
+              echo '<div class="alert alert-success fade show" role="alert">
+                <strong>Votre compte Efrei est validé manuellement !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei via un de nos modérateurs.
               </div>
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
             } else {
             echo '<div class="alert alert-warning fade show" role="alert">
               <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br>Suis les instructions ci-dessous pour procéder à la validation.
             </div>';
+
+
+
           }
 
           echo '
@@ -149,33 +176,76 @@ if (isset($_SESSION['id'])){
     </html>
 ';
 } else if (!isset($_GET['key'])){
-  $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
-  $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
-  $key = generateRandomString(32);
+  if (str_contains($_POST['email'], "@efrei.net") OR str_contains($_POST['email'], "@efrei.fr")) {
+    $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
+    $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
-  $newkey = $bdd->prepare('INSERT INTO validations(user, email, key) VALUES(:user, :email, :key);');
-  $newkey->execute(array(
-    'user' => $_SESSION['id'],
-    'email' => $_POST['email'],
-    'key' => $key
-  ));
+    $key = generateRandomString(32);
 
-  // SEND THE MAIL ! (+ Vérifier mail efrei)
+    $newkey = $bdd->prepare('INSERT INTO validations(user, email, key) VALUES(:user, :email, :key);');
+    $newkey->execute(array(
+      'user' => $_SESSION['id'],
+      'email' => $_POST['email'],
+      'key' => $key
+    ));
+
+    // SEND THE MAIL ! (+ Vérifier mail efrei)
+
+    $date = date('Y-m-d H:i:s');
+    $to = $_POST['email'];
+    $subject = 'Vérification automatique Efrei Dynamo';
+    $message = '
+        <html>
+         <body>
+          <h1>Vérification automatique d\'appartenance à l\'Efrei.</h1>
+          <p>Bonjour ', $_SESSION['pseudo'] ,', et bienvenue sur Efrei Dynamo. Pour confirmer votre inscription, vous devez prouver votre appartenance à l\'Efrei. Grâce à votre adresse email Efrei, vous êtes éligible à notre solution de validation automatique. Cliquez simplement sur le lien ci-dessous pour terminer l\'activation de votre compte.
+          <p>Adresse email utilisée</p>
+          <h4>' . $_POST['email'] . '</h4>
+          <p>Certification demandée le</p>
+          <h4>' . $date . '</h4>
+          <br><br>
+          <a href="https://www.efrei-dynamo.fr/validation.php?key=' . $key . '">Cliquez ici pour activer automatiquement votre compte</a>.
+          <br>
+          <p>En cas de problème, votre code de validation est</p>
+          <h4>' . $key . '</h4>
+          <br>
+          <p>À très vite !</p><br>
+          <p>- L\'équipe Efrei Dynamo.</p><br><br>
+          <p>P.S.: Ce courriel est automatique, veuillez ne pas y répondre.</p>
+       </body>
+      </html>
+      ';
+
+
+    // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+    // En-têtes additionnels
+    $headers[] = 'To: ' . $_SESSION['pseudo'] . '<'. $_POST['email'] .'>';
+    $headers[] = 'From: Système de validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
+
+    // Envoi
+    mail($to, $subject, $message, implode("\r\n", $headers));
+
+  } else {
+    header( "refresh:0;url=validation.php?invalidmail=true" );
+  }
 
 } else {
   $vkey = $bdd->prepare('SELECT * FROM validations WHERE key = ?;');
   $vkey->execute(array($_GET['key']));
   $key = $vkey->fetch();
 
-  if ($key) {
+  if ($key && (str_contains($key['email'], "@efrei.net") OR str_contains($key['email'], "@efrei.fr"))) {
     $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
     $validation->execute(array($_SESSION['id']));
 
     $deletekey = $bdd->prepare('DELETE FROM validations WHERE key = ?');
     $deletekey->execute(array($key));
   } else {
-    // Redirect back with error message (invalid key)
+    header( "refresh:0;url=validation.php?invalidkey=true" );
   }
 
 }
