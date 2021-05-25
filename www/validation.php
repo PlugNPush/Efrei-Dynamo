@@ -27,8 +27,19 @@ if (isset($_SESSION['id'])) {
   $_SESSION['linkedin'] = $test['linkedin'];
 }
 
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
 if (isset($_SESSION['id'])){
 
+  if (!isset($_POST['email'])){
     echo '<!DOCTYPE html>
     <html lang="fr">
 
@@ -137,6 +148,36 @@ if (isset($_SESSION['id'])){
 
     </html>
 ';
+} else if (!isset($_GET['key'])){
+  $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
+  $newmail->execute(array($_POST['email'], $_SESSION['id']));
+
+  $key = generateRandomString(32);
+
+  $newkey = $bdd->prepare('INSERT INTO validations(user, key) VALUES(:user, :key);');
+  $newkey->execute(array(
+    'user' => $_SESSION['id'],
+    'key' => $key
+  ));
+
+  // SEND THE MAIL ! (+ Vérifier mail efrei)
+
+} else {
+  $vkey = $bdd->prepare('SELECT * FROM validations WHERE key = ?;');
+  $vkey->execute(array($_GET['key']));
+  $key = $vkey->fetch();
+
+  if ($key) {
+    $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
+    $validation->execute(array($_SESSION['id']));
+
+    $deletekey = $bdd->prepare('DELETE FROM validations WHERE key = ?');
+    $deletekey->execute(array($key));
+  } else {
+
+  }
+
+}
 
 }
 else {
