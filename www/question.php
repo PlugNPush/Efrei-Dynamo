@@ -106,7 +106,7 @@ if (isset($_SESSION['id'])){
                 $question_fetch->execute(array($_GET['id']));
                 $question = $question_fetch->fetch();
 
-                $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                $auteur_question=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
                 $auteur_question->execute(array($question['auteur']));
                 $auteur = $auteur_question->fetch();
 
@@ -129,7 +129,7 @@ if (isset($_SESSION['id'])){
 
                 while($reponse = $reponse_fetch->fetch()){
 
-                    $auteur_reponse=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                    $auteur_reponse=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
                     $auteur_reponse->execute(array($reponse['auteur']));
                     $auteur_rep = $auteur_reponse->fetch();
 

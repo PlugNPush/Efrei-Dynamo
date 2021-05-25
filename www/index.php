@@ -130,7 +130,7 @@ if (isset($_SESSION['id'])){
 
               while($temp_question=$fetch_question->fetch()){
 
-                $auteur_question=$bdd->prepare('SELECT pseudo FROM utilisateurs WHERE id = ?;');
+                $auteur_question=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
                 $auteur_question->execute(array($temp_question['auteur']));
                 $auteur = $auteur_question->fetch();
 
