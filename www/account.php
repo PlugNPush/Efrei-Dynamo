@@ -440,7 +440,7 @@ if (!isset($_POST['id']) && !isset($_GET['pdelete'])) {
 
   </html>';
 }else{
-  header( "refresh:0;url=account.php?ierror=true" );
+  header( "refresh:0;url=wtf.php" );
   if (isset($_SESSION['id'])) {
 
     if (isset($_GET['pdelete']) && $_GET['pdelete'] == 'true' && isset($_GET['id'])) {
