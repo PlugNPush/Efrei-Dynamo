@@ -471,13 +471,13 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           if ($_GET['id'] == $_SESSION['id']) {
             header( "refresh:0;url=logout.php?deleted=true" );
           } else {
-            header( "refresh:0;url=account.php?deleted=true&id=", $_GET['id'] );
+            header( "refresh:0;url=account.php?deleted=true&id=" . $_GET['id'] );
           }
         } else {
-          header( "refresh:0;url=account.php?derror=true&id=", $_GET['id'] );
+          header( "refresh:0;url=account.php?derror=true&id=" . $_GET['id'] );
         }
       } else {
-        header( "refresh:0;url=account.php?dperror=true&id=", $_GET['id'] );
+        header( "refresh:0;url=account.php?dperror=true&id=" . $_GET['id'] );
       }
 
     } else if (isset($_GET['id'])){
@@ -606,15 +606,15 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
       }
 
       if (isset($passfailure)) {
-        header( "refresh:0;url=account.php?passfailure=true&id=", $_GET['id'] );
+        header( "refresh:0;url=account.php?passfailure=true&id=" . $_GET['id'] );
       } else if (isset($authfailure)) {
-        header( "refresh:0;url=account.php?authfailure=true&id=", $_GET['id'] );
+        header( "refresh:0;url=account.php?authfailure=true&id=" . $_GET['id'] );
       } else {
-        header( "refresh:0;url=account.php?everythingworked=true&id=", $_GET['id'] );
+        header( "refresh:0;url=account.php?everythingworked=true&id=" . $_GET['id'] );
       }
 
     } else {
-      header( "refresh:0;url=account.php?ierror=true&id=", $_GET['id'] );
+      header( "refresh:0;url=account.php?ierror=true&id=" . $_GET['id'] );
     }
 
   } else {
