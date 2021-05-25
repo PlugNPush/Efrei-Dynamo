@@ -160,7 +160,17 @@ if (isset($_SESSION['id'])){
             } else if ($data) {
               echo '<div class="alert alert-info fade show" role="alert">
                 <strong>Un procéssus de vérification est déjà en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams. En cas de problème, contactez un modérateur.
-              </div>';
+              </div>
+              <form action="validation.php" method="get">
+                <div class="form-group">
+                  <label for="token">Saisissez le code à usage unique</label>
+                  <input type="text" name="token" class="form-control" id="token" placeholder="Saisissez le code reçu sur votre adresse mail" required>
+                  <small id="emailHelp" class="form-text text-muted">
+                    Vous pouvez également cliquer sur le lien envoyé dans le mail que vous avez reçu. En cas de problème, contactez un modérateur.
+                  </small>
+                </div>
+                <button type="submit" class="btn btn-primary">Vérifier l\'authenticité du compte</button>
+                </form><br><br>';
             } else {
 
               if ($_SESSION['role'] == 0 || $_SESSION['role'] == 2) {
