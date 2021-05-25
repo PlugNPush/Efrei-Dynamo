@@ -116,6 +116,7 @@ if (isset($_SESSION['id'])){
                 echo'<h1 class="my-4">' , $question['titre'], '</h1>';
 
                 echo '<!-- Blog Post -->
+                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>
                 <div class="card mb-4">
                   <div class="card-body">
                     <p class="card-text">', $question['contenu'],'</p>
@@ -125,8 +126,7 @@ if (isset($_SESSION['id'])){
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
                     ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
                   </div>
-                </div>
-                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>';
+                </div>';
 
                 while($reponse = $reponse_fetch->fetch()){
 
