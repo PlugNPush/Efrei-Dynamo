@@ -154,7 +154,7 @@ if (isset($_SESSION['id'])){
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $temp_question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>', $temp_question['titre'] ,'
+                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>', $temp_question['matiere'] ,'
                   </div>
                 </div>';
               }
