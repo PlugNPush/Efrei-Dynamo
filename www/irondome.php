@@ -36,7 +36,7 @@ if (isset($_SESSION['id'])){
     if (isset($_GET['type']) && isset($_GET['id']) && isset($_GET['action'])) {
       $interval = new DateInterval('P1M');
       $date = date('Y-m-d H:i:s');
-      $bandate = date('Y-m-d H:i:s');
+      $bandate = new DateTime($date);
       $bandate->add($interval);
       if ($_GET['type'] == 'q') {
         if ($_GET['action'] == 'ban' && $_SESSION['role'] >= 1) {
