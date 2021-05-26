@@ -259,7 +259,7 @@ if (isset($_SESSION['id'])){
               </div>';
 
             } else {
-              if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date)) {
+              if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date) {
                 echo '
                 <div class="alert alert-danger fade show" role="alert">
                   <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br><a class = "btn btn-secondary btn-lg btn-block" href = "logout.php">Se déconnecter</a>
