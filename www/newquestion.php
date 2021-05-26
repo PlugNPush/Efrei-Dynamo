@@ -128,7 +128,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                 $module_fetch->execute();
 
                 while($module = $module_fetch->fetch()){
-                  $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = ? AND majeure = ? AND module = ? AND semestre = ?;');
+                  $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
                   $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
                   $inserted = FALSE;
 
