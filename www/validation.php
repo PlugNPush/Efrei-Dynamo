@@ -294,9 +294,10 @@ if (isset($_SESSION['id'])){
       $mail->IsSMTP();
       $mail->IsHTML(true);
       $mail->CharSet = 'UTF-8';
-      $mail->Host = 'tls://smtp.free.fr';
+      $mail->Host = 'smtp.free.fr';
       $mail->Port = 465;
       $mail->SMTPAuth = true;
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
       $mail->Username = 'craftsearch';
       $mail->Password = getSMTPPassword();
       $mail->SMTPOptions = array(
@@ -390,9 +391,10 @@ if (isset($_SESSION['id'])){
     $mail->IsSMTP();
     $mail->IsHTML(true);
     $mail->CharSet = 'UTF-8';
-    $mail->Host = 'tls://smtp.free.fr';
+    $mail->Host = 'smtp.free.fr';
     $mail->Port = 465;
     $mail->SMTPAuth = true;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Username = 'craftsearch@free.fr';
     $mail->Password = getSMTPPassword();
     $mail->SMTPOptions = array(
