@@ -154,7 +154,12 @@ if (isset($_SESSION['id'])){
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $temp_question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>' . $cours['nom'] . (($cours['semestre'] != 0) ? (" Semestre (" . $cours['semestre'] . ")") : ("")) . '
+                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>';
+                    echo $cours['nom'];
+                    if $cours['semestre'] != 0) {
+                      echo ' Semestre (', $cours['semestre'], ')';
+                    }
+                    echo '
                   </div>
                 </div>';
               }
