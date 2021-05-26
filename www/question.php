@@ -134,7 +134,7 @@ if (isset($_SESSION['id'])){
                 }
 
                 echo '<!-- Blog Post -->
-                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>
+                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>
                 <div class="card mb-4">
                   <div class="card-body">
                     <p class="card-text">', $question['contenu'],'</p>
