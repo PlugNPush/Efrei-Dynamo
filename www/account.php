@@ -126,7 +126,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           if (!isset($_SESSION['validation']) || $_SESSION['validation'] != 1){
             echo '
             <div class="alert alert-danger fade show" role="alert">
-              <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
+              <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
             </div><br><br>';
           }
 
@@ -238,7 +238,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
               <label for="validation">Validation Efrei</label>
               <input type="number" name="validation" min="0" max="1" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
-                ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('En cas de problème, contactez un modérateur. '), 'Le statut de vérification Efrei est actuellement à ', $data['validation'] ,'
+                ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('En cas de problème, contactez un modérateur. '), 'Le <a href="validation.php">statut de vérification Efrei</a> est actuellement à ', $data['validation'] ,'
               </small>
             </div>
 

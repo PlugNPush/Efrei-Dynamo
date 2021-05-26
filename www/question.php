@@ -275,7 +275,7 @@ if (isset($_SESSION['id'])){
               <small>', $_SESSION['pseudo'], '</small>
             </h1>
             <div class="alert alert-warning fade show" role="alert">
-              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a href = "logout.php">Se déconnecter</a>.
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
             </div>';
           }
 

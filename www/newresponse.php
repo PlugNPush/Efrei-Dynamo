@@ -118,7 +118,7 @@ if (!isset($_POST['contenu'])) {
 
         } else {
           echo '<div class="alert alert-danger fade show" role="alert">
-            <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
+            <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
             <span aria-hidden="true">&times;</span>
             </button>
           </div><br><br>';

@@ -163,7 +163,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
         } else {
           echo '<h1 class="my-4">Nouvelle question</h1>
           <div class="alert alert-danger fade show" role="alert">
-            <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Vérifiez vos spams ou contactez un modérateur avec votre adresse mail Efrei. <a href="logout.php">Déconnectez-vous ici</a>.
+            <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
           </div><br><br>';
         }
 
