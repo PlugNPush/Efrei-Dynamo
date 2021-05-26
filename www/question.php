@@ -111,7 +111,7 @@ if (isset($_SESSION['id'])){
                 $auteur = $auteur_question->fetch();
 
                 $cours_question=$bdd->prepare('SELECT * FROM matieres WHERE id = ?;');
-                $cours_question->execute(array($temp_question['matiere']));
+                $cours_question->execute(array($question['matiere']));
                 $cours = $cours_question->fetch();
 
                 $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ? ORDER BY validation DESC, date ASC;');
