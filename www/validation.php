@@ -294,10 +294,10 @@ if (isset($_SESSION['id'])){
       $mail->IsSMTP();
       $mail->IsHTML(true);
       $mail->CharSet = 'UTF-8';
-      $mail->Host = 'tls://mail.groupe-minaste.org';
-      $mail->Port = 25;
+      $mail->Host = 'tls://smtp.free.fr';
+      $mail->Port = 465;
       $mail->SMTPAuth = true;
-      $mail->Username = 'no-reply@efrei-dynamo.fr';
+      $mail->Username = 'craftsearch';
       $mail->Password = getSMTPPassword();
       $mail->SMTPOptions = array(
           'ssl' => array(
@@ -390,10 +390,10 @@ if (isset($_SESSION['id'])){
     $mail->IsSMTP();
     $mail->IsHTML(true);
     $mail->CharSet = 'UTF-8';
-    $mail->Host = 'tls://mail.groupe-minaste.org';
-    $mail->Port = 25;
+    $mail->Host = 'tls://smtp.free.fr';
+    $mail->Port = 465;
     $mail->SMTPAuth = true;
-    $mail->Username = 'no-reply@efrei-dynamo.fr';
+    $mail->Username = 'craftsearch@free.fr';
     $mail->Password = getSMTPPassword();
     $mail->SMTPOptions = array(
         'ssl' => array(
