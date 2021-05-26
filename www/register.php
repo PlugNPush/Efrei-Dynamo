@@ -69,8 +69,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
           echo '<h1 class="my-4">Inscription</h1>
           <form action="register.php" method="post">
             <div class="form-group">
-              <label for="titre">Adresse email scolaire</label>
-              <input type="text" name="email" class="form-control" id="email" placeholder="En @efrei.net ou @efrei.fr" required>
+              <label for="titre">Adresse email de connexion</label>
+              <input type="text" name="email" class="form-control" id="email" placeholder="Préférez votre mail professionnel en @efrei.net ou @efrei.fr" required>
+              <small id="emailHelp" class="form-text text-muted">
+                Pro-tip : Vous pouvez utiliser une autre adresse que votre email Efrei, celle-ci vous sera demandée ultérieurement lors de la validation de votre compte. Cependant, pour simplifier les démarches de validation, il est recommandé d\'utiliser son email Efrei pour la connexion.
+              </small>
             </div>
             <div class="form-group">
               <label for="titre">Votre pseudonyme</label>
@@ -88,9 +91,9 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             <div class="form-group">
               <label for="role">Choisissez votre rôle</label>
               <select name="role" class="form-control" id="role" required>
-                <option value="0">Étudiant (vérification automatique)</option>
+                <option value="0">Étudiant (vérification automatique par mail @efrei.net)</option>
                 <option value="1">Modérateur (requiert une double vérification manuelle)</option>
-                <option value="2">Professeur (requiert un mail en efrei.fr)</option>
+                <option value="2">Professeur (requiert un mail en @efrei.fr)</option>
               </select>
             </div>
 
