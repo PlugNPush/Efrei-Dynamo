@@ -37,7 +37,7 @@ if (isset($_SESSION['id'])){
       $interval = new DateInterval('P1M');
       $date = date('Y-m-d H:i:s');
       $bandate = date('Y-m-d H:i:s');
-      $bandate->add($interval)
+      $bandate->add($interval);
       if ($_GET['type'] == 'q') {
         if ($_GET['action'] == 'ban' && $_SESSION['role'] >= 1) {
           $ban = $bdd->prepare('UPDATE questions SET ban = ? WHERE id = ?;');
