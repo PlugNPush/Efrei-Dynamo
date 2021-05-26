@@ -142,7 +142,14 @@ if (isset($_SESSION['id'])){
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>', $cours['nom'] . ($cours['semestre'] != 0) ? ('( Semestre ' . $cours['semestre'] . ')') : (""), '
+                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>';
+
+                    echo $cours['nom'];
+                    if ($cours['semestre'] != 0) {
+                      echo ', semestre (', $cours['semestre'], ')';
+                    }
+                    
+                    echo '
                   </div>
                 </div>';
 
