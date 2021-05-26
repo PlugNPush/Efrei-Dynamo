@@ -141,6 +141,10 @@ if (isset($_SESSION['id'])){
                 $auteur_question->execute(array($temp_question['auteur']));
                 $auteur = $auteur_question->fetch();
 
+                $cours_question=$bdd->prepare('SELECT * FROM matieres WHERE id = ?;');
+                $cours_question->execute(array($temp_question['matiere']));
+                $cours = $cours_question->fetch();
+
                 echo '<!-- Blog Post -->
                 <div class="card mb-4">
                   <div class="card-body">
@@ -150,7 +154,7 @@ if (isset($_SESSION['id'])){
                   </div>
                   <div class="card-footer text-muted">
                     Publié le ', $temp_question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a>
+                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>', $cours['nom'] . ($cours['semestre'] != 0) ? ('(Semestre ', $cours['semestre'] ,')') : ("")'
                   </div>
                 </div>';
               }

@@ -110,6 +110,10 @@ if (isset($_SESSION['id'])){
                 $auteur_question->execute(array($question['auteur']));
                 $auteur = $auteur_question->fetch();
 
+                $cours_question=$bdd->prepare('SELECT * FROM matieres WHERE id = ?;');
+                $cours_question->execute(array($temp_question['matiere']));
+                $cours = $cours_question->fetch();
+
                 $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ? ORDER BY validation DESC, date ASC;');
                 $reponse_fetch->execute(array($_GET['id']));
 
@@ -138,7 +142,7 @@ if (isset($_SESSION['id'])){
                   <div class="card-footer text-muted">
                     Publié le ', $question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>
+                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>', $cours['nom'] . ($cours['semestre'] != 0) ? ('(Semestre ', $cours['semestre'] ,')') : ("")'
                   </div>
                 </div>';
 
