@@ -131,6 +131,14 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             </div><br><br>';
           }
 
+          $date = date('Y-m-d H:i:s');
+          if (isset($_SESSION['ban']) && $_SESSION['ban'] >= $date){
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'<br><a class = "btn btn-secondary" href = "logout.php">Se déconnecter</a>
+            </div><br><br>';
+          }
+
           if (isset($_GET['deleted'])) {
             echo '
             <div class="alert alert-success fade show" role="alert">
