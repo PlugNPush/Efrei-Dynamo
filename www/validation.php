@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])){
 
                 if ($_SESSION['role'] == 2) {
                   echo '<div class="alert alert-warning fade show" role="alert">
-                    <strong>Pas d\'adresse email en @efrei.fr ?</strong> Contactez un modérateur pour manuellement valider votre compte, ou rétrogradez vers un profil étudiant pour valider votre compte immédiatement.
+                    <strong>Pas d\'adresse email en @efrei.fr ou @intervenants.efrei.net ?</strong> Contactez un modérateur pour manuellement valider votre compte, ou rétrogradez vers un profil étudiant pour valider votre compte immédiatement.
                   </div>
                   <a href="validation.php?downgrade=true" class="btn btn-warning btn-lg btn-block">Rétrograder vers un profil étudiant</a><br>';
                 }
@@ -215,7 +215,7 @@ if (isset($_SESSION['id'])){
                     <label for="email">Confirmez votre adresse mail Efrei</label>
                     <input type="text" name="email" class="form-control" id="email" placeholder="', $_SESSION['email'] ,'" value="', $_SESSION['email'] ,'" required>
                     <small id="emailHelp" class="form-text text-muted">
-                      Vous devez utiliser une adresse en ', ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr") ,'
+                      Vous devez utiliser une adresse en ', ($_SESSION['role'] == 0) ? ("@efrei.net") : ("@efrei.fr ou @intervenants.efrei.net") ,'
                     </small>
                   </div>
                   <button type="submit" class="btn btn-primary">Démarrer le processus de vérification</button>
@@ -347,7 +347,7 @@ if (isset($_SESSION['id'])){
 
 } else if (!isset($_GET['token'])){
 
-  if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($_POST['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2)) {
+  if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR ((strpos($_POST['email'], "@efrei.fr") !== false OR strpos($_POST['email'], "@intervenants.efrei.net") !== false) AND $_SESSION['role'] == 2)) {
 
     $token = generateRandomString(32);
     $date = date('Y-m-d H:i:s');
