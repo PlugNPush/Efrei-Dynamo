@@ -158,6 +158,8 @@ if (isset($_SESSION['id'])){
                     echo $cours['nom'];
                     if ($cours['semestre'] != 0) {
                       echo ' Semestre (', $cours['semestre'], ')';
+                    } else {
+                      echo ' Campus (', $cours['semestre'], ')';
                     }
                     echo '
                   </div>
