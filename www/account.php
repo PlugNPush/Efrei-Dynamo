@@ -578,6 +578,11 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
         if (isset($_POST['validation'])) {
           $newval = $bdd->prepare('UPDATE utilisateurs SET validation = ? WHERE id = ?;');
           $newval->execute(array($_POST['validation'], $_GET['id']));
+
+          if ($_POST['validation'] != 1) {
+            $deletetoken = $bdd->prepare('DELETE FROM validations WHERE id = ?');
+            $deletetoken->execute(array($_GET['id']));
+          }
         }
       }
 

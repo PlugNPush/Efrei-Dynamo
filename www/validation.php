@@ -432,8 +432,6 @@ if (isset($_SESSION['id'])){
     $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
     $validation->execute(array($_SESSION['id']));
 
-    $deletetoken = $bdd->prepare('DELETE FROM validations WHERE token = ?');
-    $deletetoken->execute(array($token['token']));
     header( "refresh:0;url=validation.php" );
   } else {
     header( "refresh:0;url=validation.php?invalidtoken=true" );
