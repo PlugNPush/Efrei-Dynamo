@@ -156,7 +156,7 @@ if (isset($_SESSION['id'])){
                     Publié le ', $temp_question['date'],' par
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>';
                     echo $cours['nom'];
-                    if $cours['semestre'] != 0) {
+                    if ($cours['semestre'] != 0) {
                       echo ' Semestre (', $cours['semestre'], ')';
                     }
                     echo '
