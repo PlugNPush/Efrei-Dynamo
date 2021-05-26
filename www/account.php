@@ -135,8 +135,22 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           if (isset($_SESSION['ban']) && $_SESSION['ban'] >= $date){
             echo '
             <div class="alert alert-danger fade show" role="alert">
-              <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'<br><a class = "btn btn-secondary" href = "logout.php">Se déconnecter</a>
-            </div><br><br>';
+              <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br><a class = "btn btn-secondary" href = "logout.php">Se déconnecter</a>
+            </div><br>';
+          } else (isset($data['ban']) && $data['ban'] >= $date) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Ce compte a été banni</strong>. Ce compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br>';
+              if ($_SESSION['role'] >= 1) {
+                echo '<a class = "btn btn-warning" href = "irondome.php?type=u&action=unban&id=', $data['id'] ,'&user=', $data['id'] ,'">Débannir le compte.</a>';
+              }
+              echo '
+            </div><br>';
+          } else if ($_SESSION['role'] >= 1) {
+            echo '
+            <div class="alert alert-success fade show" role="alert">
+              <strong>Ce compte est en règle !</strong> Nous vous affichons ce message car vous êtes un modérateur d\'Efrei Dynamo. Ce compte n\'a actuellement aucune restriction. Si ce compte s\'est mal comporté, vous pouvez le bannir pour une durée d\'un mois.<br><a class = "btn btn-danger" href = "logout.php">Bannir ce compte</a>
+            </div><br>';
           }
 
           if (isset($_GET['deleted'])) {
