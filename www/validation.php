@@ -437,7 +437,7 @@ if (isset($_SESSION['id'])){
   $vtoken->execute(array($_GET['token']));
   $token = $vtoken->fetch();
 
-  if ($token && ((strpos($token['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR ((strpos($token['email'], "@efrei.fr") !== false OR (strpos($token['email'], "@intervenants.efrei.net")) AND $_SESSION['role'] == 2))) {
+  if ($token && ((strpos($token['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR ((strpos($token['email'], "@efrei.fr") !== false OR strpos($token['email'], "@intervenants.efrei.net") AND $_SESSION['role'] == 2)))) {
     $validation = $bdd->prepare('UPDATE utilisateurs SET validation = 1 WHERE id = ?;');
     $validation->execute(array($_SESSION['id']));
 
