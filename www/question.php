@@ -184,10 +184,9 @@ if (isset($_SESSION['id'])){
                         }
                         echo '
                     </div>
-                    </div>
-                    <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>';
+                    </div>';
                 }
-
+                echo '<a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>';
 
             }
             // Aucune question
