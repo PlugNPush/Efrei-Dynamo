@@ -59,7 +59,7 @@ if (isset($_SESSION['id'])){
 
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma - 10 WHERE id = ?;');
           $karma->execute(array($data['auteur']));
-
+          header( "refresh:0;url=question.php?id=" . $_GET['id'] );
         } else if ($_GET['action'] == 'unban' && $_SESSION['role'] >= 1) {
           $ban = $bdd->prepare('UPDATE questions SET ban = NULL WHERE id = ?;');
           $ban->execute(array($_GET['id']));
@@ -79,6 +79,7 @@ if (isset($_SESSION['id'])){
 
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma + 10 WHERE id = ?;');
           $karma->execute(array($data['auteur']));
+          header( "refresh:0;url=question.php?id=" . $_GET['id'] );
         } else if ($_GET['action'] == 'report'){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
@@ -89,7 +90,7 @@ if (isset($_SESSION['id'])){
             'delateur' => $_SESSION['id'],
             'action' => 0
           ));
-
+          header( "refresh:0;url=question.php?id=" . $_GET['id'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
@@ -115,7 +116,7 @@ if (isset($_SESSION['id'])){
 
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma - 10 WHERE id = ?;');
           $karma->execute(array($data['auteur']));
-
+          header( "refresh:0;url=question.php?id=" . $data['question'] );
         } else if ($_GET['action'] == 'unban' && $_SESSION['role'] >= 1) {
           $ban = $bdd->prepare('UPDATE reponses SET ban = NULL WHERE id = ?;');
           $ban->execute(array($_GET['id']));
@@ -130,12 +131,13 @@ if (isset($_SESSION['id'])){
             'action' => 2
           ));
 
-          $gatherdata = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+          $gatherdata = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
           $gatherdata->execute(array($_GET['id']));
           $data = $gatherdata->fetch();
 
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma + 10 WHERE id = ?;');
           $karma->execute(array($data['auteur']));
+          header( "refresh:0;url=question.php?id=" . $data['question'] );
         } else if ($_GET['action'] == 'report'){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
@@ -148,13 +150,18 @@ if (isset($_SESSION['id'])){
             'action' => 0
           ));
 
+          $gatherdata = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
+          $gatherdata->execute(array($_GET['id']));
+          $data = $gatherdata->fetch();
+
+          header( "refresh:0;url=question.php?id=" . $data['question'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
       } else if ($_GET['type'] == 'u') {
         if ($_GET['action'] == 'ban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE questions SET ban = ? WHERE id = ?;');
-          $ban->execute(array($bandate, $_GET['id']));
+          $ban = $bdd->prepare('UPDATE utilisateurs SET ban = ? WHERE id = ?;');
+          $ban->execute(array($bandate, $_GET['user']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
           $banhistory->execute(array(
@@ -165,16 +172,12 @@ if (isset($_SESSION['id'])){
             'action' => 1
           ));
 
-          $gatherdata = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
-          $gatherdata->execute(array($_GET['id']));
-          $data = $gatherdata->fetch();
-
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma - 50 WHERE id = ?;');
-          $karma->execute(array($data['auteur']));
-
+          $karma->execute(array($_GET['user']));
+          header( "refresh:0;url=account.php?id=" . $_GET['user'] );
         } else if ($_GET['action'] == 'unban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE questions SET ban = NULL WHERE id = ?;');
-          $ban->execute(array($_GET['id']));
+          $ban = $bdd->prepare('UPDATE utilisateurs SET ban = NULL WHERE id = ?;');
+          $ban->execute(array($_GET['user']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
           $banhistory->execute(array(
@@ -185,12 +188,9 @@ if (isset($_SESSION['id'])){
             'action' => 2
           ));
 
-          $gatherdata = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
-          $gatherdata->execute(array($_GET['id']));
-          $data = $gatherdata->fetch();
-
           $karma = $bdd->prepare('UPDATE utilisateurs SET karma = karma + 50 WHERE id = ?;');
-          $karma->execute(array($data['auteur']));
+          $karma->execute(array($_GET['user']));
+          header( "refresh:0;url=account.php?id=" . $_GET['user'] );
         } else if ($_GET['action'] == 'report'){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
@@ -201,7 +201,7 @@ if (isset($_SESSION['id'])){
             'delateur' => $_SESSION['id'],
             'action' => 0
           ));
-
+          header( "refresh:0;url=account.php?id=" . $_GET['user'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
