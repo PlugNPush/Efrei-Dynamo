@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])){
 
                 if ($_SESSION['role'] == 2) {
                   echo '<div class="alert alert-warning fade show" role="alert">
-                    <strong>Pas d\'adresse email en @efrei.fr ?</strong> Contactez un modérateur pour manuellement valider votre compte, ou rétrogradez vers un profil étudiant pour valider votre immédiatement.
+                    <strong>Pas d\'adresse email en @efrei.fr ?</strong> Contactez un modérateur pour manuellement valider votre compte, ou rétrogradez vers un profil étudiant pour valider votre compte immédiatement.
                   </div>
                   <a href="validation.php?downgrade=true" class="btn btn-warning btn-lg btn-block">Rétrograder vers un profil étudiant</a><br>';
                 }
