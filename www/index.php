@@ -157,7 +157,7 @@ if (isset($_SESSION['id'])){
                     <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>';
                     echo $cours['nom'];
                     if ($cours['semestre'] != 0) {
-                      echo ', semestre (', $cours['semestre'], ')';
+                      echo ', semestre ', $cours['semestre'];
                     }
                     echo '
                   </div>
