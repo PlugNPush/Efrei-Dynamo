@@ -250,11 +250,11 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
                 $date = date('Y-m-d H:i:s');
                 if ($_SESSION['role'] >= 1 && ($_SESSION['ban'] > $date || $_SESSION['ban'] == NULL) && ($data['ban'] >= $date && $data['ban'] != NULL)){
-                  echo '<a href="irondome.php?type=u&action=unban&id=', $data['id'] ,'">Débannir le compte</a>.';
+                  echo '<a href="irondome.php?type=u&action=unban&id=', $data['id'] ,'&user=', $data['id'] ,'">Débannir le compte</a>.';
                 } else if ($_SESSION['role'] >= 1 && ($_SESSION['ban'] > $date || $_SESSION['ban'] == NULL) && ($data['ban'] < $date || $data['ban'] == NULL)) {
-                  echo '<a href="irondome.php?type=u&action=ban&id=', $data['id'] ,'">Bannir le compte</a>.';
+                  echo '<a href="irondome.php?type=u&action=ban&id=', $data['id'] ,'&user=', $data['id'] ,'">Bannir le compte</a>.';
                 } else if (($_SESSION['ban'] > $date || $_SESSION['ban'] == NULL) && ($data['ban'] < $date || $data['ban'] == NULL)){
-                  echo '<a href="irondome.php?type=u&action=report&id=', $data['id'] ,'">Signaler le compte</a>.';
+                  echo '<a href="irondome.php?type=u&action=report&id=', $data['id'] ,'&user=', $data['id'] ,'">Signaler le compte</a>.';
                 }
 
                 echo '

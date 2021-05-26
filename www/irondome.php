@@ -33,7 +33,7 @@ if (isset($_SESSION['id'])){
     // Back-end only
     // Handle moderation and report here, then redirect to source
 
-    if (isset($_GET['type']) && isset($_GET['id']) && isset($_GET['action'])) {
+    if (isset($_GET['type']) && isset($_GET['id']) && isset($_GET['user']) && isset($_GET['action'])) {
       $interval = new DateInterval('P1M');
       $date = date('Y-m-d H:i:s');
       $bandate = new DateTime($date);
