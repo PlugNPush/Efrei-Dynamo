@@ -339,8 +339,6 @@ if (isset($_SESSION['id'])){
 } else if (!isset($_GET['token'])){
 
   if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR (strpos($_POST['email'], "@efrei.fr") !== false AND $_SESSION['role'] == 2)) {
-    $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
-    $newmail->execute(array($_POST['email'], $_SESSION['id']));
 
     $token = generateRandomString(32);
     $date = date('Y-m-d H:i:s');
