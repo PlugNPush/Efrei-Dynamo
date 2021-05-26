@@ -154,7 +154,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             } else if (isset($data['ban']) && $data['ban'] >= $date) {
               echo '
               <div class="alert alert-danger fade show" role="alert">
-                <strong>Ce compte a été banni</strong>. Ce compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br>';
+                <strong>Ce compte a été banni</strong>. Ce compte sera à nouveau utilisable à partir du ', $data['ban'] ,'.<br>';
                 if ($_SESSION['role'] >= 1) {
                   echo '<a class = "btn btn-warning" href = "irondome.php?type=u&action=unban&id=', $data['id'] ,'&user=', $data['id'] ,'">Débannir le compte.</a>';
                 }
