@@ -395,7 +395,7 @@ if (isset($_SESSION['id'])){
     $mail->Port = 465;
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Username = 'craftsearch@free.fr';
+    $mail->Username = 'craftsearch';
     $mail->Password = getSMTPPassword();
     $mail->SMTPOptions = array(
         'ssl' => array(
