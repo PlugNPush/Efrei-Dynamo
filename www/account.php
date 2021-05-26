@@ -21,6 +21,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     $_SESSION['inscription'] = $test['inscription'];
     $_SESSION['photo'] = $test['photo'];
     $_SESSION['linkedin'] = $test['linkedin'];
+    $_SESSION['ban'] = $test['ban'];
   }
 
 if (isset($_GET['id'])){
@@ -239,6 +240,24 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
               <input type="number" name="validation" min="0" max="1" class="form-control" id="validation" value="', $data['validation'] ,'" ', ($_SESSION['role']>=3) ? ('') : ('disabled'), '>
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=3) ? ('En tant que super-modérateur, vous pouvez modifier le statut de validation Efrei. ') : ('En cas de problème, contactez un modérateur. '), 'Le <a href="validation.php">statut de vérification Efrei</a> est actuellement à ', $data['validation'] ,'
+              </small>
+            </div>
+            <div class="form-group">
+              <label for="validation">Statut de ban (date de fin)</label>
+              <input type="text" name="ban" class="form-control" id="ban" placeholder="Aucun ban en cours" value="', $data['ban'] ,'" ', ($_SESSION['role']>=50) ? ('') : ('disabled'), '>
+              <small id="emailHelp" class="form-text text-muted">
+                ', ($_SESSION['role']>=50) ? ('En tant qu\'administrateur, vous pouvez modifier le statut de ban. ') : ('En cas de problème, contactez un modérateur. ');
+
+                $date = date('Y-m-d H:i:s');
+                if ($_SESSION['role'] >= 1 && $_SESSION['ban'] > $date && $data['ban'] <= $date){
+                  echo '<a href="irondome.php?type=u&action=unban&id=', $data['id'] ,'">Débannir le compte</a>';
+                } else if ($_SESSION['role'] >= 1 && $_SESSION['ban'] > $date && ($data['ban'] > $date || $data['ban'] == NULL)) {
+                  echo '<a href="irondome.php?type=u&action=ban&id=', $data['id'] ,'">Bannir le compte</a>';
+                } else if ($_SESSION['ban'] > $date && ($data['ban'] > $date || $data['ban'] == NULL)){
+                  echo '<a href="irondome.php?type=u&action=report&id=', $data['id'] ,'">Signaler le compte</a>';
+                }
+
+                echo '
               </small>
             </div>
 

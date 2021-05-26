@@ -34,6 +34,7 @@ if (isset($_POST['email']) AND isset($_POST['mdp'])){
       $_SESSION['inscription'] = $test['inscription'];
       $_SESSION['photo'] = $test['photo'];
       $_SESSION['linkedin'] = $test['linkedin'];
+      $_SESSION['ban'] = $test['ban'];
 
 
       header( "refresh:0;url=index.php" );

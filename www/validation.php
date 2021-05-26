@@ -33,6 +33,7 @@ if (isset($_SESSION['id'])) {
   $_SESSION['inscription'] = $test['inscription'];
   $_SESSION['photo'] = $test['photo'];
   $_SESSION['linkedin'] = $test['linkedin'];
+  $_SESSION['ban'] = $test['ban'];
 }
 
 function generateRandomString($length = 10) {

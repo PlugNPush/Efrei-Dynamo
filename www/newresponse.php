@@ -21,6 +21,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     $_SESSION['inscription'] = $test['inscription'];
     $_SESSION['photo'] = $test['photo'];
     $_SESSION['linkedin'] = $test['linkedin'];
+    $_SESSION['ban'] = $test['ban'];
   }
 
 if (!isset($_POST['contenu'])) {
