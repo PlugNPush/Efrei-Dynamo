@@ -184,12 +184,14 @@ if (isset($_SESSION['id'])){
                         }
                         echo '
                     </div>
-                    </div>';
+                    </div>
+                    <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a>';
                 }
 
 
             }
             // Aucune question
+
 
             echo '<!-- Pagination -->
             <ul class="pagination justify-content-center mb-4">
