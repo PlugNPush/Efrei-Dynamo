@@ -626,6 +626,10 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
           $newid = $bdd->prepare('UPDATE utilisateurs SET id = ? WHERE id = ?;');
           $newid->execute(array($_POST['id'], $_GET['id']));
         }
+        if (isset($_POST['ban'])) {
+          $newid = $bdd->prepare('UPDATE utilisateurs SET ban = ? WHERE id = ?;');
+          $newid->execute(array($_POST['ban'], $_GET['id']));
+        }
 
       }
 
