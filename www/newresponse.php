@@ -99,7 +99,7 @@ if (!isset($_POST['contenu'])) {
         if (!isset($_SESSION['id'])){
           header( "refresh:0;url=login.php?expired=true" );
           echo 'Votre session a expiré.';
-        } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1){
+        } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
           if (!isset($_GET['question'])) {
             echo '<div class="alert alert-danger fade show" role="alert">
               <strong>Il semblerait que vous ne répondiez à personne...</strong>. La question a peut-être été supprimée. Si vous pensez qu\'il s\'agit d\'une erreur, contactez un administrateur.
@@ -118,12 +118,18 @@ if (!isset($_POST['contenu'])) {
           }
 
         } else {
-          echo '<div class="alert alert-danger fade show" role="alert">
-            <strong>Votre statut d\'Efreien n\'a pa encore été vérifié.</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div><br><br>';
-        }
+          if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br><a class = "btn btn-secondary btn-lg btn-block" href = "logout.php">Se déconnecter</a>
+            </div><br>';
+          } else {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
+            </div>';
+          }
+      }
 
         echo '</div>
 

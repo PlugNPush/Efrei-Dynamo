@@ -101,7 +101,7 @@ if (isset($_SESSION['id'])){
           <!-- Blog Entries Column -->
           <div class="col-md-8">';
 
-          if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
+          if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
             if (isset($_GET['id'])){
                 $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
                 $question_fetch->execute(array($_GET['id']));
@@ -284,12 +284,21 @@ if (isset($_SESSION['id'])){
             </div>';
 
           } else {
-            echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
-              <small>', $_SESSION['pseudo'], '</small>
-            </h1>
-            <div class="alert alert-warning fade show" role="alert">
-              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
-            </div>';
+            if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date) {
+              echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
+                <small>', $_SESSION['pseudo'], '</small>
+              </h1>
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br><a class = "btn btn-secondary btn-lg btn-block" href = "logout.php">Se déconnecter</a>
+              </div><br>';
+            } else {
+              echo '<h1 class="my-4">Bienvenue sur Efrei Dynamo,
+                <small>', $_SESSION['pseudo'], '</small>
+              </h1>
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
+              </div>';
+            }
           }
 
             echo '
