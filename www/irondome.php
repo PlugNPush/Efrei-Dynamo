@@ -46,7 +46,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'q',
+            'type' => 1,
             'expiration' => $bandate,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -66,7 +66,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'q',
+            'type' => 1,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -84,7 +84,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'q',
+            'type' => 1,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -102,7 +102,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'r',
+            'type' => 2,
             'expiration' => $bandate,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -123,7 +123,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'r',
+            'type' => 2,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -142,7 +142,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
-            'type' => 'r',
+            'type' => 2,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -165,7 +165,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
           $banhistory->execute(array(
-            'type' => 'u',
+            'type' => 3,
             'expiration' => $bandate,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -181,7 +181,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
           $banhistory->execute(array(
-            'type' => 'u',
+            'type' => 3,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
@@ -195,7 +195,7 @@ if (isset($_SESSION['id'])){
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, action) VALUES(:type, :expiration, :utilisateur, :delateur, :action);');
           $banhistory->execute(array(
-            'type' => 'u',
+            'type' => 3,
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
