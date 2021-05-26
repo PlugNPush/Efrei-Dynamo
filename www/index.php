@@ -126,8 +126,8 @@ if (isset($_SESSION['id'])){
                 <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
               </div>';
             }
-
-            if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
+            $date = date('Y-m-d H:i:s');
+            if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
               if (isset($_GET['recherche'])){
                 $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE CONCAT("%", ?, "%") OR contenu LIKE CONCAT("%", ?, "%");');
                 $fetch_question->execute(array($_GET['recherche'], $_GET['recherche']));
@@ -259,10 +259,18 @@ if (isset($_SESSION['id'])){
               </div>';
 
             } else {
-            echo '
-            <div class="alert alert-danger fade show" role="alert">
-              <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
-            </div>';
+              if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date)) {
+                echo '
+                <div class="alert alert-danger fade show" role="alert">
+                  <strong>Vous avez été banni</strong>. Si besoin, contactez un modérateur avec votre adresse mail Efrei. Votre compte sera à nouveau utilisable à partir du ', $_SESSION['ban'] ,'.<br><a class = "btn btn-secondary btn-lg btn-block" href = "logout.php">Se déconnecter</a>
+                </div><br>';
+              } else {
+                echo '
+                <div class="alert alert-danger fade show" role="alert">
+                  <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
+                </div>';
+              }
+
           }
 
             echo '
