@@ -92,6 +92,12 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
               <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
             </div>';
           }
+          if (isset($_GET['passworderror'])) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Echec de la validation du mot de passe.</strong>. VLe mot de passe et la confirmation ne correspondent pas.
+            </div>';
+          }
 
           echo '
           <form action="register.php" method="post">
@@ -108,11 +114,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             </div>
             <div class="form-group">
               <label for="titre">Votre mot de passe</label>
-              <input type="password" name="mdp" class="form-control" id="mdp"';
+              <input type="password" name="mdp" class="form-control';
               if (isset($_GET['passworderror'])){
                 echo ' is-invalid';
               }
-              echo ' placeholder="Prenez un mot de passe sûr" required>';
+              echo '" id="mdp" placeholder="Prenez un mot de passe sûr" required>';
               if (isset($_GET['passworderror'])){
                 echo '<div class="invalid-feedback">
                   Echec de la validation du mot de passe. Le mot de passe et la confirmation ne correspondent pas.
@@ -122,11 +128,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             </div>
             <div class="form-group">
               <label for="titre">Confirmez le mot de passe</label>
-              <input type="password" name="vmdp" class="form-control"';
+              <input type="password" name="vmdp" class="form-control';
               if (isset($_GET['passworderror'])){
                 echo ' is-invalid';
               }
-              echo ' id="vmdp" placeholder="Confirmation" required>';
+              echo '" id="vmdp" placeholder="Confirmation" required>';
               if (isset($_GET['passworderror'])){
                 echo '<div class="invalid-feedback">
                   Echec de la validation du mot de passe. Le mot de passe et la confirmation ne correspondent pas.
