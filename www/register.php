@@ -242,11 +242,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
 
   $mail_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
   $mail_fetch->execute(array($_POST['email']));
-  $mail = $mail->fetch();
+  $mail = $mail_fetch->fetch();
 
   $pseudo_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = ?;');
   $pseudo_fetch->execute(array($_POST['pseudo']));
-  $pseudo = $pseudo->fetch();
+  $pseudo = $pseudo_fetch->fetch();
 
   if ($mail) {
     header( "refresh:0;url=register.php?emailexists=true" );
