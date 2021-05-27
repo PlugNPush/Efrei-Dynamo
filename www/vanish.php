@@ -274,7 +274,7 @@ if (isset($_SESSION['id'])){
                       <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
                     </div>';
                   }
-
+                }
             } else {
               if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date) {
                 echo '
