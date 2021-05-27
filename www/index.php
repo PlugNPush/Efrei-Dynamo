@@ -142,16 +142,16 @@ if (isset($_SESSION['id'])){
                 $fetch_question->execute(array($_GET['recherche'], $_GET['recherche']));
               } else if (isset($_GET['annee'])) {
 
-                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE annee = ?);');
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE annee = ?) ORDER BY date DESC;;');
                 $fetch_question->execute(array($_GET['annee']));
               } else if (isset($_GET['module'])) {
-                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE module = ?);');
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE module = ?) ORDER BY date DESC;;');
                 $fetch_question->execute(array($_GET['module']));
               } else if (isset($_GET['majeure'])) {
-                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE majeure = ?);');
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE matiere IN (SELECT id FROM matieres WHERE majeure = ?) ORDER BY date DESC;');
                 $fetch_question->execute(array($_GET['majeure']));
               } else {
-                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE repondue != 1;');
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE repondue != 1 ORDER BY date DESC;;');
                 $fetch_question->execute();
               }
 
