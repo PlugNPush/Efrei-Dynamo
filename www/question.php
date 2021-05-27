@@ -191,7 +191,7 @@ if (isset($_SESSION['id'])){
                 if (!$question) {
                   echo '
                   <div class="alert alert-danger fade show" role="alert">
-                    <strong>Cette question n\'existe pas ou plus</strong>. Elle a peut-être été supprimée par son auteur ou un modérateur.
+                    <strong>Cette question n\'existe pas ou plus</strong>. Elle a peut-être été supprimée par son auteur ou un modérateur.<br><a class = "btn btn-secondary btn-lg btn-block" href = "index.php">Retour à l\'accueil</a>
                   </div>';
                 } else {
                   if ($question['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $question['auteur']) {
