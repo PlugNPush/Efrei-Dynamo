@@ -119,9 +119,9 @@ if (isset($_SESSION['id'])){
                 $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE question = ? ORDER BY validation DESC, date ASC;');
                 $reponse_fetch->execute(array($_GET['id']));
 
-                echo'<h1 class="my-4">' , $question['titre'], '</h1>';
+                echo'<h1>' , $question['titre'], '</h1>';
 
-                echo '<h4>', $cours['nom'];
+                echo '<h4 class="my-4">', $cours['nom'];
                 if ($cours['semestre'] != 0) {
                   echo ', semestre ', $cours['semestre'];
                 } else {
