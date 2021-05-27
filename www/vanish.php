@@ -124,9 +124,9 @@ if (isset($_SESSION['id'])){
                   <strong>Un problème est survenu.</strong> L\'élement a peut-être été supprimé. Si vous pensez qu\'il s\'agit d\'une erreur, contactez un administrateur.
                 </div><br><br>';
               } else {
-
                 if ($_GET['type'] == 'editquestion') {
 
+                  if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
                     echo '<h1 class="my-4">Modifier une question</h1>
                     <form action="vanish.php?type=editquestion&confirm=true&id=',$_GET['id'],'" method="post">
                     <div class="form-group">
@@ -191,91 +191,133 @@ if (isset($_SESSION['id'])){
                     </div>
                       <button type="submit" class="btn btn-primary">Modifier la question</button>
                       </form><br><br>';
+                  } else {
+                    echo '
+                    <div class="alert alert-danger fade show" role="alert">
+                      <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+                    </div>';
+                  }
 
                   } else if ($_GET['type'] == 'editresponse') {
 
-                    echo '<h1 class="my-4">Modifier une réponse</h1>
-                    <form action="vanish.php?type=editresponse&confirm=true&id=',$_GET['id'],'" method="post">
-                      <div class="form-group">
-                        <label for="contenu">Votre réponse</label>
-                        <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required></textarea>
-                      </div><br>
-                      <div class="form-group">
-                        <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
-                        <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Modifier la question</button>
-                    </form><br><br>';
+                    if ($_SESSION['id'] == $reponse['auteur'] || $_SESSION['role'] >= 10) {
+                      echo '<h1 class="my-4">Modifier une réponse</h1>
+                      <form action="vanish.php?type=editresponse&confirm=true&id=',$_GET['id'],'" method="post">
+                        <div class="form-group">
+                          <label for="contenu">Réponse</label>
+                          <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required>', $reponse['contenu'] ,'</textarea>
+                        </div><br>
+                        <div class="form-group">
+                          <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
+                          <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Modifier la question</button>
+                      </form><br><br>';
+                    } else {
+                      echo '
+                      <div class="alert alert-danger fade show" role="alert">
+                        <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+                      </div>';
+                    }
+
                   } else if ($_GET['type'] == 'deletequestion') {
 
-                    echo '<h1 class="my-4">Supprimer une question</h1>
-                    <form action="vanish.php?type=deletequestion&confirm=true&id=',$_GET['id'],'" method="post">
-                    <div class="form-group">
-                      <label for="titre">Titre de la question</label>
-                      <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " value="', $question['titre'] ,'" disabled>
-                    </div>
-                    <div class="form-group">
-                      <label for="contenu">Explication de la question</label>
-                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" disabled>', $question['contenu'] ,'</textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="matiere">Séléctionnez la matière</label>
-                      <select name="matiere" class="form-control" id="matiere" disabled>';
+                    if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
+                      echo '<h1 class="my-4">Supprimer une question</h1>
+                      <form action="vanish.php?type=deletequestion&confirm=true&id=',$_GET['id'],'" method="post">
+                      <div class="form-group">
+                        <label for="titre">Titre de la question</label>
+                        <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " value="', $question['titre'] ,'" disabled>
+                      </div>
+                      <div class="form-group">
+                        <label for="contenu">Explication de la question</label>
+                        <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" disabled>', $question['contenu'] ,'</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="matiere">Séléctionnez la matière</label>
+                        <select name="matiere" class="form-control" id="matiere" disabled>';
 
-                      $global_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = 0;');
-                      $global_fetch->execute();
-                      echo '<optgroup label="CAMPUS">';
-                      while($glomat = $global_fetch->fetch()) {
-                        echo '<option value="', $glomat['id'] ,'" ', ($question['matiere'] == $glomat['id']) ? ('selected') : ('') ,'>', $glomat['nom'] ,'</option>';
-                      }
-                      echo '</optgroup>';
+                        $global_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = 0;');
+                        $global_fetch->execute();
+                        echo '<optgroup label="CAMPUS">';
+                        while($glomat = $global_fetch->fetch()) {
+                          echo '<option value="', $glomat['id'] ,'" ', ($question['matiere'] == $glomat['id']) ? ('selected') : ('') ,'>', $glomat['nom'] ,'</option>';
+                        }
+                        echo '</optgroup>';
 
-                      $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
-                      $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
-                      $maxsemestre = $maxsemestre_fetch->fetch();
+                        $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
+                        $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+                        $maxsemestre = $maxsemestre_fetch->fetch();
 
-                      for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
-                        $semestre_inserted = FALSE;
+                        for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
+                          $semestre_inserted = FALSE;
 
-                        $module_fetch = $bdd->prepare('SELECT * FROM modules;');
-                        $module_fetch->execute();
+                          $module_fetch = $bdd->prepare('SELECT * FROM modules;');
+                          $module_fetch->execute();
 
-                        while($module = $module_fetch->fetch()){
-                          $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
-                          $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
-                          $inserted = FALSE;
+                          while($module = $module_fetch->fetch()){
+                            $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
+                            $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
+                            $inserted = FALSE;
 
-                          while ($matiere = $matieres_fetch->fetch()) {
-                            if(!$semestre_inserted){
-                              $semestre_inserted = TRUE;
-                              echo '<optgroup label="SEMESTRE ',$semestre,'">';
+                            while ($matiere = $matieres_fetch->fetch()) {
+                              if(!$semestre_inserted){
+                                $semestre_inserted = TRUE;
+                                echo '<optgroup label="SEMESTRE ',$semestre,'">';
+                              }
+                              if(!$inserted){
+                                $inserted = TRUE;
+                                echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
+                              }
+
+                              echo '<option value="', $matiere['id'] ,'" style="margin-left:23px; "', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
                             }
-                            if(!$inserted){
-                              $inserted = TRUE;
-                              echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
+                            if($inserted){
+                              echo '</optgroup>';
                             }
-
-                            echo '<option value="', $matiere['id'] ,'" style="margin-left:23px; "', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
                           }
-                          if($inserted){
+                          if($semestre_inserted){
                             echo '</optgroup>';
                           }
                         }
-                        if($semestre_inserted){
-                          echo '</optgroup>';
-                        }
-                      }
 
 
-                      echo '
-                      </select><br>
-                      <div class="form-group">
-                        <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
-                        <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette question et les réponses associées</label>
+                        echo '
+                        </select><br>
+                        <div class="form-group">
+                          <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
+                          <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette question et les réponses associées</label>
+                        </div>
                       </div>
-                    </div>
-                      <button type="submit" class="btn btn-danger">Supprimer la question</button>
-                    </form><br><br>';
+                        <button type="submit" class="btn btn-danger">Supprimer la question</button>
+                      </form><br><br>';
+                    } else {
+                      echo '
+                      <div class="alert alert-danger fade show" role="alert">
+                        <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+                      </div>';
+                    }
+
+                  } else if ($_GET['type'] == 'deleteresponse') {
+                    if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
+                      echo '<h1 class="my-4">Modifier une réponse</h1>
+                      <form action="vanish.php?type=deleteresponse&confirm=true&id=',$_GET['id'],'" method="post">
+                        <div class="form-group">
+                          <label for="contenu">Réponse</label>
+                          <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" disabled>', $reponse['contenu'] ,'</textarea>
+                        </div><br>
+                        <div class="form-group">
+                          <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
+                          <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Supprimer la réponse</button>
+                      </form><br><br>';
+                  } else {
+                    echo '
+                    <div class="alert alert-danger fade show" role="alert">
+                      <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+                    </div>';
+                  }
                   } else {
                     echo '<h1 class="my-4">Modifier ou supprimer un contenu</h1>';
                     echo '
