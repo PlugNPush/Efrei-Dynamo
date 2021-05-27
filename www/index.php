@@ -247,10 +247,10 @@ if (isset($_SESSION['id'])){
                     <div class="col-lg-6">
                       <ul class="list-unstyled mb-0">
                         <li>
-                          <a href="index.php?annee=4">M1</a>
+                          <a href="index.php?module=16">M1</a>
                         </li>
                         <li>
-                          <a href="index.php?annee=5">M2</a>
+                          <a href="index.php?module=16">M2</a>
                         </li>
                         <li>
                           <a href="index.php?module=20">Campus</a>
