@@ -124,6 +124,20 @@ if (isset($_SESSION['id'])){
                   <strong>Un problème est survenu.</strong> L\'élement a peut-être été supprimé. Si vous pensez qu\'il s\'agit d\'une erreur, contactez un administrateur.
                 </div><br><br>';
               } else {
+
+                if ($_SESSION['role'] >= 10) {
+                  echo '
+                  <div class="alert alert-warning fade show" role="alert">
+                    <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier ou supprimer des questions et réponses, mais ces options doivent être utilisées en dernier recours uniquement. Préférez l\'utilisation du ban plutôt que l\'interaction avec du contenu qui ne vous appartient pas. Toutes vos actions en tant qu\'ultra-modérateur sont enregistrées.';
+                    if ($_GET['type'] == 'editquestion' || $_GET['type'] == 'deletequestion') {
+                      echo '<br><a class = "btn btn-danger btn-lg btn-block" href = "irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>';
+                    } else if ($_GET['type'] == 'editresponse' || $_GET['type'] == 'deleteresponse') {
+                      echo '<br><a class = "btn btn-danger btn-lg btn-block" href = "irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>';
+                    }
+                    echo '
+                  </div>';
+                }
+
                 if ($_GET['type'] == 'editquestion') {
 
                   if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
@@ -361,30 +375,104 @@ if (isset($_SESSION['id'])){
       </html>';
 
     } else {
-      if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
         if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['contenu'])) {
           if ($_GET['type'] == 'editquestion') {
-            $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
-            $upd_question->execute(array($_POST['contenu'], $_GET['id']));
-            header( "refresh:0;url=question.php?edited=true&id=" . $question['id'] );
+            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
+              $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
+              $upd_question->execute(array($_POST['contenu'], $_GET['id']));
+
+              if ($_SESSION['role'] >= 10) {
+                $date = date('Y-m-d H:i:s');
+                $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
+                $banhistory->execute(array(
+                  'type' => 1,
+                  'expiration' => $date,
+                  'utilisateur' => $question['auteur'],
+                  'delateur' => $_SESSION['id'],
+                  'publication' => $_GET['id'],
+                  'action' => 3
+                ));
+              }
+
+              header( "refresh:0;url=question.php?edited=true&id=" . $question['id'] );
+
+            } else {
+              header( "refresh:0;url=vanish.php?type=editquestion&id=" . $question['id'] );
+            }
+
           } else if ($_GET['type'] == 'editresponse') {
-            $upd_reponse=$bdd->prepare('UPDATE reponses SET contenu = ? WHERE id = ?;');
-            $upd_reponse->execute(array($_POST['contenu'], $_GET['id']));
-            header( "refresh:0;url=question.php?redited=true&id=" . $reponse['question'] );
+            if ($_SESSION['id'] == $reponse['auteur'] || $_SESSION['role'] >= 10) {
+              $upd_reponse=$bdd->prepare('UPDATE reponses SET contenu = ? WHERE id = ?;');
+              $upd_reponse->execute(array($_POST['contenu'], $_GET['id']));
+
+              if ($_SESSION['role'] >= 10) {
+                $date = date('Y-m-d H:i:s');
+                $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
+                $banhistory->execute(array(
+                  'type' => 2,
+                  'expiration' => $date,
+                  'utilisateur' => $reponse['auteur'],
+                  'delateur' => $_SESSION['id'],
+                  'publication' => $_GET['id'],
+                  'action' => 3
+                ));
+              }
+
+              header( "refresh:0;url=question.php?redited=true&id=" . $reponse['question'] );
+            } else {
+              header( "refresh:0;url=vanish.php?type=editresponse&id=" . $reponse['id'] );
+            }
           } else {
             header( "refresh:0;url=index.php?dperror=true" );
           }
         } else if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
           if ($_GET['type'] == 'deletequestion') {
-            $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
-            $del_question->execute(array($_GET['id']));
-            $del_reponses=$bdd->prepare('DELETE FROM reponses WHERE question = ?;');
-            $del_reponses->execute(array($_GET['id']));
-            header( "refresh:0;url=question.php?deleted=true&id=" . $question['id'] );
+            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
+              $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
+              $del_question->execute(array($_GET['id']));
+              $del_reponses=$bdd->prepare('DELETE FROM reponses WHERE question = ?;');
+              $del_reponses->execute(array($_GET['id']));
+
+              if ($_SESSION['role'] >= 10) {
+                $date = date('Y-m-d H:i:s');
+                $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
+                $banhistory->execute(array(
+                  'type' => 1,
+                  'expiration' => $date,
+                  'utilisateur' => $question['auteur'],
+                  'delateur' => $_SESSION['id'],
+                  'publication' => $_GET['id'],
+                  'action' => 4
+                ));
+              }
+
+              header( "refresh:0;url=question.php?deleted=true&id=" . $question['id'] );
+            } else {
+              header( "refresh:0;url=vanish.php?type=deletequestion&id=" . $question['id'] );
+            }
+
           } else if ($_GET['type'] == 'deleteresponse') {
-            $del_reponse=$bdd->prepare('DELETE FROM reponses WHERE id = ?;');
-            $del_reponse->execute(array($_GET['id']));
-            header( "refresh:0;url=question.php?rdeleted=true&id=" . $reponse['question'] );
+            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
+              $del_reponse=$bdd->prepare('DELETE FROM reponses WHERE id = ?;');
+              $del_reponse->execute(array($_GET['id']));
+
+              if ($_SESSION['role'] >= 10) {
+                $date = date('Y-m-d H:i:s');
+                $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
+                $banhistory->execute(array(
+                  'type' => 2,
+                  'expiration' => $date,
+                  'utilisateur' => $reponse['auteur'],
+                  'delateur' => $_SESSION['id'],
+                  'publication' => $_GET['id'],
+                  'action' => 4
+                ));
+              }
+
+              header( "refresh:0;url=question.php?rdeleted=true&id=" . $reponse['question'] );
+            } else {
+              header( "refresh:0;url=vanish.php?type=deleteresponse&id=" . $reponse['id'] );
+            }
           } else {
             header( "refresh:0;url=index.php?dperror=true" );
           }
@@ -392,9 +480,6 @@ if (isset($_SESSION['id'])){
         } else {
           header( "refresh:0;url=index.php?ierror=true" );
         }
-      } else {
-        header( "refresh:0;url=vanish.php?type=" . $_GET['type'] . "&id=" . $_GET['id']);
-      }
 
     }
 
