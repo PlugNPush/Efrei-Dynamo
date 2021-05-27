@@ -264,6 +264,10 @@ if (isset($_SESSION['id'])){
 
                       echo '
                       </select>
+                      <div class="form-group">
+                        <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
+                        <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette question et les réponses associées</label>
+                      </div>
                     </div>
                       <button type="submit" class="btn btn-danger">Supprimer la question</button>
                     </form><br><br>';
