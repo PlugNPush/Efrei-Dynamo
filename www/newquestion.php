@@ -137,7 +137,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                   $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
                   $fullmaj_fetch->execute(array($fullmajeure['id']));
                   echo '<optgroup label="', $fullmajeure['nom'] ,'">';
-                  while($fullmaj = $full_fetch->fetch()) {
+                  while($fullmaj = $fullmaj_fetch->fetch()) {
                     echo '<option value="', $fullmaj['id'] ,'">', $fullmaj['nom'] ,'</option>';
                   }
                   echo '</optgroup>';
