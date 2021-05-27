@@ -211,7 +211,7 @@ if (isset($_SESSION['id'])){
                           <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
                           <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Modifier la question</button>
+                        <button type="submit" class="btn btn-primary">Modifier la réponse</button>
                       </form><br><br>';
                     } else {
                       echo '
@@ -300,7 +300,7 @@ if (isset($_SESSION['id'])){
 
                   } else if ($_GET['type'] == 'deleteresponse') {
                     if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
-                      echo '<h1 class="my-4">Modifier une réponse</h1>
+                      echo '<h1 class="my-4">Supprimer une réponse</h1>
                       <form action="vanish.php?type=deleteresponse&confirm=true&id=',$_GET['id'],'" method="post">
                         <div class="form-group">
                           <label for="contenu">Réponse</label>
