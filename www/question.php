@@ -196,12 +196,12 @@ if (isset($_SESSION['id'])){
                         }
                         if ($_SESSION['role'] >= 1) {
                           if ($reponse['ban'] == 0) {
-                            echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la question</a>.';
+                            echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>.';
                           } else {
-                            echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la question</a>.';
+                            echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>.';
                           }
                         } else if ($reponse['ban'] == 0) {
-                          echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la question</a>.';
+                          echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>.';
                         }
                         echo '
                     </div>
