@@ -121,6 +121,22 @@ if (isset($_SESSION['id'])){
 
                 echo'<h1 class="my-4">' , $question['titre'], '</h1>';
 
+                echo '<h4>', $cours['nom'];
+                if ($cours['semestre'] != 0) {
+                  echo ', semestre ', $cours['semestre'];
+                } else {
+                  $majeure_question=$bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
+                  $majeure_question->execute(array($cours['majeure']));
+                  $majeure = $majeure_question->fetch();
+
+                  if ($cours['majeure'] == 1) {
+                    echo ' (Campus)';
+                  } else if ($cours['majeure'] > 1) {
+                    echo ' (', $majeure['nom'] ,')';
+                  }
+                }
+                echo '</h4>';
+
                 if (isset($_GET['ierror'])) {
                   echo '
                   <div class="alert alert-danger fade show" role="alert">
@@ -200,21 +216,6 @@ if (isset($_SESSION['id'])){
                         Publié le ', $question['date'],' par
                         <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
                         ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>';
-
-                        echo $cours['nom'];
-                        if ($cours['semestre'] != 0) {
-                          echo ', semestre ', $cours['semestre'];
-                        } else {
-                          $majeure_question=$bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
-                          $majeure_question->execute(array($cours['majeure']));
-                          $majeure = $majeure_question->fetch();
-
-                          if ($cours['majeure'] == 1) {
-                            echo ' (Campus)';
-                          } else if ($cours['majeure'] > 1) {
-                            echo ' (', $majeure['nom'] ,')';
-                          }
-                        }
 
                         if ($_SESSION['role'] >= 1) {
                           if ($question['ban'] == 0) {
