@@ -198,6 +198,10 @@ if (isset($_SESSION['id'])){
                       <div class="form-group">
                         <label for="contenu">Votre réponse</label>
                         <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required></textarea>
+                      </div><br>
+                      <div class="form-group">
+                        <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
+                        <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
                       </div>
                       <button type="submit" class="btn btn-primary">Modifier la question</button>
                     </form><br><br>';
@@ -263,7 +267,7 @@ if (isset($_SESSION['id'])){
 
 
                       echo '
-                      </select>
+                      </select><br>
                       <div class="form-group">
                         <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
                         <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette question et les réponses associées</label>
