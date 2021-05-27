@@ -140,7 +140,16 @@ if (isset($_SESSION['id'])){
               if (isset($_GET['recherche'])){
                 $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE titre LIKE CONCAT("%", ?, "%") OR contenu LIKE CONCAT("%", ?, "%");');
                 $fetch_question->execute(array($_GET['recherche'], $_GET['recherche']));
-              }else{
+              } else if (isset($_GET['annee'])) {
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE annee = ?;');
+                $fetch_question->execute(array($_GET['annee']));
+              } else if (isset($_GET['module'])) {
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE module = ?;');
+                $fetch_question->execute(array($_GET['module']));
+              } else if (isset($_GET['majeure'])) {
+                $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE majeure = ?;');
+                $fetch_question->execute(array($_GET['majeure']));
+              } else {
                 $fetch_question=$bdd->prepare('SELECT * FROM questions WHERE repondue != 1;');
                 $fetch_question->execute();
               }
@@ -224,26 +233,26 @@ if (isset($_SESSION['id'])){
                     <div class="col-lg-6">
                       <ul class="list-unstyled mb-0">
                         <li>
-                          <a href="#">L1</a>
+                          <a href="index.php?annee=1">L1</a>
                         </li>
                         <li>
-                          <a href="#">L2</a>
+                          <a href="index.php?annee=2">L2</a>
                         </li>
                         <li>
-                          <a href="#">L3</a>
+                          <a href="index.php?annee=3">L3</a>
                         </li>
                       </ul>
                     </div>
                     <div class="col-lg-6">
                       <ul class="list-unstyled mb-0">
                         <li>
-                          <a href="#">M1</a>
+                          <a href="index.php?annee=4">M1</a>
                         </li>
                         <li>
-                          <a href="#">M2</a>
+                          <a href="index.php?annee=5">M2</a>
                         </li>
                         <li>
-                          <a href="#">Campus</a>
+                          <a href="index.php?module=20">Campus</a>
                         </li>
                       </ul>
                     </div>
