@@ -134,7 +134,7 @@ if (isset($_SESSION['id'])){
                     </div>
                     <div class="form-group">
                       <label for="contenu">Explication de la question</label>
-                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" value="', $question['contenu'] ,'" required></textarea>
+                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" required>', $question['contenu'] ,'</textarea>
                     </div>
                     <div class="form-group">
                       <label for="matiere">Séléctionnez la matière</label>
@@ -211,7 +211,7 @@ if (isset($_SESSION['id'])){
                     </div>
                     <div class="form-group">
                       <label for="contenu">Explication de la question</label>
-                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" value="', $question['contenu'] ,'" disabled></textarea>
+                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" disabled>', $question['contenu'] ,'</textarea>
                     </div>
                     <div class="form-group">
                       <label for="matiere">Séléctionnez la matière</label>
