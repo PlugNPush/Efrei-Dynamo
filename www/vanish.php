@@ -454,7 +454,7 @@ if (isset($_SESSION['id'])){
         if (!empty($_GET['type']) && !empty($_GET['id']) && !empty($_POST['contenu'])) {
           if ($_GET['type'] == 'editquestion') {
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
-              if (!empty($_POST['titre'] && !empty($_POST['contenu'] && !empty($_POST['matiere']) {
+              if (!empty($_POST['titre']) && !empty($_POST['contenu']) && !empty($_POST['matiere'])) {
                 $upd_question=$bdd->prepare('UPDATE questions SET titre = ?, contenu = ?, matiere = ? WHERE id = ?;');
                 $upd_question->execute(array($_POST['titre'], $_POST['contenu'], $_POST['matiere'], $_GET['id']));
 
