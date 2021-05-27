@@ -58,9 +58,8 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
               </li>';
             } else {
               echo '
-              <li class="nav-item active">
-                <a class="nav-link" href="login.php">Connexion
-                <span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="login.php">Connexion</a>
               </li>';
             }
 
