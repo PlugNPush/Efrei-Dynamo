@@ -122,6 +122,19 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               }
               echo '</optgroup>';
 
+              $majeure_fetch = $bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
+              $majeure_fetch->execute(array($_SESSION['majeure']););
+              $majeure->fetch();
+
+              $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
+              $matmaj_fetch->execute(array($_SESSION['majeure']));
+
+              echo '<optgroup label="', $majeure['nom'] ,'">';
+              while($matmaj = $matmaj_fetch->fetch()) {
+                echo '<option value="', $matmaj['id'] ,'">', $matmaj['nom'] ,'</option>';
+              }
+              echo '</optgroup>';
+
               $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
               $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
               $maxsemestre = $maxsemestre_fetch->fetch();
