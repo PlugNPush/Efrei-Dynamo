@@ -289,7 +289,7 @@ if (isset($_SESSION['id'])){
                                 echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>';
                               }
 
-                              if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $question['auteur']) {
+                              if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $reponse['auteur']) {
                                 echo '<br><a href="vanish.php?type=editresponse&id=', $reponse['id'] , '">Modifier la réponse</a> | <a href="vanish.php?type=deleteresponse&id=', $reponse['id'] , '">Supprimer la réponse</a>';
                               }
                               echo '
