@@ -430,6 +430,7 @@ if (isset($_SESSION['id'])){
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
               $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
               $del_question->execute(array($_GET['id']));
+
               $del_reponses=$bdd->prepare('DELETE FROM reponses WHERE question = ?;');
               $del_reponses->execute(array($_GET['id']));
 
