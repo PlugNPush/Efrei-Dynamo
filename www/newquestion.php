@@ -126,7 +126,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
               $maxsemestre = $maxsemestre_fetch->fetch();
 
-              for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
+              for ($semestre = $maxsemestre['MAX(semestre)']; $semestre>=1; $semestre--) {
                 $semestre_inserted = FALSE;
 
                 $module_fetch = $bdd->prepare('SELECT * FROM modules;');
