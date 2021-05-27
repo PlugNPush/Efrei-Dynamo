@@ -123,7 +123,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               echo '</optgroup>';
 
               $majeure_fetch = $bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
-              $majeure_fetch->execute(array($_SESSION['majeure']););
+              $majeure_fetch->execute(array($_SESSION['majeure']));
               $majeure->fetch();
 
               $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
