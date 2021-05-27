@@ -163,19 +163,55 @@ if (isset($_SESSION['id'])){
                       }
                       echo '</optgroup>';
 
-                      $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
-                      $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+                      $majeure_fetch = $bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
+                      $majeure_fetch->execute(array($_SESSION['majeure']));
+                      $majeure = $majeure_fetch->fetch();
+
+                      $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
+                      $matmaj_fetch->execute(array($_SESSION['majeure']));
+
+                      if ($_SESSION['annee'] >= 7) {
+                        $fullmajeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
+                        $fullmajeure_fetch->execute();
+
+                        while ($fullmajeure = $fullmajeure_fetch->fetch()) {
+                          $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND annee >= 7 AND majeure = ?;');
+                          $fullmaj_fetch->execute(array($fullmajeure['id']));
+                          $inserted = false;
+
+                          while($fullmaj = $fullmaj_fetch->fetch()) {
+                            if (!$inserted) {
+                              echo '<optgroup label="', $fullmajeure['nom'] ,'">';
+                              $inserted = true;
+                            }
+                            echo '<option value="', $fullmaj['id'] ,'" ', ($question['matiere'] == $fullmaj['id']) ? ('selected') : ('') ,'>', $fullmaj['nom'] ,'</option>';
+                          }
+                          if ($inserted) {
+                            echo '</optgroup>';
+                          }
+
+                        }
+                      } else if ($majeure['id'] > 1) {
+                        echo '<optgroup label="', $majeure['nom'] ,'">';
+                        while($matmaj = $matmaj_fetch->fetch()) {
+                          echo '<option value="', $matmaj['id'] ,'" ', ($question['matiere'] == $matmaj['id']) ? ('selected') : ('') ,'>', $matmaj['nom'] ,'</option>';
+                        }
+                        echo '</optgroup>';
+                      }
+
+                      $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ?;');
+                      $maxsemestre_fetch->execute(array($_SESSION['annee']));
                       $maxsemestre = $maxsemestre_fetch->fetch();
 
-                      for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
+                      for ($semestre = $maxsemestre['MAX(semestre)']; $semestre>=1; $semestre--) {
                         $semestre_inserted = FALSE;
 
                         $module_fetch = $bdd->prepare('SELECT * FROM modules;');
                         $module_fetch->execute();
 
                         while($module = $module_fetch->fetch()){
-                          $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
-                          $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
+                          $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND module = ? AND semestre = ?;');
+                          $matieres_fetch->execute(array($_SESSION['annee'], $module['id'], $semestre));
                           $inserted = FALSE;
 
                           while ($matiere = $matieres_fetch->fetch()) {
@@ -188,7 +224,7 @@ if (isset($_SESSION['id'])){
                               echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
                             }
 
-                            echo '<option value="', $matiere['id'] ,'" style="margin-left:23px; "', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
+                            echo '<option value="', $matiere['id'] ,'" style="margin-left:23px;" ', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
                           }
                           if($inserted){
                             echo '</optgroup>';
@@ -198,6 +234,7 @@ if (isset($_SESSION['id'])){
                           echo '</optgroup>';
                         }
                       }
+
 
 
                       echo '
@@ -255,19 +292,55 @@ if (isset($_SESSION['id'])){
                         }
                         echo '</optgroup>';
 
-                        $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
-                        $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+                        $majeure_fetch = $bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
+                        $majeure_fetch->execute(array($_SESSION['majeure']));
+                        $majeure = $majeure_fetch->fetch();
+
+                        $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
+                        $matmaj_fetch->execute(array($_SESSION['majeure']));
+
+                        if ($_SESSION['annee'] >= 7) {
+                          $fullmajeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
+                          $fullmajeure_fetch->execute();
+
+                          while ($fullmajeure = $fullmajeure_fetch->fetch()) {
+                            $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND annee >= 7 AND majeure = ?;');
+                            $fullmaj_fetch->execute(array($fullmajeure['id']));
+                            $inserted = false;
+
+                            while($fullmaj = $fullmaj_fetch->fetch()) {
+                              if (!$inserted) {
+                                echo '<optgroup label="', $fullmajeure['nom'] ,'">';
+                                $inserted = true;
+                              }
+                              echo '<option value="', $fullmaj['id'] ,'" ', ($question['matiere'] == $fullmaj['id']) ? ('selected') : ('') ,'>', $fullmaj['nom'] ,'</option>';
+                            }
+                            if ($inserted) {
+                              echo '</optgroup>';
+                            }
+
+                          }
+                        } else if ($majeure['id'] > 1) {
+                          echo '<optgroup label="', $majeure['nom'] ,'">';
+                          while($matmaj = $matmaj_fetch->fetch()) {
+                            echo '<option value="', $matmaj['id'] ,'" ', ($question['matiere'] == $matmaj['id']) ? ('selected') : ('') ,'>', $matmaj['nom'] ,'</option>';
+                          }
+                          echo '</optgroup>';
+                        }
+
+                        $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ?;');
+                        $maxsemestre_fetch->execute(array($_SESSION['annee']));
                         $maxsemestre = $maxsemestre_fetch->fetch();
 
-                        for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
+                        for ($semestre = $maxsemestre['MAX(semestre)']; $semestre>=1; $semestre--) {
                           $semestre_inserted = FALSE;
 
                           $module_fetch = $bdd->prepare('SELECT * FROM modules;');
                           $module_fetch->execute();
 
                           while($module = $module_fetch->fetch()){
-                            $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
-                            $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
+                            $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND module = ? AND semestre = ?;');
+                            $matieres_fetch->execute(array($_SESSION['annee'], $module['id'], $semestre));
                             $inserted = FALSE;
 
                             while ($matiere = $matieres_fetch->fetch()) {
@@ -280,7 +353,7 @@ if (isset($_SESSION['id'])){
                                 echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
                               }
 
-                              echo '<option value="', $matiere['id'] ,'" style="margin-left:23px; "', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
+                              echo '<option value="', $matiere['id'] ,'" style="margin-left:23px;" ', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
                             }
                             if($inserted){
                               echo '</optgroup>';
@@ -290,6 +363,7 @@ if (isset($_SESSION['id'])){
                             echo '</optgroup>';
                           }
                         }
+
 
 
                         echo '
