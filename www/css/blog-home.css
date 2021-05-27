@@ -8,6 +8,8 @@ body {
 }
 
 .new-dark-navbar-toggler-icon {
+  height: auto;
+  width: auto;
   background-image: url("/css/dark-menu-item.svg");
 }
 
