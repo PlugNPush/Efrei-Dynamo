@@ -370,7 +370,7 @@ if (isset($_SESSION['id'])){
         } else if ($_GET['type'] == 'editresponse') {
           $upd_reponse=$bdd->prepare('UPDATE reponses SET contenu = ? WHERE id = ?;');
           $upd_reponse->execute(array($_POST['contenu'], $_GET['id']));
-          header( "refresh:0;url=question.php?redited=true&id=" . $reponse['auteur'] );
+          header( "refresh:0;url=question.php?redited=true&id=" . $reponse['question'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
@@ -384,7 +384,7 @@ if (isset($_SESSION['id'])){
         } else if ($_GET['type'] == 'deleteresponse') {
           $del_reponse=$bdd->prepare('DELETE FROM reponses WHERE id = ?;');
           $del_reponse->execute(array($_GET['id']));
-          header( "refresh:0;url=question.php?rdeleted=true&id=" . $reponse['auteur'] );
+          header( "refresh:0;url=question.php?rdeleted=true&id=" . $reponse['question'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
