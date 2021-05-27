@@ -210,7 +210,7 @@ if (isset($_SESSION['id'])){
                         <button type="submit" class="btn btn-primary">Modifier la réponse</button>
                       </form><br><br>';
                     } else {
-                      echo '
+                      echo '<h1 class="my-4">Modifier une réponse</h1>
                       <div class="alert alert-danger fade show" role="alert">
                         <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
                       </div>';
@@ -288,7 +288,7 @@ if (isset($_SESSION['id'])){
                         <button type="submit" class="btn btn-danger">Supprimer la question</button>
                       </form><br><br>';
                     } else {
-                      echo '<h1 class="my-4">Modifier une réponse</h1>
+                      echo '<h1 class="my-4">Supprimer une question</h1>
                       <div class="alert alert-danger fade show" role="alert">
                         <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
                       </div>';
