@@ -325,7 +325,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             <div class="form-group">
               <label for="titre">Pseudonyme</label>
               <input type="text" name="pseudo" class="form-control';
-              if (isset($_GET['emailexists'])){
+              if (isset($_GET['pseudoexists'])){
                 echo ' is-invalid';
               }
               echo '" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>';
