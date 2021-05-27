@@ -203,7 +203,7 @@ if (isset($_SESSION['id'])){
                     </form><br><br>';
                   } else if ($_GET['type'] == 'deletequestion') {
 
-                    echo '<h1 class="my-4">Supprimer une réponse</h1>
+                    echo '<h1 class="my-4">Supprimer une question</h1>
                     <form action="vanish.php?type=deletequestion&confirm=true&id=',$_GET['id'],'" method="post">
                     <div class="form-group">
                       <label for="titre">Titre de la question</label>
