@@ -23,7 +23,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     $_SESSION['linkedin'] = $test['linkedin'];
     $_SESSION['ban'] = $test['ban'];
   }
-if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['matiere'])){
+if(empty($_POST['titre']) OR empty($_POST['contenu']) OR empty($_POST['matiere'])){
 
   echo '<!DOCTYPE html>
   <html lang="fr">

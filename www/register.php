@@ -5,7 +5,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
   } catch(Exception $e) {
     exit ('Erreur while connecting to database: '.$e->getMessage());
   }
-if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
+if(empty($_POST['mdp']) OR empty($_POST['vmdp'])){
 
   echo '<!DOCTYPE html>
   <html lang="fr">
@@ -255,7 +255,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   } else if ($pseudo) {
     header( "refresh:0;url=register.php?pseudoexists=true" );
   } else {
-    if (isset($_POST['mdp']) AND isset($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
+    if (!empty($_POST['mdp']) AND !empty($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
       $hash=password_hash($_POST['mdp'], PASSWORD_DEFAULT);
       $date = date('Y-m-d H:i:s');
       $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription);');

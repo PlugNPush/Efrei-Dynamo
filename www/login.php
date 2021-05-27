@@ -9,7 +9,7 @@ catch (Exception $e)
         die('Erreur : ' . $e->getMessage());
 }
 
-if (isset($_POST['email']) AND isset($_POST['mdp'])){
+if (!empty($_POST['email']) AND !empty($_POST['mdp'])){
   // Hachage du mot de passe
   $pass_hache = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
 

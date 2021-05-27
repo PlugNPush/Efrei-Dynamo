@@ -24,7 +24,7 @@ require_once dirname(__FILE__).'/../../config/config.php';
     $_SESSION['ban'] = $test['ban'];
   }
 
-if (!isset($_POST['contenu'])) {
+if (empty($_POST['contenu'])) {
   echo '<!DOCTYPE html>
   <html lang="fr">
 

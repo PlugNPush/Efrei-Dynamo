@@ -451,7 +451,7 @@ if (isset($_SESSION['id'])){
       </html>';
 
     } else {
-        if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['contenu'])) {
+        if (!empty($_GET['type']) && !empty($_GET['id']) && !empty($_POST['contenu'])) {
           if ($_GET['type'] == 'editquestion') {
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
               $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
@@ -501,7 +501,7 @@ if (isset($_SESSION['id'])){
           } else {
             header( "refresh:0;url=index.php?dperror=true" );
           }
-        } else if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
+        } else if (!empty($_GET['type']) && !empty($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
           if ($_GET['type'] == 'deletequestion') {
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
               $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
