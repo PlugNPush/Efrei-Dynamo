@@ -263,7 +263,7 @@ if (isset($_SESSION['id'])){
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
-      } else if (isset($_GET['delete']) isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
+      } else if (isset($_GET['delete']) && isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
         if ($_GET['type'] == 'q') {
           $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
           $del_question->execute(array($_GET['id']));
