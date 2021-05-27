@@ -566,6 +566,9 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             $sup_sanctions->execute(array($_GET['id'], $_GET['id']));
           }
           // Suppression du compte
+          $sup_validation = $bdd->prepare('DELETE FROM validations WHERE user = ?;');
+          $sup_validation->execute(array($_GET['id']));
+
           $sup_utilisateur = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?;');
           $sup_utilisateur->execute(array($_GET['id']));
           if ($_GET['id'] == $_SESSION['id']) {
