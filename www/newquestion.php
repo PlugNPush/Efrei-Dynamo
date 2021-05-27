@@ -138,7 +138,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               }
 
               $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ?;');
-              $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+              $maxsemestre_fetch->execute(array($_SESSION['annee']));
               $maxsemestre = $maxsemestre_fetch->fetch();
 
               for ($semestre = $maxsemestre['MAX(semestre)']; $semestre>=1; $semestre--) {
@@ -148,7 +148,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                 $module_fetch->execute();
 
                 while($module = $module_fetch->fetch()){
-                  $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
+                  $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND module = ? AND semestre = ?;');
                   $matieres_fetch->execute(array($_SESSION['annee'], $module['id'], $semestre));
                   $inserted = FALSE;
 
