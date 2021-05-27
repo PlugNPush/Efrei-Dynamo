@@ -348,26 +348,26 @@ if (isset($_SESSION['id'])){
                   <div class="col-lg-6">
                     <ul class="list-unstyled mb-0">
                       <li>
-                        <a href="#">L1</a>
+                        <a href="index.php?annee=1">L1</a>
                       </li>
                       <li>
-                        <a href="#">L2</a>
+                        <a href="index.php?annee=2">L2</a>
                       </li>
                       <li>
-                        <a href="#">L3</a>
+                        <a href="index.php?annee=3">L3</a>
                       </li>
                     </ul>
                   </div>
                   <div class="col-lg-6">
                     <ul class="list-unstyled mb-0">
                       <li>
-                        <a href="#">M1</a>
+                        <a href="index.php?module=16">M1</a>
                       </li>
                       <li>
-                        <a href="#">M2</a>
+                        <a href="index.php?module=16">M2</a>
                       </li>
                       <li>
-                        <a href="#">Campus</a>
+                        <a href="index.php?module=20">Campus</a>
                       </li>
                     </ul>
                   </div>
