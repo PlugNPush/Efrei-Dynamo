@@ -132,7 +132,7 @@ if (isset($_SESSION['id'])){
                 <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
               </div>';
             }
-            
+
             $date = date('Y-m-d H:i:s');
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
               if (isset($_GET['recherche'])){
@@ -276,7 +276,7 @@ if (isset($_SESSION['id'])){
               } else {
                 echo '
                 <div class="alert alert-danger fade show" role="alert">
-                  <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
+                  <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Vous devez confirmer votre statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
                 </div>';
               }
 

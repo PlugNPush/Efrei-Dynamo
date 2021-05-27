@@ -208,12 +208,12 @@ if (isset($_SESSION['id'])){
 
                         if ($_SESSION['role'] >= 1) {
                           if ($question['ban'] == 0) {
-                            echo '<br><a href="irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>.';
+                            echo '<br><a href="irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>';
                           } else {
-                            echo '<br><a href="irondome.php?type=q&action=unban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Pardonner la question</a>.';
+                            echo '<br><a href="irondome.php?type=q&action=unban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Pardonner la question</a>';
                           }
                         } else {
-                          echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>.';
+                          echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>';
                         }
 
                         if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $question['auteur']) {
@@ -270,12 +270,12 @@ if (isset($_SESSION['id'])){
                               }
                               if ($_SESSION['role'] >= 1) {
                                 if ($reponse['ban'] == 0) {
-                                  echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>.';
+                                  echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>';
                                 } else {
-                                  echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>.';
+                                  echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>';
                                 }
                               } else if ($reponse['ban'] == 0) {
-                                echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>.';
+                                echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>';
                               }
 
                               if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $question['auteur']) {
@@ -402,7 +402,7 @@ if (isset($_SESSION['id'])){
                 <small>', $_SESSION['pseudo'], '</small>
               </h1>
               <div class="alert alert-danger fade show" role="alert">
-                <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Tu dois confirmer ton statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
+                <strong>Hello ', $_SESSION['pseudo'], ' !</strong><br> Vous devez confirmer votre statut d\'Efreien pour accéder au site. Celui-ci n\'a pas encore pu être vérifié.<br><a class = "btn btn-primary" href = "validation.php">Lancer ou vérifier la procédure de validation</a>
               </div>';
             }
           }
