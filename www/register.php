@@ -49,10 +49,22 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             </li>
             <li class="nav-item">
               <a class="nav-link" href="account.php">Mon compte</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Connexion</a>
-            </li>
+            </li>';
+
+            if (isset($_SESSION['id'])) {
+              echo '
+              <li class="nav-item">
+                <a class="nav-link" href="logout.php">Se déconnecter</a>
+              </li>';
+            } else {
+              echo '
+              <li class="nav-item active">
+                <a class="nav-link" href="login.php">Connexion
+                <span class="sr-only">(current)</span></a>
+              </li>';
+            }
+
+            echo '
           </ul>
         </div>
       </div>
@@ -66,7 +78,22 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
         <!-- Blog Entries Column -->
         <div class="col-md-8">';
 
-          echo '<h1 class="my-4">Inscription</h1>
+          echo '<h1 class="my-4">Inscription</h1>';
+
+          if (isset($_GET['ierror'])) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
+            </div>';
+          }
+          if (isset($_GET['dperror'])) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+            </div>';
+          }
+
+          echo '
           <form action="register.php" method="post">
             <div class="form-group">
               <label for="titre">Adresse email de connexion</label>
@@ -81,11 +108,31 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
             </div>
             <div class="form-group">
               <label for="titre">Votre mot de passe</label>
-              <input type="password" name="mdp" class="form-control" id="mdp" placeholder="Prenez un mot de passe sûr" required>
+              <input type="password" name="mdp" class="form-control" id="mdp"';
+              if (isset($_GET['passworderror'])){
+                echo ' is-invalid';
+              }
+              echo ' placeholder="Prenez un mot de passe sûr" required>',
+              if (isset($_GET['passworderror'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du mot de passe. Le mot de passe et la confirmation ne correspondent pas.
+                </div>';
+              }
+              echo '
             </div>
             <div class="form-group">
               <label for="titre">Confirmez le mot de passe</label>
-              <input type="password" name="vmdp" class="form-control" id="vmdp" placeholder="Confirmation" required>
+              <input type="password" name="vmdp" class="form-control"';
+              if (isset($_GET['passworderror'])){
+                echo ' is-invalid';
+              }
+              echo ' id="vmdp" placeholder="Confirmation" required>';
+              if (isset($_GET['passworderror'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du mot de passe. Le mot de passe et la confirmation ne correspondent pas.
+                </div>';
+              }
+              echo '
             </div>
 
             <div class="form-group">
@@ -196,7 +243,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
     }
 
   }else{
-    header( "refresh:0;url=register.php?perror=true" );
+    header( "refresh:0;url=register.php?passworderror=true" );
   }
 }
 ?>
