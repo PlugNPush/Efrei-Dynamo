@@ -326,9 +326,11 @@ if (isset($_SESSION['id'])){
         if ($_GET['type'] == 'editquestion') {
           $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
           $upd_question->execute(array($_POST['contenu'], $_GET['id']));
+          header( "refresh:0;url=question.php?edited=true&id=" . $question['id'] );
         } else if ($_GET['type'] == 'editresponse') {
           $upd_reponse=$bdd->prepare('UPDATE reponses SET contenu = ? WHERE id = ?;');
           $upd_reponse->execute(array($_POST['contenu'], $_GET['id']));
+          header( "refresh:0;url=question.php?redited=true&id=" . $reponse['auteur'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
@@ -338,9 +340,11 @@ if (isset($_SESSION['id'])){
           $del_question->execute(array($_GET['id']));
           $del_reponses=$bdd->prepare('DELETE FROM reponses WHERE question = ?;');
           $del_reponses->execute(array($_GET['id']));
+          header( "refresh:0;url=question.php?deleted=true&id=" . $question['id'] );
         } else if ($_GET['type'] == 'deleteresponse') {
           $del_reponse=$bdd->prepare('DELETE FROM reponses WHERE id = ?;');
           $del_reponse->execute(array($_GET['id']));
+          header( "refresh:0;url=question.php?rdeleted=true&id=" . $reponse['auteur'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }

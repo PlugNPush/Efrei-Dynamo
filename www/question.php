@@ -142,6 +142,34 @@ if (isset($_SESSION['id'])){
                   </div>';
                 }
 
+                if (isset($_GET['deleted'])) {
+                  echo '
+                  <div class="alert alert-success fade show" role="alert">
+                    <strong>La question a bien été supprimée</strong>. La question ainsi que ses réponses associées ont été supprimées irréversiblement.
+                  </div>';
+                }
+
+                if (isset($_GET['rdeleted'])) {
+                  echo '
+                  <div class="alert alert-success fade show" role="alert">
+                    <strong>La réponse a bien été supprimée</strong>. La réponses a été supprimée irréversiblement.
+                  </div>';
+                }
+
+                if (isset($_GET['edited'])) {
+                  echo '
+                  <div class="alert alert-success fade show" role="alert">
+                    <strong>La question a bien été modifiée</strong>. Les modifications envoyées ont été enregistrées.
+                  </div>';
+                }
+
+                if (isset($_GET['edited'])) {
+                  echo '
+                  <div class="alert alert-success fade show" role="alert">
+                    <strong>La question a bien été modifiée</strong>. Les modifications envoyées ont été enregistrées.
+                  </div>';
+                }
+
                 if ($question['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $question['auteur']) {
 
                   if ($question['ban'] == 1 && $_SESSION['role'] >= 1) {
