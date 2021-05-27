@@ -112,7 +112,7 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
               if (isset($_GET['passworderror'])){
                 echo ' is-invalid';
               }
-              echo ' placeholder="Prenez un mot de passe sûr" required>',
+              echo ' placeholder="Prenez un mot de passe sûr" required>';
               if (isset($_GET['passworderror'])){
                 echo '<div class="invalid-feedback">
                   Echec de la validation du mot de passe. Le mot de passe et la confirmation ne correspondent pas.
