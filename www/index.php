@@ -173,9 +173,9 @@ if (isset($_SESSION['id'])){
                         $majeure = $cours_question->fetch();
 
                         if ($majeure['id'] == 1) {
-                          echo ' (Campus)'
+                          echo ' (Campus)';
                         } else if ($majeure['id'] > 1) {
-                          echo ' (', $majeure['nom'] ,')'
+                          echo ' (', $majeure['nom'] ,')';
                         }
                       }
                       echo '
