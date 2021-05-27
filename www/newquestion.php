@@ -129,14 +129,13 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
               $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
               $matmaj_fetch->execute(array($_SESSION['majeure']));
 
-              $fullmajeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
-              $fullmajeure_fetch->execute();
-
-              $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
-              $fullmaj_fetch->execute(array($_SESSION['majeure']));
-
               if ($_SESSION['annee'] >= 7) {
+                $fullmajeure_fetch = $bdd->prepare('SELECT * FROM majeures;');
+                $fullmajeure_fetch->execute();
+
                 while ($fullmajeure = $fullmajeure_fetch->fetch()) {
+                  $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
+                  $fullmaj_fetch->execute(array($fullmajeure['id']));
                   echo '<optgroup label="', $fullmajeure['nom'] ,'">';
                   while($fullmaj = $full_fetch->fetch()) {
                     echo '<option value="', $fullmaj['id'] ,'">', $fullmaj['nom'] ,'</option>';
