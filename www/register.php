@@ -168,9 +168,35 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
       'majeure'=> $_POST['majeure'],
       'inscription'=> $date
     ));
-    header( "refresh:0;url=index.php" );
+
+    $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
+    $req->execute(array($_POST['email']));
+    $test = $req->fetch();
+
+    $verify = password_verify($_POST['mdp'], $test['mdp']);
+    if ($verify)
+    {
+        session_start();
+        $_SESSION['id'] = $test['id'];
+        $_SESSION['pseudo'] = $test['pseudo'];
+        $_SESSION['email'] = $test['email'];
+        $_SESSION['role'] = $test['role'];
+        $_SESSION['annee'] = $test['annee'];
+        $_SESSION['majeure'] = $test['majeure'];
+        $_SESSION['validation'] = $test['validation'];
+        $_SESSION['karma'] = $test['karma'];
+        $_SESSION['inscription'] = $test['inscription'];
+        $_SESSION['photo'] = $test['photo'];
+        $_SESSION['linkedin'] = $test['linkedin'];
+        $_SESSION['ban'] = $test['ban'];
+
+        header( "refresh:0;url=index.php" );
+    } else {
+      header( "refresh:0;url=register.php?ierror=true" );
+    }
+
   }else{
-    header( "refresh:0;url=register.php" );
+    header( "refresh:0;url=register.php?perror=true" );
   }
 }
 ?>
