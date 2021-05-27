@@ -163,10 +163,10 @@ if (isset($_SESSION['id'])){
                   </div>';
                 }
 
-                if (isset($_GET['edited'])) {
+                if (isset($_GET['redited'])) {
                   echo '
                   <div class="alert alert-success fade show" role="alert">
-                    <strong>La question a bien été modifiée</strong>. Les modifications envoyées ont été enregistrées.
+                    <strong>La réponse a bien été modifiée</strong>. Les modifications envoyées ont été enregistrées.
                   </div>';
                 }
 

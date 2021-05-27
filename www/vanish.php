@@ -30,6 +30,18 @@ if (isset($_SESSION['id'])) {
 
 if (isset($_SESSION['id'])){
 
+  if ($_GET['type'] == 'editquestion' || ($_GET['type'] == 'deletequestion')) {
+    $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+    $question_fetch->execute(array($_GET['id']));
+    $question = $question_fetch->fetch();
+  }
+
+  if ($_GET['type'] == 'editresponse' || ($_GET['type'] == 'deleteresponse')) {
+    $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
+    $reponse_fetch->execute(array($_GET['id']));
+    $reponse = $reponse_fetch->fetch();
+  }
+
     if (!isset($_GET['confirm'])) {
 
       echo '<!DOCTYPE html>
@@ -113,17 +125,6 @@ if (isset($_SESSION['id'])){
                 </div><br><br>';
               } else {
 
-                if ($_GET['type'] == 'editquestion' || ($_GET['type'] == 'deletequestion')) {
-                  $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
-                  $question_fetch->execute(array($_GET['id']));
-                  $question = $question_fetch->fetch();
-                }
-
-                if ($_GET['type'] == 'editresponse' || ($_GET['type'] == 'deleteresponse')) {
-                  $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
-                  $reponse_fetch->execute(array($_GET['id']));
-                  $reponse = $reponse_fetch->fetch();
-                }
                 if ($_GET['type'] == 'editquestion') {
 
                     echo '<h1 class="my-4">Modifier une question</h1>
@@ -322,6 +323,7 @@ if (isset($_SESSION['id'])){
       </html>';
 
     } else {
+
       if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['contenu'])) {
         if ($_GET['type'] == 'editquestion') {
           $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
