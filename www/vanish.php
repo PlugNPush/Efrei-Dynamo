@@ -207,10 +207,6 @@ if (isset($_SESSION['id'])){
                           <label for="contenu">Réponse</label>
                           <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required>', $reponse['contenu'] ,'</textarea>
                         </div><br>
-                        <div class="form-group">
-                          <input type="checkbox" name="confirm" class="form-check-input" id="confirm" required>
-                          <label class="form-check-label" for="confirm">Je confirme vouloir supprimer cette réponse</label>
-                        </div>
                         <button type="submit" class="btn btn-primary">Modifier la réponse</button>
                       </form><br><br>';
                     } else {
