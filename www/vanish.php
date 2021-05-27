@@ -113,15 +113,21 @@ if (isset($_SESSION['id'])){
                 </div><br><br>';
               } else {
 
-                if ($_GET['edit'] == true) {
-                  if ($_GET['type'] == 'q') {
+                if ($_GET['type'] == 'editquestion' || ($_GET['type'] == 'deletequestion')) {
+                  $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
+                  $question_fetch->execute(array($_GET['id']));
+                  $question = $question_fetch->fetch();
+                }
 
-                    $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
-                    $question_fetch->execute(array($_GET['id']));
-                    $question = $question_fetch->fetch();
+                if ($_GET['type'] == 'editresponse' || ($_GET['type'] == 'deleteresponse')) {
+                  $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
+                  $reponse_fetch->execute(array($_GET['id']));
+                  $reponse = $reponse_fetch->fetch();
+                }
+                if ($_GET['type'] == 'editquestion') {
 
                     echo '<h1 class="my-4">Modifier une question</h1>
-                    <form action="vanish.php?edit=true&confirm=true&type=q&id=',$_GET['id'],'" method="post">
+                    <form action="vanish.php?type=editquestion&confirm=true&id=',$_GET['id'],'" method="post">
                     <div class="form-group">
                       <label for="titre">Titre de la question</label>
                       <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " value="', $question['titre'] ,'" required>
@@ -184,35 +190,90 @@ if (isset($_SESSION['id'])){
                     </div>
                       <button type="submit" class="btn btn-primary">Modifier la question</button>
                       </form><br><br>';
-                  } else if ($_GET['type'] == 'r') {
 
-                    $reponse_fetch = $bdd->prepare('SELECT * FROM reponses WHERE id = ?;');
-                    $reponse_fetch->execute(array($_GET['id']));
-                    $reponse = $reponse_fetch->fetch();
+                  } else if ($_GET['type'] == 'editresponse') {
 
                     echo '<h1 class="my-4">Modifier une réponse</h1>
-                    <form action="vanish.php?edit=true&confirm=true&type=r&id=',$_GET['id'],'" method="post">
+                    <form action="vanish.php?type=editresponse&confirm=true&id=',$_GET['id'],'" method="post">
                       <div class="form-group">
                         <label for="contenu">Votre réponse</label>
                         <textarea name="contenu" class="form-control" id="contenu" placeholder="Soyez pédagogue, n\'oubliez pas que d\'autres Efreiens s\'appuieront sur votre réponse pour mieux apprendre si elle est validée..." rows="7" required></textarea>
                       </div>
                       <button type="submit" class="btn btn-primary">Modifier la question</button>
                     </form><br><br>';
+                  } else if ($_GET['type'] == 'deletequestion') {
+
+                    echo '<h1 class="my-4">Supprimer une réponse</h1>
+                    <form action="vanish.php?type=deletequestion&confirm=true&id=',$_GET['id'],'" method="post">
+                    <div class="form-group">
+                      <label for="titre">Titre de la question</label>
+                      <input type="text" name="titre" class="form-control" id="titre" placeholder="Pourquoi ... " value="', $question['titre'] ,'" disabled>
+                    </div>
+                    <div class="form-group">
+                      <label for="contenu">Explication de la question</label>
+                      <textarea name="contenu" class="form-control" id="contenu" placeholder="Détaillez le plus possible votre question..." rows="7" value="', $question['contenu'] ,'" disabled></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="matiere">Séléctionnez la matière</label>
+                      <select name="matiere" class="form-control" id="matiere" disabled>';
+
+                      $global_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee = 0;');
+                      $global_fetch->execute();
+                      echo '<optgroup label="CAMPUS">';
+                      while($glomat = $global_fetch->fetch()) {
+                        echo '<option value="', $glomat['id'] ,'" ', ($question['matiere'] == $glomat['id']) ? ('selected') : ('') ,'>', $glomat['nom'] ,'</option>';
+                      }
+                      echo '</optgroup>';
+
+                      $maxsemestre_fetch = $bdd->prepare('SELECT MAX(semestre) FROM matieres WHERE annee <= ? AND majeure = ?;');
+                      $maxsemestre_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure']));
+                      $maxsemestre = $maxsemestre_fetch->fetch();
+
+                      for ($semestre = 1; $semestre<=$maxsemestre['MAX(semestre)']; $semestre++) {
+                        $semestre_inserted = FALSE;
+
+                        $module_fetch = $bdd->prepare('SELECT * FROM modules;');
+                        $module_fetch->execute();
+
+                        while($module = $module_fetch->fetch()){
+                          $matieres_fetch = $bdd->prepare('SELECT * FROM matieres WHERE annee <= ? AND majeure = ? AND module = ? AND semestre = ? ORDER BY annee DESC;');
+                          $matieres_fetch->execute(array($_SESSION['annee'], $_SESSION['majeure'], $module['id'], $semestre));
+                          $inserted = FALSE;
+
+                          while ($matiere = $matieres_fetch->fetch()) {
+                            if(!$semestre_inserted){
+                              $semestre_inserted = TRUE;
+                              echo '<optgroup label="SEMESTRE ',$semestre,'">';
+                            }
+                            if(!$inserted){
+                              $inserted = TRUE;
+                              echo '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;',$module['nom'],'">';
+                            }
+
+                            echo '<option value="', $matiere['id'] ,'" style="margin-left:23px; "', ($question['matiere'] == $matiere['id']) ? ('selected') : ('') ,'>', $matiere['nom'] ,'</option>';
+                          }
+                          if($inserted){
+                            echo '</optgroup>';
+                          }
+                        }
+                        if($semestre_inserted){
+                          echo '</optgroup>';
+                        }
+                      }
+
+
+                      echo '
+                      </select>
+                    </div>
+                      <button type="submit" class="btn btn-danger">Supprimer la question</button>
+                    </form><br><br>';
                   } else {
-                    echo '<h1 class="my-4">Modifier un contenu</h1>';
+                    echo '<h1 class="my-4">Modifier ou supprimer un contenu</h1>';
                     echo '
                     <div class="alert alert-danger fade show" role="alert">
                       <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
                     </div>';
                   }
-
-                } else if ($_GET['delete'] == true) {
-
-                } else {
-
-                }
-
-              }
 
             } else {
               if ($_SESSION['ban'] != NULL && $_SESSION['ban'] >= $date) {
@@ -253,21 +314,23 @@ if (isset($_SESSION['id'])){
       </html>';
 
     } else {
-      if (isset($_GET['edit']) && isset($_GET['type']) && isset($_GET['id']) && isset($_POST['contenu'])) {
-        if ($_GET['type'] == 'q') {
+      if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['contenu'])) {
+        if ($_GET['type'] == 'editquestion') {
           $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
           $upd_question->execute(array($_POST['contenu'], $_GET['id']));
-        } else if ($_GET['type'] == 'r') {
+        } else if ($_GET['type'] == 'editresponse') {
           $upd_reponse=$bdd->prepare('UPDATE reponses SET contenu = ? WHERE id = ?;');
           $upd_reponse->execute(array($_POST['contenu'], $_GET['id']));
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
-      } else if (isset($_GET['delete']) && isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
-        if ($_GET['type'] == 'q') {
+      } else if (isset($_GET['type']) && isset($_GET['id']) && isset($_POST['confirm']) && $_POST['confirm'] == 'on') {
+        if ($_GET['type'] == 'deletequestion') {
           $del_question=$bdd->prepare('DELETE FROM questions WHERE id = ?;');
           $del_question->execute(array($_GET['id']));
-        } else if ($_GET['type'] == 'r') {
+          $del_reponses=$bdd->prepare('DELETE FROM reponses WHERE question = ?;');
+          $del_reponses->execute(array($_GET['id']));
+        } else if ($_GET['type'] == 'deleteresponse') {
           $del_reponse=$bdd->prepare('DELETE FROM reponses WHERE id = ?;');
           $del_reponse->execute(array($_GET['id']));
         } else {
@@ -278,10 +341,6 @@ if (isset($_SESSION['id'])){
         header( "refresh:0;url=index.php?ierror=true" );
       }
     }
-
-    // FULL-END
-    // Handle question and response deletion confirmation UI,
-    // then redirect to source or homepage
 
 }
 else {
