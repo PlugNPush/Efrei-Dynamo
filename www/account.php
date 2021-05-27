@@ -233,6 +233,27 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
               </div>';
             }
 
+            if (isset($_GET['emailexists'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Echec de la validation du mail.</strong> Un compte avec cette adresse mail existe déjà.
+              </div>';
+            }
+
+            if (isset($_GET['pseudoexists'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Echec de la validation du pseudo.</strong> Un compte avec ce pseudo existe déjà.
+              </div>';
+            }
+
+            if (isset($_GET['invalidrole'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Impossible d\'enregistrer le rôle.</strong> Vous ne pouvez pas définir un rôle supérieur au vôtre !
+              </div>';
+            }
+
             echo '
             <a href="mailto:', $data['email'] ,'"><button class="btn btn-primary">Contacter ', $data['pseudo'] ,' par mail</button></a><br><br>
             <h2>Informations sur le compte</h2>
@@ -253,7 +274,17 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
             </div>
             <div class="form-group">
               <label for="role">Rôle</label>
-              <input type="number" name="role" class="form-control" id="role" min="0" max="', $_SESSION['role'] ,'" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>
+              <input type="number" name="role" class="form-control';
+              if (isset($_GET['invalidrole'])){
+                echo ' is-invalid';
+              }
+              echo '" id="role" min="0" max="', $_SESSION['role'] ,'" value="', $data['role'] ,'" ', ($_SESSION['role']>=10) ? ('') : ('disabled'), '>';
+              if (isset($_GET['invalidrole'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du rôle. Vous ne pouvez pas définir un rôle supérieur au vôtre !
+                </div>';
+              }
+              echo '
               <small id="emailHelp" class="form-text text-muted">
                 ', ($_SESSION['role']>=10) ? ('En tant qu\'ultra-modérateur, vous pouvez modifier le rôle. ') : (''), 'Le rôle actuel est ', $data['role'] ,'
               </small>
@@ -293,14 +324,34 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
             <div class="form-group">
               <label for="titre">Pseudonyme</label>
-              <input type="text" name="pseudo" class="form-control" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
+              <input type="text" name="pseudo" class="form-control';
+              if (isset($_GET['emailexists'])){
+                echo ' is-invalid';
+              }
+              echo '" id="pseudo"  value="', $data['pseudo'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>';
+              if (isset($_GET['pseudoexists'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du pseudonyme. Un compte existe déjà avec ce pseudo.
+                </div>';
+              }
+              echo '
               <small id="emailHelp" class="form-text text-muted">
                 Le pseudo est actuellement ', $data['pseudo'] ,'
               </small>
             </div>
               <div class="form-group">
                 <label for="titre">Adresse email</label>
-                <input type="text" name="email" class="form-control" id="email"  value="', $data['email'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>
+                <input type="text" name="email" class="form-control';
+                if (isset($_GET['emailexists'])){
+                  echo ' is-invalid';
+                }
+                echo '" id="email"  value="', $data['email'] ,'" ', ($_SESSION['role']>=10 || $compte == $_SESSION['id']) ? ('') : ('disabled'), '>';
+                if (isset($_GET['emailexists'])){
+                  echo '<div class="invalid-feedback">
+                    Echec de la validation du mail. Un compte existe déjà avec cette adresse.
+                  </div>';
+                }
+                echo '
                 <small id="emailHelp" class="form-text text-muted">
                   L\'adresse éléctronique est actuellement ', $data['email'] ,'
                 </small>

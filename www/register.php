@@ -95,7 +95,19 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
           if (isset($_GET['passworderror'])) {
             echo '
             <div class="alert alert-danger fade show" role="alert">
-              <strong>Echec de la validation du mot de passe.</strong>. VLe mot de passe et la confirmation ne correspondent pas.
+              <strong>Echec de la validation du mot de passe.</strong> Le mot de passe et la confirmation ne correspondent pas.
+            </div>';
+          }
+          if (isset($_GET['emailexists'])) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Echec de la validation du mail</strong>. Un compte avec cette adresse mail existe déjà.
+            </div>';
+          }
+          if (isset($_GET['pseudoexists'])) {
+            echo '
+            <div class="alert alert-danger fade show" role="alert">
+              <strong>Echec de la validation du pseudo</strong>. Un compte avec ce pseudo existe déjà.
             </div>';
           }
 
@@ -103,14 +115,34 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
           <form action="register.php" method="post">
             <div class="form-group">
               <label for="titre">Adresse email de connexion</label>
-              <input type="text" name="email" class="form-control" id="email" placeholder="Préférez votre mail professionnel en @efrei.net, @intervenants.efrei.net ou @efrei.fr" required>
+              <input type="text" name="email" class="form-control';
+              if (isset($_GET['emailexists'])){
+                echo ' is-invalid';
+              }
+              echo '" id="email" placeholder="Préférez votre mail professionnel en @efrei.net, @intervenants.efrei.net ou @efrei.fr" required>';
+              if (isset($_GET['emailexists'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du mail. Un compte existe déjà avec cette adresse.
+                </div>';
+              }
+              echo '
               <small id="emailHelp" class="form-text text-muted">
                 Pro-tip : Vous pouvez utiliser une autre adresse que votre email Efrei, celle-ci vous sera demandée ultérieurement lors de la validation de votre compte. Cependant, pour simplifier les démarches de validation, il est recommandé d\'utiliser son email Efrei pour la connexion.
               </small>
             </div>
             <div class="form-group">
               <label for="titre">Votre pseudonyme</label>
-              <input type="text" name="pseudo" class="form-control" id="pseudo" placeholder="Pseudo" required>
+              <input type="text" name="pseudo" class="form-control';
+              if (isset($_GET['pseudoexists'])){
+                echo ' is-invalid';
+              }
+              echo '" id="pseudo" placeholder="Pseudo" required>';
+              if (isset($_GET['pseudoexists'])){
+                echo '<div class="invalid-feedback">
+                  Echec de la validation du pseudonyme. Un compte existe déjà avec ce pseudo.
+                </div>';
+              }
+              echo '
             </div>
             <div class="form-group">
               <label for="titre">Votre mot de passe</label>
@@ -208,48 +240,64 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
   </html>';
 
 }else{
-  $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription);');
-  if (isset($_POST['mdp']) AND isset($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
-    $hash=password_hash($_POST['mdp'], PASSWORD_DEFAULT);
-    $date = date('Y-m-d H:i:s');
-    $req->execute(array(
-      'pseudo'=> $_POST['pseudo'],
-      'email'=> $_POST['email'],
-      'mdp'=> $hash,
-      'role'=> $_POST['role'],
-      'annee'=> $_POST['annee'],
-      'majeure'=> $_POST['majeure'],
-      'inscription'=> $date
-    ));
 
-    $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
-    $req->execute(array($_POST['email']));
-    $test = $req->fetch();
+  $mail_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
+  $mail_fetch->execute(array($_POST['email']););
+  $mail = $mail->fetch();
 
-    $verify = password_verify($_POST['mdp'], $test['mdp']);
-    if ($verify)
-    {
-        session_start();
-        $_SESSION['id'] = $test['id'];
-        $_SESSION['pseudo'] = $test['pseudo'];
-        $_SESSION['email'] = $test['email'];
-        $_SESSION['role'] = $test['role'];
-        $_SESSION['annee'] = $test['annee'];
-        $_SESSION['majeure'] = $test['majeure'];
-        $_SESSION['validation'] = $test['validation'];
-        $_SESSION['karma'] = $test['karma'];
-        $_SESSION['inscription'] = $test['inscription'];
-        $_SESSION['photo'] = $test['photo'];
-        $_SESSION['linkedin'] = $test['linkedin'];
-        $_SESSION['ban'] = $test['ban'];
+  $pseudo_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = ?;');
+  $pseudo_fetch->execute(array($_POST['pseudo']););
+  $pseudo = $pseudo->fetch();
 
-        header( "refresh:0;url=index.php" );
-    } else {
-      header( "refresh:0;url=register.php?ierror=true" );
+  if ($mail) {
+    header( "refresh:0;url=register.php?emailexists=true" );
+  } else if ($pseudo) {
+    header( "refresh:0;url=register.php?pseudoexists=true" );
+  } else {
+    if (isset($_POST['mdp']) AND isset($_POST['vmdp']) AND $_POST['mdp'] == $_POST['vmdp']) {
+      $hash=password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+      $date = date('Y-m-d H:i:s');
+      $req=$bdd->prepare('INSERT INTO utilisateurs(pseudo, email, mdp, role, annee, majeure, inscription) VALUES(:pseudo, :email, :mdp, :role, :annee, :majeure, :inscription);');
+      $req->execute(array(
+        'pseudo'=> $_POST['pseudo'],
+        'email'=> $_POST['email'],
+        'mdp'=> $hash,
+        'role'=> $_POST['role'],
+        'annee'=> $_POST['annee'],
+        'majeure'=> $_POST['majeure'],
+        'inscription'=> $date
+      ));
+
+      $req = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
+      $req->execute(array($_POST['email']));
+      $test = $req->fetch();
+
+      $verify = password_verify($_POST['mdp'], $test['mdp']);
+      if ($verify)
+      {
+          session_start();
+          $_SESSION['id'] = $test['id'];
+          $_SESSION['pseudo'] = $test['pseudo'];
+          $_SESSION['email'] = $test['email'];
+          $_SESSION['role'] = $test['role'];
+          $_SESSION['annee'] = $test['annee'];
+          $_SESSION['majeure'] = $test['majeure'];
+          $_SESSION['validation'] = $test['validation'];
+          $_SESSION['karma'] = $test['karma'];
+          $_SESSION['inscription'] = $test['inscription'];
+          $_SESSION['photo'] = $test['photo'];
+          $_SESSION['linkedin'] = $test['linkedin'];
+          $_SESSION['ban'] = $test['ban'];
+
+          header( "refresh:0;url=index.php" );
+      } else {
+        header( "refresh:0;url=register.php?ierror=true" );
+      }
+
+    }else{
+      header( "refresh:0;url=register.php?passworderror=true" );
     }
-
-  }else{
-    header( "refresh:0;url=register.php?passworderror=true" );
   }
+
 }
 ?>
