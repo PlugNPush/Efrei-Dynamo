@@ -41,15 +41,16 @@ if (isset($_SESSION['id'])){
       $bandate = $bandate->format('Y-m-d H:i:s');
       if ($_GET['type'] == 'q') {
         if ($_GET['action'] == 'ban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE questions SET ban = ? WHERE id = ?;');
-          $ban->execute(array($bandate, $_GET['id']));
+          $ban = $bdd->prepare('UPDATE questions SET ban = 1 WHERE id = ?;');
+          $ban->execute(array($_GET['id']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
             'type' => 1,
-            'expiration' => $bandate,
+            'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
+            'publication' => $_GET['id'],
             'action' => 1
           ));
 
@@ -61,7 +62,7 @@ if (isset($_SESSION['id'])){
           $karma->execute(array($data['auteur']));
           header( "refresh:0;url=question.php?id=" . $_GET['id'] );
         } else if ($_GET['action'] == 'unban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE questions SET ban = NULL WHERE id = ?;');
+          $ban = $bdd->prepare('UPDATE questions SET ban = 0 WHERE id = ?;');
           $ban->execute(array($_GET['id']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
@@ -70,6 +71,7 @@ if (isset($_SESSION['id'])){
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
+            'publication' => $_GET['id'],
             'action' => 2
           ));
 
@@ -88,6 +90,7 @@ if (isset($_SESSION['id'])){
             'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
+            'publication' => $_GET['id'],
             'action' => 0
           ));
           header( "refresh:0;url=question.php?id=" . $_GET['id'] );
@@ -97,13 +100,13 @@ if (isset($_SESSION['id'])){
 
       } else if ($_GET['type'] == 'r') {
         if ($_GET['action'] == 'ban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE reponses SET ban = ? WHERE id = ?;');
-          $ban->execute(array($bandate, $_GET['id']));
+          $ban = $bdd->prepare('UPDATE reponses SET ban = 1 WHERE id = ?;');
+          $ban->execute(array($_GET['id']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
           $banhistory->execute(array(
             'type' => 2,
-            'expiration' => $bandate,
+            'expiration' => $date,
             'utilisateur' => $_GET['user'],
             'delateur' => $_SESSION['id'],
             'publication' => $_GET['id'],
@@ -118,7 +121,7 @@ if (isset($_SESSION['id'])){
           $karma->execute(array($data['auteur']));
           header( "refresh:0;url=question.php?id=" . $data['question'] );
         } else if ($_GET['action'] == 'unban' && $_SESSION['role'] >= 1) {
-          $ban = $bdd->prepare('UPDATE reponses SET ban = NULL WHERE id = ?;');
+          $ban = $bdd->prepare('UPDATE reponses SET ban = 0 WHERE id = ?;');
           $ban->execute(array($_GET['id']));
 
           $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');

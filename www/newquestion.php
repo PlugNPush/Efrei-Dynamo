@@ -96,9 +96,9 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
         <!-- Blog Entries Column -->
         <div class="col-md-8">';
 
+        $date = date('Y-m-d H:i:s');
         if (!isset($_SESSION['id'])){
           header( "refresh:0;url=login.php?expired=true" );
-          echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
           echo '<h1 class="my-4">Nouvelle question</h1>
           <form action="newquestion.php" method="post">

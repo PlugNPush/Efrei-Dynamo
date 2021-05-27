@@ -96,9 +96,9 @@ if (!isset($_POST['contenu'])) {
         <!-- Blog Entries Column -->
         <div class="col-md-8">';
 
+        $date = date('Y-m-d H:i:s');
         if (!isset($_SESSION['id'])){
           header( "refresh:0;url=login.php?expired=true" );
-          echo 'Votre session a expiré.';
         } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
           if (!isset($_GET['question'])) {
             echo '<div class="alert alert-danger fade show" role="alert">

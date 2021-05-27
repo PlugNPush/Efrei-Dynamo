@@ -101,6 +101,7 @@ if (isset($_SESSION['id'])){
           <!-- Blog Entries Column -->
           <div class="col-md-8">';
 
+          $date = date('Y-m-d H:i:s');
           if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
             if (isset($_GET['id'])){
                 $question_fetch = $bdd->prepare('SELECT * FROM questions WHERE id = ?;');
@@ -150,6 +151,16 @@ if (isset($_SESSION['id'])){
                       echo ', semestre ', $cours['semestre'];
                     }
 
+                    if ($_SESSION['role'] >= 1) {
+                      if ($question['ban'] == 0) {
+                        echo '<br><a href="irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>.';
+                      } else {
+                        echo '<br><a href="irondome.php?type=q&action=unban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Pardonner la question</a>.';
+                      }
+                    } else {
+                      echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>.';
+                    }
+
                     echo '
                   </div>
                 </div>';
@@ -182,6 +193,15 @@ if (isset($_SESSION['id'])){
                               echo '<button type="button" class="btn btn-success btn-lg btn-block" disabled>Élue bonne réponse</button>';
                             }
                           }
+                        }
+                        if ($_SESSION['role'] >= 1) {
+                          if ($reponse['ban'] == 0) {
+                            echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la question</a>.';
+                          } else {
+                            echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la question</a>.';
+                          }
+                        } else ($reponse['ban'] == 0) {
+                          echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la question</a>.';
                         }
                         echo '
                     </div>
