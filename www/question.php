@@ -216,6 +216,10 @@ if (isset($_SESSION['id'])){
                           echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>.';
                         }
 
+                        if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $question['auteur']) {
+                          echo '<br><a href="vanish.php?type=editquestion&id=', $question['id'] , '">Modifier la question</a> | <a href="vanish.php?type=deletequestion&id=', $question['id'] , '">Supprimer la question</a>';
+                        }
+
                         echo '
                       </div>
                     </div>';
@@ -272,6 +276,10 @@ if (isset($_SESSION['id'])){
                                 }
                               } else if ($reponse['ban'] == 0) {
                                 echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>.';
+                              }
+
+                              if ($_SESSION['role'] >= 10 || $_SESSION['id'] == $question['auteur']) {
+                                echo '<br><a href="vanish.php?type=editresponse&id=', $reponse['id'] , '">Modifier la réponse</a> | <a href="vanish.php?type=deleteresponse&id=', $reponse['id'] , '">Supprimer la réponse</a>';
                               }
                               echo '
                           </div>
