@@ -708,7 +708,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
       // Modifications d'ultra-modérateurs uniquement
       if ($_SESSION['role']>=10) {
         // Changement de role
-        if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
+        if (isset($_POST['role'])) {
           if ($_POST['role'] <= $_SESSION['role']) {
             $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
             $newrole->execute(array($_POST['role'], $_GET['id']));
