@@ -191,12 +191,12 @@ if (isset($_SESSION['id'])){
                           echo '
                           <div class="alert alert-danger fade show" role="alert">
                             <strong>Votre réponse a été bannie</strong>. Seul vous et les modérateurs pouvez y avoir accès, et le ban est valable à vie. Si besoin, contactez un modérateur avec votre adresse mail Efrei. <br><a class = "btn btn-secondary btn-lg btn-block" href = "index.php">Retour à l\'accueil</a>
-                          </div><br>';
+                          </div>';
                         } else if ($reponse['ban'] == 1 && $_SESSION['role'] >= 1) {
                           echo '
                           <div class="alert alert-danger fade show" role="alert">
                             <strong>Cette réponse a été bannie</strong>. Seul vous, les autres modérateurs et l\'auteur pouvez y avoir accès, et le ban est valable à vie. <br><a class = "btn btn-warning btn-lg btn-block" href = "irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>
-                          </div><br>';
+                          </div>';
                         }
 
                         echo '<!-- Blog Post -->
