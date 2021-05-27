@@ -622,13 +622,32 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
 
         // Modification de pseudo
         if (isset($_POST['pseudo'])){
-          $newname = $bdd->prepare('UPDATE utilisateurs SET pseudo = ? WHERE id = ?;');
-          $newname->execute(array($_POST['pseudo'], $_GET['id']));
+          $pseudo_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = ?;');
+          $pseudo_fetch->execute(array($_POST['pseudo']));
+          $pseudo = $pseudo_fetch->fetch();
+
+          if ($pseudo['pseudo'] != $_SESSION['pseudo']) {
+            $raiseissue = true;
+            header( "refresh:0;url=account.php?pseudoexists=true" );
+          } else {
+            $newname = $bdd->prepare('UPDATE utilisateurs SET pseudo = ? WHERE id = ?;');
+            $newname->execute(array($_POST['pseudo'], $_GET['id']));
+          }
         }
         // Modification de mail
         if (isset($_POST['email'])){
-          $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
-          $newmail->execute(array($_POST['email'], $_GET['id']));
+          $mail_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
+          $mail_fetch->execute(array($_POST['email']));
+          $mail = $mail_fetch->fetch();
+
+          if ($mail['email'] != $_SESSION['email']) {
+            $raiseissue = true;
+            header( "refresh:0;url=account.php?emailexists=true" );
+          } else {
+            $newmail = $bdd->prepare('UPDATE utilisateurs SET email = ? WHERE id = ?;');
+            $newmail->execute(array($_POST['email'], $_GET['id']));
+          }
+
         }
 
       }
@@ -690,8 +709,14 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
       if ($_SESSION['role']>=10) {
         // Changement de role
         if (isset($_POST['role']) && $_POST['role'] <= $_SESSION['role']) {
-          $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
-          $newrole->execute(array($_POST['role'], $_GET['id']));
+          if ($_POST['role'] <= $_SESSION['role']) {
+            $newrole = $bdd->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?;');
+            $newrole->execute(array($_POST['role'], $_GET['id']));
+          } else {
+            $raiseissue = true;
+            header( "refresh:0;url=account.php?invalidrole=true" );
+          }
+
         }
       }
 
@@ -718,7 +743,7 @@ if (!isset($_GET['edit']) && !isset($_GET['pdelete'])) {
         header( "refresh:0;url=account.php?passfailure=true&id=" . $_GET['id'] );
       } else if (isset($authfailure)) {
         header( "refresh:0;url=account.php?authfailure=true&id=" . $_GET['id'] );
-      } else {
+      } else if (!isset($raiseissue)) {
         header( "refresh:0;url=account.php?everythingworked=true&id=" . $_GET['id'] );
       }
 
