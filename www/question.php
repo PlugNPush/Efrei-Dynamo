@@ -200,7 +200,7 @@ if (isset($_SESSION['id'])){
                           } else {
                             echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la question</a>.';
                           }
-                        } else ($reponse['ban'] == 0) {
+                        } else if ($reponse['ban'] == 0) {
                           echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la question</a>.';
                         }
                         echo '
