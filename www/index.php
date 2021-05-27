@@ -68,7 +68,7 @@ if (isset($_SESSION['id'])){
         <div class="container">
           <a class="navbar-brand" href="index.php">Projet Efrei Dynamo</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="new-dark-navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon new-dark-navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
