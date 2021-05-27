@@ -454,23 +454,27 @@ if (isset($_SESSION['id'])){
         if (!empty($_GET['type']) && !empty($_GET['id']) && !empty($_POST['contenu'])) {
           if ($_GET['type'] == 'editquestion') {
             if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 10) {
-              $upd_question=$bdd->prepare('UPDATE questions SET contenu = ? WHERE id = ?;');
-              $upd_question->execute(array($_POST['contenu'], $_GET['id']));
+              if (!empty($_POST['titre'] && !empty($_POST['contenu'] && !empty($_POST['matiere']) {
+                $upd_question=$bdd->prepare('UPDATE questions SET titre = ?, contenu = ?, matiere = ? WHERE id = ?;');
+                $upd_question->execute(array($_POST['titre'], $_POST['contenu'], $_POST['matiere'], $_GET['id']));
 
-              if ($_SESSION['role'] >= 10) {
-                $date = date('Y-m-d H:i:s');
-                $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
-                $banhistory->execute(array(
-                  'type' => 1,
-                  'expiration' => $date,
-                  'utilisateur' => $question['auteur'],
-                  'delateur' => $_SESSION['id'],
-                  'publication' => $_GET['id'],
-                  'action' => 3
-                ));
+                if ($_SESSION['role'] >= 10) {
+                  $date = date('Y-m-d H:i:s');
+                  $banhistory = $bdd->prepare('INSERT INTO sanctions(type, expiration, utilisateur, delateur, publication, action) VALUES(:type, :expiration, :utilisateur, :delateur, :publication, :action);');
+                  $banhistory->execute(array(
+                    'type' => 1,
+                    'expiration' => $date,
+                    'utilisateur' => $question['auteur'],
+                    'delateur' => $_SESSION['id'],
+                    'publication' => $_GET['id'],
+                    'action' => 3
+                  ));
+                }
+
+                header( "refresh:0;url=question.php?edited=true&id=" . $question['id'] );
+              } else {
+                header( "refresh:0;url=vanish.php?type=editquestion&id=" . $question['id'] );
               }
-
-              header( "refresh:0;url=question.php?edited=true&id=" . $question['id'] );
 
             } else {
               header( "refresh:0;url=vanish.php?type=editquestion&id=" . $question['id'] );
