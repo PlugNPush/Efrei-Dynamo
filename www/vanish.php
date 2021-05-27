@@ -125,13 +125,13 @@ if (isset($_SESSION['id'])){
                 </div><br><br>';
               } else {
 
-                if ($_SESSION['role'] >= 10) {
+                if ($_SESSION['role'] >= 10 && ((($_SESSION['id'] != $question['auteur']) && ($_GET['type'] == 'editquestion' || $_GET['type'] == 'deletequestion')) || (($_SESSION['id'] != $reponse['auteur']) && ($_GET['type'] == 'editresponse' || $_GET['type'] == 'deleteresponse')))) {
                   echo '<br>
                   <div class="alert alert-warning fade show" role="alert">
                     <strong>Vous êtes un ultra-modérateur</strong>. Vous pouvez modifier ou supprimer des questions et réponses, mais ces options doivent être utilisées en dernier recours uniquement. Préférez l\'utilisation du ban plutôt que l\'interaction avec du contenu qui ne vous appartient pas. Toutes vos actions en tant qu\'ultra-modérateur sont enregistrées.';
-                    if (($_GET['type'] == 'editquestion' || $_GET['type'] == 'deletequestion') && $_SESSION['id'] != $question['auteur']) {
+                    if ($_GET['type'] == 'editquestion' || $_GET['type'] == 'deletequestion') {
                       echo '<br><a class = "btn btn-danger btn-lg btn-block" href = "irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>';
-                    } else if (($_GET['type'] == 'editresponse' || $_GET['type'] == 'deleteresponse') && $_SESSION['id'] != $reponse['auteur']) {
+                    } else if ($_GET['type'] == 'editresponse' || $_GET['type'] == 'deleteresponse') {
                       echo '<br><a class = "btn btn-danger btn-lg btn-block" href = "irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>';
                     }
                     echo '
