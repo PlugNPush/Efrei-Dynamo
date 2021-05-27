@@ -361,7 +361,7 @@ if (isset($_SESSION['id'])){
     $mail = $mail_fetch->fetch();
 
     if ($mail) {
-      header( "refresh:0;url=account.php?emailexists=true" );
+      header( "refresh:0;url=validation.php?emailexists=true" );
     } else {
       $token = generateRandomString(32);
       $date = date('Y-m-d H:i:s');
