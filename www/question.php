@@ -187,6 +187,10 @@ if (isset($_SESSION['id'])){
 
                       if ($reponse['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $reponse['auteur']) {
 
+                        echo '<!-- Blog Post -->
+                        <div class="card mb-4">
+                        <div class="card-body">';
+
                         if ($reponse['ban'] == 1 && $_SESSION['role'] >= 1) {
                           echo '
                           <div class="alert alert-danger fade show" role="alert">
@@ -199,9 +203,7 @@ if (isset($_SESSION['id'])){
                           </div>';
                         }
 
-                        echo '<!-- Blog Post -->
-                        <div class="card mb-4">
-                        <div class="card-body">
+                        echo '
                             <p class="card-text">', $reponse['contenu'],'</p>
                         </div>
                         <div class="card-footer text-muted">
