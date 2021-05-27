@@ -167,6 +167,16 @@ if (isset($_SESSION['id'])){
                       echo $cours['nom'];
                       if ($cours['semestre'] != 0) {
                         echo ', semestre ', $cours['semestre'];
+                      } else {
+                        $majeure_question=$bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
+                        $majeure_question->execute(array($cours['majeure']));
+                        $majeure = $cours_question->fetch();
+
+                        if ($majeure['id'] == 1) {
+                          echo ' (Campus)'
+                        } else if ($majeure['id'] > 1) {
+                          echo ' (', $majeure['nom'] ,')'
+                        }
                       }
                       echo '
                     </div>
