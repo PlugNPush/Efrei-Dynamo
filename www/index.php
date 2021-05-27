@@ -170,11 +170,11 @@ if (isset($_SESSION['id'])){
                       } else {
                         $majeure_question=$bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
                         $majeure_question->execute(array($cours['majeure']));
-                        $majeure = $cours_question->fetch();
+                        $majeure = $majeure_question->fetch();
 
-                        if ($majeure['id'] == 1) {
+                        if ($cours['majeure'] == 1) {
                           echo ' (Campus)';
-                        } else if ($majeure['id'] > 1) {
+                        } else if ($cours['majeure'] > 1) {
                           echo ' (', $majeure['nom'] ,')';
                         }
                       }
