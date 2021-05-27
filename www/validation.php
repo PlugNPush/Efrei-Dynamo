@@ -171,7 +171,7 @@ if (isset($_SESSION['id'])){
 
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && $data) {
               echo '<div class="alert alert-success fade show" role="alert">
-                <strong>Félicitations, votre compte Efrei est validé !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec l\'adresse email suivante : <a href="mailto:', $data['email'] ,'">', $data['email'] ,'</a>.
+                <strong>Félicitations, votre compte Efrei est validé !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec une signature numérique le ', $data['date'], ' via l\'adresse email Efrei suivante : <a href="mailto:', $data['email'] ,'">', $data['email'] ,'</a>.
               </div>
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
             } else if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1) {
