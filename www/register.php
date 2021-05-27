@@ -242,11 +242,11 @@ if(!isset($_POST['mdp']) AND !isset($_POST['vmdp'])){
 }else{
 
   $mail_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE email = ?;');
-  $mail_fetch->execute(array($_POST['email']););
+  $mail_fetch->execute(array($_POST['email']));
   $mail = $mail->fetch();
 
   $pseudo_fetch = $bdd->prepare('SELECT * FROM utilisateurs WHERE pseudo = ?;');
-  $pseudo_fetch->execute(array($_POST['pseudo']););
+  $pseudo_fetch->execute(array($_POST['pseudo']));
   $pseudo = $pseudo->fetch();
 
   if ($mail) {
