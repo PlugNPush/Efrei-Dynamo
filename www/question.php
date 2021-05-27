@@ -135,6 +135,13 @@ if (isset($_SESSION['id'])){
                   </div>';
                 }
 
+                if (isset($_GET['vreport'])) {
+                  echo '
+                  <div class="alert alert-success fade show" role="alert">
+                    <strong>Votre signalement a bien été enregistré !</strong> Notre équipe de modérateurs se chargera de vérifier votre signalement dans les prochains jours.
+                  </div>';
+                }
+
                 if ($question['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $question['auteur']) {
 
                   if ($question['ban'] == 1 && $_SESSION['role'] >= 1) {

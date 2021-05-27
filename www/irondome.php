@@ -93,7 +93,7 @@ if (isset($_SESSION['id'])){
             'publication' => $_GET['id'],
             'action' => 0
           ));
-          header( "refresh:0;url=question.php?id=" . $_GET['id'] );
+          header( "refresh:0;url=question.php?vreport=true&id=" . $_GET['id'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
@@ -157,7 +157,7 @@ if (isset($_SESSION['id'])){
           $gatherdata->execute(array($_GET['id']));
           $data = $gatherdata->fetch();
 
-          header( "refresh:0;url=question.php?id=" . $data['question'] );
+          header( "refresh:0;url=question.php?vreport=true&id=" . $data['question'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
@@ -204,7 +204,7 @@ if (isset($_SESSION['id'])){
             'delateur' => $_SESSION['id'],
             'action' => 0
           ));
-          header( "refresh:0;url=account.php?id=" . $_GET['user'] );
+          header( "refresh:0;url=account.php?vreport=true&id=" . $_GET['user'] );
         } else {
           header( "refresh:0;url=index.php?dperror=true" );
         }
