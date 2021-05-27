@@ -146,23 +146,25 @@ if (isset($_SESSION['id'])){
                 $cours_question->execute(array($temp_question['matiere']));
                 $cours = $cours_question->fetch();
 
-                echo '<!-- Blog Post -->
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <h2 class="card-title">', $temp_question['titre'],'</h2>
-                    <p class="card-text">', limit_text($temp_question['contenu'], 80),'</p>
-                    <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
-                  </div>
-                  <div class="card-footer text-muted">
-                    Publié le ', $temp_question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>';
-                    echo $cours['nom'];
-                    if ($cours['semestre'] != 0) {
-                      echo ', semestre ', $cours['semestre'];
-                    }
-                    echo '
-                  </div>
-                </div>';
+                if ($temp_question['ban'] != 1 || $_SESSION['role'] >= 1) {
+                  echo '<!-- Blog Post -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h2 class="card-title">', $temp_question['titre'],'</h2>
+                      <p class="card-text">', limit_text($temp_question['contenu'], 80),'</p>
+                      <a href="question.php?id=',$temp_question['id'],'" class="btn btn-primary">Voir plus &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                      Publié le ', $temp_question['date'],' par
+                      <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>';
+                      echo $cours['nom'];
+                      if ($cours['semestre'] != 0) {
+                        echo ', semestre ', $cours['semestre'];
+                      }
+                      echo '
+                    </div>
+                  </div>';
+                }
               }
 
               echo '<!-- Pagination -->

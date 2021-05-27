@@ -135,79 +135,103 @@ if (isset($_SESSION['id'])){
                   </div>';
                 }
 
-                echo '<!-- Blog Post -->
-                <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>
-                <div class="card mb-4">
-                  <div class="card-body">
-                    <p class="card-text">', $question['contenu'],'</p>
-                  </div>
-                  <div class="card-footer text-muted">
-                    Publié le ', $question['date'],' par
-                    <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
-                    ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>';
+                if ($question['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $question['auteur']) {
 
-                    echo $cours['nom'];
-                    if ($cours['semestre'] != 0) {
-                      echo ', semestre ', $cours['semestre'];
-                    }
-
-                    if ($_SESSION['role'] >= 1) {
-                      if ($question['ban'] == 0) {
-                        echo '<br><a href="irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>.';
-                      } else {
-                        echo '<br><a href="irondome.php?type=q&action=unban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Pardonner la question</a>.';
-                      }
-                    } else {
-                      echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>.';
-                    }
-
+                  if ($reponse['ban'] == 1 && $_SESSION['id'] == $question['auteur']) {
                     echo '
-                  </div>
-                </div>';
-
-                while($reponse = $reponse_fetch->fetch()){
-
-                    $auteur_reponse=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
-                    $auteur_reponse->execute(array($reponse['auteur']));
-                    $auteur_rep = $auteur_reponse->fetch();
-
-
-                    echo '<!-- Blog Post -->
-                    <div class="card mb-4">
+                    <div class="alert alert-danger fade show" role="alert">
+                      <strong>Votre question a été bannie</strong>. Seul vous et les modérateurs pouvez y avoir accès, et le ban est valable à vie. Si besoin, contactez un modérateur avec votre adresse mail Efrei. <br><a class = "btn btn-secondary btn-lg btn-block" href = "index.php">Retour à l\'accueil</a>
+                    </div><br>';
+                  }
+                  echo '<!-- Blog Post -->
+                  <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>
+                  <div class="card mb-4">
                     <div class="card-body">
-                        <p class="card-text">', $reponse['contenu'],'</p>
+                      <p class="card-text">', $question['contenu'],'</p>
                     </div>
                     <div class="card-footer text-muted">
-                        Publié le ', $reponse['date'],' par
-                        <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a><br>
-                        ', $reponse['upvotes'],' upvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=downvote">(-)</a>';
-                        if ($question['repondue'] != 1) {
-                          if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-                            echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=validate" class="btn btn-success btn-lg btn-block">Marquer comme la bonne réponse</a>';
-                          }
+                      Publié le ', $question['date'],' par
+                      <a href="account.php?id=', $auteur['id'] ,'">', $auteur['pseudo'],'</a><br>
+                      ', $question['upvotes'],' upvotes <a href="vote.php?q=', $question['id'],'&action=upvote">(+)</a><br>';
+
+                      echo $cours['nom'];
+                      if ($cours['semestre'] != 0) {
+                        echo ', semestre ', $cours['semestre'];
+                      }
+
+                      if ($_SESSION['role'] >= 1) {
+                        if ($question['ban'] == 0) {
+                          echo '<br><a href="irondome.php?type=q&action=ban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Bannir la question</a>.';
                         } else {
-                          if ($reponse['validation'] == 1) {
-                            if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
-                              echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
-                            } else {
-                              echo '<button type="button" class="btn btn-success btn-lg btn-block" disabled>Élue bonne réponse</button>';
-                            }
-                          }
+                          echo '<br><a href="irondome.php?type=q&action=unban&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Pardonner la question</a>.';
                         }
-                        if ($_SESSION['role'] >= 1) {
-                          if ($reponse['ban'] == 0) {
-                            echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>.';
-                          } else {
-                            echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>.';
-                          }
-                        } else if ($reponse['ban'] == 0) {
-                          echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>.';
-                        }
-                        echo '
+                      } else {
+                        echo '<br><a href="irondome.php?type=q&action=report&id=', $question['id'] ,'&user=', $question['auteur'] ,'">Signaler la question</a>.';
+                      }
+
+                      echo '
                     </div>
-                    </div>';
+                  </div>';
+
+                  while($reponse = $reponse_fetch->fetch()){
+
+                      $auteur_reponse=$bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?;');
+                      $auteur_reponse->execute(array($reponse['auteur']));
+                      $auteur_rep = $auteur_reponse->fetch();
+
+                      if ($reponse['ban'] != 1 || $_SESSION['role'] >= 1 || $_SESSION['id'] == $reponse['auteur']) {
+
+                        if ($reponse['ban'] == 1 && $_SESSION['id'] == $reponse['auteur']) {
+                          echo '
+                          <div class="alert alert-danger fade show" role="alert">
+                            <strong>Votre réponse a été bannie</strong>. Seul vous et les modérateurs pouvez y avoir accès, et le ban est valable à vie. Si besoin, contactez un modérateur avec votre adresse mail Efrei. <br><a class = "btn btn-secondary btn-lg btn-block" href = "index.php">Retour à l\'accueil</a>
+                          </div><br>';
+                        }
+
+                        echo '<!-- Blog Post -->
+                        <div class="card mb-4">
+                        <div class="card-body">
+                            <p class="card-text">', $reponse['contenu'],'</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Publié le ', $reponse['date'],' par
+                            <a href="account.php?id=', $auteur_rep['id'] ,'">', $auteur_rep['pseudo'],'</a><br>
+                            ', $reponse['upvotes'],' upvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=upvote">(+)</a> | ', $reponse['downvotes'],' downvotes <a href="vote.php?q=', $question['id'] ,'&r=', $reponse['id'],'&action=downvote">(-)</a>';
+                            if ($question['repondue'] != 1) {
+                              if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+                                echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=validate" class="btn btn-success btn-lg btn-block">Marquer comme la bonne réponse</a>';
+                              }
+                            } else {
+                              if ($reponse['validation'] == 1) {
+                                if ($_SESSION['id'] == $question['auteur'] || $_SESSION['role'] >= 2) {
+                                  echo '<a href="vote.php?q=',$question['id'],'&r=', $reponse['id'] ,'&action=unvalidate" class="btn btn-danger btn-lg btn-block">Retirer la bonne réponse</a>';
+                                } else {
+                                  echo '<button type="button" class="btn btn-success btn-lg btn-block" disabled>Élue bonne réponse</button>';
+                                }
+                              }
+                            }
+                            if ($_SESSION['role'] >= 1) {
+                              if ($reponse['ban'] == 0) {
+                                echo '<br><a href="irondome.php?type=r&action=ban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Bannir la réponse</a>.';
+                              } else {
+                                echo '<br><a href="irondome.php?type=r&action=unban&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Pardonner la réponse</a>.';
+                              }
+                            } else if ($reponse['ban'] == 0) {
+                              echo '<br><a href="irondome.php?type=r&action=report&id=', $reponse['id'] ,'&user=', $reponse['auteur'] ,'">Signaler la réponse</a>.';
+                            }
+                            echo '
+                        </div>
+                        </div>';
+                      }
+                  }
+                  echo '<a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>';
+                } else {
+                    echo '
+                    <div class="alert alert-danger fade show" role="alert">
+                      <strong>Cette question est bannie</strong>. Cette question ne respectait pas les standards de la communauté, et a donc été bannie à vie. <br><a class = "btn btn-secondary btn-lg btn-block" href = "index.php">Retour à l\'accueil</a>
+                    </div><br>';
                 }
-                echo '<a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>';
+
 
             }
             // Aucune question
