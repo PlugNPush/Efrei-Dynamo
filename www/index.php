@@ -126,6 +126,13 @@ if (isset($_SESSION['id'])){
                 <strong>Une erreur interne inattendue s\'est produite</strong>. Un paramètre attendu n\'est pas parvenu à sa destination. Veuillez réesayer puis contacter un modérateur si l\'erreur se reproduit.
               </div>';
             }
+            if (isset($_GET['dperror'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Une erreur s\'est produite</strong>. Vous ne disposez pas des autorisations nécéssaires pour réaliser cette opération.
+              </div>';
+            }
+            
             $date = date('Y-m-d H:i:s');
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && ($_SESSION['ban'] == NULL || $_SESSION['ban'] < $date)) {
               if (isset($_GET['recherche'])){
