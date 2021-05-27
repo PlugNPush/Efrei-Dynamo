@@ -134,7 +134,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
                 $fullmajeure_fetch->execute();
 
                 while ($fullmajeure = $fullmajeure_fetch->fetch()) {
-                  $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
+                  $fullmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND annee >= 7 AND majeure = ?;');
                   $fullmaj_fetch->execute(array($fullmajeure['id']));
                   echo '<optgroup label="', $fullmajeure['nom'] ,'">';
                   while($fullmaj = $fullmaj_fetch->fetch()) {
