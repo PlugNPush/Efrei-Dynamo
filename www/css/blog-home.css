@@ -6,3 +6,11 @@
 body {
   padding-top: 56px;
 }
+
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("/css/dark-menu-item.svg");
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("/css/light-menu-item.svg");
+}
