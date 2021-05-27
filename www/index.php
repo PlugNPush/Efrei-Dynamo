@@ -53,13 +53,13 @@ if (isset($_SESSION['id'])){
 
       <title>Efrei Dynamo</title>
 
+      <link href="css/custom.css" rel="stylesheet">
+
       <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
       <!-- Custom styles for this template -->
       <link href="css/blog-home.css" rel="stylesheet">
-
-      <link href="css/custom.css" rel="stylesheet">
 
     </head>
 
