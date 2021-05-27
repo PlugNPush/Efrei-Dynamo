@@ -124,7 +124,7 @@ if(!isset($_POST['titre']) AND !isset($_POST['contenu']) AND !isset($_POST['mati
 
               $majeure_fetch = $bdd->prepare('SELECT * FROM majeures WHERE id = ?;');
               $majeure_fetch->execute(array($_SESSION['majeure']));
-              $majeure->fetch();
+              $majeure = $majeure_fetch->fetch();
 
               $matmaj_fetch = $bdd->prepare('SELECT * FROM matieres WHERE semestre = 0 AND majeure = ?;');
               $matmaj_fetch->execute(array($_SESSION['majeure']));
