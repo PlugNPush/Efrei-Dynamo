@@ -68,7 +68,9 @@ if (isset($_SESSION['id'])){
 
       <title>Efrei Dynamo</title>
 
-      <!-- Bootstrap core CSS -->
+      <link href="css/custom.css" rel="stylesheet">
+
+<!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
       <!-- Custom styles for this template -->

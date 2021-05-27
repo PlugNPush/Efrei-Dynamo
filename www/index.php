@@ -55,7 +55,7 @@ if (isset($_SESSION['id'])){
 
       <link href="css/custom.css" rel="stylesheet">
 
-      <!-- Bootstrap core CSS -->
+<!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
       <!-- Custom styles for this template -->
