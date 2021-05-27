@@ -195,7 +195,7 @@ if (isset($_SESSION['id'])){
                 <div class="card-body">
                   <div class="input-group">
                     <form action="index.php" method="get">
-                      <input type="text" name="recherche" class="form-control" placeholder="Rechercher...">
+                      <input type="text" name="recherche" class="form-control" placeholder="Rechercher..." ', (isset($_GET['recherche'])) ? ('value="' . $_GET['recherche'] . '"') : (""),'>
                       <span class="input-group-append">
                         <button class="btn btn-secondary" type="submit">Go !</button>
                       </span>
@@ -263,7 +263,7 @@ if (isset($_SESSION['id'])){
               <div class="card my-4">
                 <h5 class="card-header">Récapitulatif</h5>
                 <div class="card-body">
-                  Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation. Vous avez ', $elues['COUNT(*)'] ,' réponses qui ont été élues comme bonnes réponses.
+                  Vous avez posé ', $questions['COUNT(*)'],' questions, et vous avez répondu à ', $reponses['COUNT(*)'],' questions sur Efrei Dynamo. ', $repondues['COUNT(*)'],' questions sont en attente de validation. Vous avez ', $elues['COUNT(*)'] ,' réponses qui ont été élues comme bonnes réponses.<br><br>En tout, vous avez ', $_SESSION['karma'],' points de Karma.
                 </div>
               </div>';
 
