@@ -169,6 +169,13 @@ if (isset($_SESSION['id'])){
               </div>';
             }
 
+            if (isset($_GET['emailexists'])) {
+              echo '
+              <div class="alert alert-danger fade show" role="alert">
+                <strong>Echec de la validation du mail.</strong> Un compte a déjà été vérifié avec cette adresse mail.
+              </div>';
+            }
+
             if (isset($_SESSION['validation']) && $_SESSION['validation'] == 1 && $data) {
               echo '<div class="alert alert-success fade show" role="alert">
                 <strong>Félicitations, votre compte Efrei est validé !</strong><br>Vous n\'avez rien à faire, nous avons vérifié votre appartenance à l\'Efrei avec une signature numérique le ', $data['date'], ' via l\'adresse email Efrei suivante : <a href="mailto:', $data['email'] ,'">', $data['email'] ,'</a>.
@@ -349,83 +356,91 @@ if (isset($_SESSION['id'])){
 
   if ((strpos($_POST['email'], "@efrei.net") !== false AND $_SESSION['role'] == 0) OR ((strpos($_POST['email'], "@efrei.fr") !== false OR strpos($_POST['email'], "@intervenants.efrei.net") !== false) AND $_SESSION['role'] == 2)) {
 
-    $token = generateRandomString(32);
-    $date = date('Y-m-d H:i:s');
+    $mail_fetch = $bdd->prepare('SELECT * FROM validations WHERE email = ?;');
+    $mail_fetch->execute(array($_POST['email']));
+    $mail = $mail_fetch->fetch();
 
-    $newtoken = $bdd->prepare('INSERT INTO validations(user, email, token, date) VALUES(:user, :email, :token, :date);');
-    $newtoken->execute(array(
-      'user' => $_SESSION['id'],
-      'email' => $_POST['email'],
-      'token' => $token,
-      'date' => $date
-    ));
-
-
-    $to = $_POST['email']; // $_POST['email']
-    $subject = 'Verification automatique Efrei Dynamo';
-    $message = '
-        <html>
-         <body>
-          <h1>Vérification automatique d\'appartenance à l\'Efrei.</h1>
-          <p>Bonjour ' . $_SESSION['pseudo'] . ', et bienvenue sur Efrei Dynamo. Pour confirmer votre inscription, vous devez prouver votre appartenance à l\'Efrei. Grâce à votre adresse email Efrei, vous êtes éligible à notre solution de validation automatique. Cliquez simplement sur le lien ci-dessous pour terminer l\'activation de votre compte.
-          <p>Adresse email utilisée</p>
-          <h4>' . $_POST['email'] . '</h4>
-          <p>Certification demandée le</p>
-          <h4>' . $date . '</h4>
-          <br>
-          <h3><a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.</h3>
-          <br>
-          <p>En cas de problème avec le lien ci-dessus, vous pouvez aussi copier votre code d\'authentification à usage unique :</p>
-          <h4>' . $token . '</h4>
-          <br>
-          <p>À très vite !</p>
-          <p>- L\'équipe Efrei Dynamo.</p><br><br>
-          <p>P.S.: Ce courriel est automatique, veuillez ne pas y répondre.</p>
-       </body>
-      </html>
-      ';
-
-
-    // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
-    $headers[] = 'MIME-Version: 1.0';
-    $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-
-    // En-têtes additionnels
-    $headers[] = 'To: <' . $_POST['email'] . '>';
-    $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
-
-    $mail = new PHPmailer();
-    $mail->IsSMTP();
-    $mail->IsHTML(true);
-    $mail->CharSet = 'UTF-8';
-    $mail->Host = 'smtp.free.fr';
-    $mail->Port = 465;
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-    $mail->Username = 'craftsearch';
-    $mail->Password = getSMTPPassword();
-    $mail->SMTPOptions = array(
-        'ssl' => array(
-           'verify_peer' => false,
-           'verify_peer_name' => false,
-           'allow_self_signed' => true
-        )
-    );
-    $mail->From = 'no-reply@efrei-dynamo.fr';
-    $mail->FromName = 'Validation Efrei Dynamo';
-    $mail->AddAddress($to);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-
-    // Send the mail
-    $sent = $mail->send();
-    // Envoi
-    //$sent = mail($to, $subject, $message, implode("\r\n", $headers));
-
-    if ($sent) {
-      header( "refresh:0;url=validation.php?pending=true" );
+    if ($mail) {
+      header( "refresh:0;url=account.php?emailexists=true" );
     } else {
-      header( "refresh:0;url=validation.php?serror=true" );
+      $token = generateRandomString(32);
+      $date = date('Y-m-d H:i:s');
+
+      $newtoken = $bdd->prepare('INSERT INTO validations(user, email, token, date) VALUES(:user, :email, :token, :date);');
+      $newtoken->execute(array(
+        'user' => $_SESSION['id'],
+        'email' => $_POST['email'],
+        'token' => $token,
+        'date' => $date
+      ));
+
+
+      $to = $_POST['email']; // $_POST['email']
+      $subject = 'Verification automatique Efrei Dynamo';
+      $message = '
+          <html>
+           <body>
+            <h1>Vérification automatique d\'appartenance à l\'Efrei.</h1>
+            <p>Bonjour ' . $_SESSION['pseudo'] . ', et bienvenue sur Efrei Dynamo. Pour confirmer votre inscription, vous devez prouver votre appartenance à l\'Efrei. Grâce à votre adresse email Efrei, vous êtes éligible à notre solution de validation automatique. Cliquez simplement sur le lien ci-dessous pour terminer l\'activation de votre compte.
+            <p>Adresse email utilisée</p>
+            <h4>' . $_POST['email'] . '</h4>
+            <p>Certification demandée le</p>
+            <h4>' . $date . '</h4>
+            <br>
+            <h3><a href="https://www.efrei-dynamo.fr/validation.php?token=' . $token . '">Cliquez ici pour activer automatiquement votre compte</a>.</h3>
+            <br>
+            <p>En cas de problème avec le lien ci-dessus, vous pouvez aussi copier votre code d\'authentification à usage unique :</p>
+            <h4>' . $token . '</h4>
+            <br>
+            <p>À très vite !</p>
+            <p>- L\'équipe Efrei Dynamo.</p><br><br>
+            <p>P.S.: Ce courriel est automatique, veuillez ne pas y répondre.</p>
+         </body>
+        </html>
+        ';
+
+
+      // Pour envoyer un mail HTML, l'en-tête Content-type doit être défini
+      $headers[] = 'MIME-Version: 1.0';
+      $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+      // En-têtes additionnels
+      $headers[] = 'To: <' . $_POST['email'] . '>';
+      $headers[] = 'From: Validation Efrei Dynamo <noreply@efrei-dynamo.fr>';
+
+      $mail = new PHPmailer();
+      $mail->IsSMTP();
+      $mail->IsHTML(true);
+      $mail->CharSet = 'UTF-8';
+      $mail->Host = 'smtp.free.fr';
+      $mail->Port = 465;
+      $mail->SMTPAuth = true;
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+      $mail->Username = 'craftsearch';
+      $mail->Password = getSMTPPassword();
+      $mail->SMTPOptions = array(
+          'ssl' => array(
+             'verify_peer' => false,
+             'verify_peer_name' => false,
+             'allow_self_signed' => true
+          )
+      );
+      $mail->From = 'no-reply@efrei-dynamo.fr';
+      $mail->FromName = 'Validation Efrei Dynamo';
+      $mail->AddAddress($to);
+      $mail->Subject = $subject;
+      $mail->Body = $message;
+
+      // Send the mail
+      $sent = $mail->send();
+      // Envoi
+      //$sent = mail($to, $subject, $message, implode("\r\n", $headers));
+
+      if ($sent) {
+        header( "refresh:0;url=validation.php?pending=true" );
+      } else {
+        header( "refresh:0;url=validation.php?serror=true" );
+      }
     }
 
   } else {
