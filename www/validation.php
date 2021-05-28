@@ -161,13 +161,13 @@ if (isset($_SESSION['id'])){
 
             if (isset($_GET['pending'])) {
               echo '<div class="alert alert-success fade show" role="alert">
-                <strong>Validation en attente.</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams.
+                <strong>Validation en attente.</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Le mail de validation se trouve dans votre dossier de spams, aussi appelé courrier indésirable.
               </div>';
             }
 
             if (isset($_GET['resent'])) {
               echo '<div class="alert alert-success fade show" role="alert">
-                <strong>Email renvoyé !</strong><br> Votre code d\'authentification vous a été envoyé une nouvelle fois sur votre adresse mail. Pensez à vérifier vos spams.
+                <strong>Email renvoyé !</strong><br> Votre code d\'authentification vous a été envoyé une nouvelle fois sur votre adresse mail. Le mail de validation se trouve dans votre dossier de spams, aussi appelé courrier indésirable.
               </div>';
             }
 
@@ -190,7 +190,7 @@ if (isset($_SESSION['id'])){
               <a href="index.php" class="btn btn-success btn-lg btn-block">Accéder à Efrei Dynamo</a><br><br>';
             } else if ($data) {
               echo '<div class="alert alert-info fade show" role="alert">
-                <strong>Un processus de vérification est en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Pensez à vérifier vos spams. En cas de problème, contactez un modérateur.
+                <strong>Un processus de vérification est en cours...</strong><br> Votre code d\'authentification vous a été envoyé sur votre adresse mail. Le mail de validation se trouve dans votre dossier de spams, aussi appelé courrier indésirable. En cas de problème, contactez un modérateur.
               </div>
               <form action="validation.php" method="get">
                 <div class="form-group">
