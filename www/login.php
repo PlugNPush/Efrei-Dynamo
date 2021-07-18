@@ -128,6 +128,11 @@ if (!empty($_POST['email']) AND !empty($_POST['mdp'])){
               <strong>Votre session a expiré</strong>. Pour votre sécurité, votre session a expiré. Veuillez vous reconnecter pour continuer.
             </div>';
           }
+
+          echo '<div class="alert alert-warning fade show" role="alert">
+            <strong>Efrei Dynamo ferme ses portes le 31 décembre 2021</strong>. Il ne sera plus possible de s\'y connecter à cette date. Vous garderez accès à votre espace de gestion de compte jusqu\'au 15 février 2022. L\'ensemble des données présentes sur Efrei Dynamo seront détruites le 1er mars 2022 et le site sera inaccessible à partir du 5 mars 2022.
+          </div>';
+
           echo '
           <form action="login.php" method="post">
             <div class="form-group">
