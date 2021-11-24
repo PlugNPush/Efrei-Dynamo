@@ -112,9 +112,11 @@ if(empty($_POST['mdp']) OR empty($_POST['vmdp'])){
             </div>';
           }
 
-          echo '<div class="alert alert-warning fade show" role="alert">
-            <strong>Efrei Dynamo ferme ses portes le 31 décembre 2021</strong>. Afin de préparer la fermeture de notre plateforme, il ne sera plus possible de s\'y inscrire dès le 1er octobre 2021.
+          echo '<div class="alert alert-danger fade show" role="alert">
+            <strong>Efrei Dynamo ferme ses portes le 31 décembre 2021</strong>. Afin de préparer la fermeture de notre plateforme, il n\'est désormais plus possible de s\'y inscrire depuis le 1er octobre 2021.
           </div>';
+
+          /*
 
           echo '
           <form action="register.php" method="post">
@@ -218,6 +220,8 @@ if(empty($_POST['mdp']) OR empty($_POST['vmdp'])){
 
             <button type="submit" class="btn btn-primary">S\'inscrire maintenant !</button>
             </form><br><br>';
+
+            */
 
 
         echo '</div>
