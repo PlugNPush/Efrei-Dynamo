@@ -262,7 +262,7 @@ if (isset($_SESSION['id'])){
                           }
 
                           echo '
-                              <p class="card-text">', str_replace(array("\r\n", "\r", "\n"), "<br />",$reponse['contenu']),'</p>
+                              <p class="card-text">', str_replace(array("\\r\\n", "\\r", "\\n"), "<br />",$reponse['contenu']),'</p>
                           </div>
                           <div class="card-footer text-muted">
                               Publié le ', $reponse['date'],' par
