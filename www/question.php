@@ -212,7 +212,7 @@ if (isset($_SESSION['id'])){
                     <a href="newresponse.php?question=',$question['id'],'" class="btn btn-primary btn-lg btn-block">Répondre</a><br>
                     <div class="card mb-4">
                       <div class="card-body">
-                        <p class="card-text">', preg_replace("/\r\n|\r|\n/",'<br/>',$question['']),'</p>
+                        <p class="card-text">', nl2br($question['contenu']),'</p>
                       </div>
                       <div class="card-footer text-muted">
                         Publié le ', $question['date'],' par
@@ -262,7 +262,7 @@ if (isset($_SESSION['id'])){
                           }
 
                           echo '
-                          <p class="card-text">', preg_replace("/\r\n|\r|\n/",'<br/>',"Commit working oho\r\nyes."),'</p>
+                              <p class="card-text">', nl2br($reponse['contenu']),'</p>
                           </div>
                           <div class="card-footer text-muted">
                               Publié le ', $reponse['date'],' par
